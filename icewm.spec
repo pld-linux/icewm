@@ -11,6 +11,7 @@ Group(pl):	X11/Zarz±dcy Okien
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/icewm/%{name}-%{version}-4.tar.bz2
 Source1:	IceWM.desktop
 Patch0:		icewm-DESTDIR.patch
+Patch1:		%{name}-time.patch
 URL:		http://www.icewm.org/
 BuildRequires:	autoconf
 BuildRequires:	imlib-devel
@@ -42,7 +43,8 @@ Jest przy tym ma³y i szybki.
 
 %prep
 %setup -q
-%patch -p1
+%patch0 -p1
+%patch1 -p1
 
 %build
 autoconf
