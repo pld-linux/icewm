@@ -27,6 +27,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
 %define		_sysconfdir	/etc
+%define		_wmpropsdir	%{_datadir}/wm-properties
 
 %description
 Window Manager for X Window System. Can emulate the look of
@@ -63,12 +64,12 @@ autoconf
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_datadir}/gnome/wm-properties
+install -d $RPM_BUILD_ROOT%{_wmpropsdir}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/gnome/wm-properties
+install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
 install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/keys
 install lib/menu $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/menu
 install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/toolbar
@@ -88,4 +89,4 @@ rm -rf $RPM_BUILD_ROOT
 %doc {README,CHANGES,TODO,BUGS}.gz doc/*.html
 %attr(755,root,root) %{_bindir}/*
 %dir %{_libdir}/X11/icewm/*
-%{_datadir}/gnome/wm-properties/*
+%{_wmpropsdir}/*
