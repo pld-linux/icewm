@@ -40,7 +40,6 @@ Jest przy tym ma³y i szybki.
 %setup -q
 
 %build
-LDFLAGS="-s"; export LDFLAGS
 %configure \
 	--with-shape \
 	--with-sm \
@@ -52,7 +51,6 @@ LDFLAGS="-s"; export LDFLAGS
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 install -d $RPM_BUILD_ROOT%{_datadir}/gnome/wm-properties
 
 %{__make} install \
