@@ -19,7 +19,7 @@ Summary(pt_BR):	Gerenciador de Janelas X11
 Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
-Version:	1.2.3
+Version:	1.2.4
 Release:	1
 Epoch:		2
 License:	LGPL
