@@ -8,7 +8,7 @@ Group:		X11/Window Managers
 Group(es):	X11/Administraadores De Ventanas
 Group(fr):	X11/Gestionnaires De Fenêtres
 Group(pl):	X11/Zarz±dcy Okien
-Source0:	ftp://download.sourceforge.net/pub/sourceforge/icewm/%{name}-%{version}-4.tar.bz2
+Source0:	ftp://download.sourceforge.net/pub/sourceforge/icewm/%{name}-%{version}-5.tar.bz2
 Source1:	IceWM.desktop
 Source2:	%{name}.directory
 Patch0:		icewm-DESTDIR.patch
