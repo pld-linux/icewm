@@ -1,0 +1,49 @@
+--- icewm-1.2.14pre6.orig/src/wmmgr.cc	2003-12-30 22:40:04.000000000 +0100
++++ icewm-1.2.14pre6/src/wmmgr.cc	2004-01-09 23:41:42.000000000 +0100
+@@ -188,6 +188,8 @@
+     GRAB_WMKEY(gKeySysMinimizeAll);
+     GRAB_WMKEY(gKeySysHideAll);
+ 
++    GRAB_WMKEY(gKeySysShowDesktop);
++
+ #ifndef NO_CONFIGURE_MENUS
+     {
+         KProgram *k = keyProgs;
+@@ -428,6 +430,9 @@
+         ///        } else if (IS_WMKEY(k, vm, gKeySysRun)) {
+         ///            if (runDlgCommand && runDlgCommand[0])
+         ///                app->runCommand(runDlgCommand);
++    } else if(IS_WMKEY(k, vm, gKeySysShowDesktop)) {
++        wmapp->actionPerformed(actionShowDesktop, 0);
++        return true;				
+     } else {
+ #ifndef NO_CONFIGURE_MENUS
+         KProgram *p = keyProgs;
+--- icewm-1.2.14pre6.orig/src/bindkey.h	2003-12-30 22:40:04.000000000 +0100
++++ icewm-1.2.14pre6/src/bindkey.h	2004-01-09 23:10:25.000000000 +0100
+@@ -73,6 +73,7 @@
+ #define defgKeySysMinimizeAll           XK_F9, kfAlt+kfShift, "Alt+Shift+F9"
+ #define defgKeySysHideAll               XK_F11, kfAlt+kfShift, "Alt+Shift+F11"
+ #define defgKeySysUndoArrange           XK_F7, kfAlt+kfShift, "Alt+Shift+F7"
++#define defgKeySysShowDesktop			'd', kfAlt+kfCtrl, "Alt+Ctrl+d"
+ 
+ #ifdef NO_KEYBIND
+ 
+@@ -173,6 +174,7 @@
+ DEF_WMKEY(gKeySysMinimizeAll);
+ DEF_WMKEY(gKeySysHideAll);
+ DEF_WMKEY(gKeySysUndoArrange);
++DEF_WMKEY(gKeySysShowDesktop);
+ 
+ #undef DEF_WMKEY
+ 
+--- icewm-1.2.14pre6.orig/src/default.h	2003-12-30 22:40:04.000000000 +0100
++++ icewm-1.2.14pre6/src/default.h	2004-01-09 23:08:09.000000000 +0100
+@@ -421,6 +421,7 @@
+     OKV("KeySysMinimizeAll",                    gKeySysMinimizeAll,             ""),
+     OKV("KeySysHideAll",                        gKeySysHideAll,                 ""),
+     OKV("KeySysUndoArrange",                    gKeySysUndoArrange,             ""),
++    OKV("KeySysShowDesktop",                    gKeySysShowDesktop,             ""),
+ #endif
+     OKF("WorkspaceNames", addWorkspace, ""),
+     OK0()
