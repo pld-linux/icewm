@@ -88,5 +88,4 @@ rm -rf $RPM_BUILD_ROOT
 %doc {README,CHANGES,TODO,BUGS}.gz doc/*.html
 %attr(755,root,root) %{_bindir}/*
 %{_libdir}/X11/icewm
-%{__sysconfdir}/X11/icewm
 %{_datadir}/gnome/wm-properties/*
