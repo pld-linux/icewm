@@ -7,7 +7,7 @@ Summary:	IceWM X11 Window Manager
 Summary(pl):	IceWM - mened¿er okienek X11
 Name:		icewm
 Version:	1.0.9
-Release:	6
+Release:	7
 License:	LGPL
 Group:		X11/Window Managers
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/icewm/%{name}-%{version}-2.tar.bz2
@@ -23,6 +23,8 @@ BuildRequires:	XFree86-devel
 BuildRequires:	gnome-libs-devel
 BuildRequires:	imlib-devel
 BuildRequires:	libstdc++-devel
+Requires(pre):	fileutils
+Requires(pre):	sh-utils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -54,9 +56,9 @@ Standard pack of themes delivered with IceWM. All of them made by
 Marko Macek: gtk2, metal2, motif, nice, warp3, warp4, win95.
 
 %description themes-base -l pl
-Standardowy zestaw tematów dla IceWMa, dostarczany wraz nim. Wszystkie
-stworzone przez Marko Macek: gtk2, metal2, motif, nice, warp3, warp4,
-win95.
+Standardowy zestaw tematów dla IceWMa, dostarczany wraz z nim.
+Wszystkie stworzone przez Marko Macek: gtk2, metal2, motif, nice,
+warp3, warp4, win95.
 
 %prep -q
 %setup -q
@@ -106,6 +108,9 @@ gzip -9nf BUGS CHANGES FAQ PLATFORMS README* TODO icewm.lsm
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%pre
+test -h %{_libdir}/X11/icewm/icons || rm -rf %{_libdir}/X11/icewm/icons
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
