@@ -48,7 +48,7 @@ Jest przy tym ma³y i szybki.
 
 %package themes-base
 Summary:	Pack of themes for IceWM
-Summary(pl):	Zestaw tematów dla IceWM
+Summary(pl):	Zestaw tematów dla IceWM-a
 Group:		Themes
 Requires:	icewm
 
@@ -57,8 +57,8 @@ Standard pack of themes delivered with IceWM. All of them made by
 Marko Macek: gtk2, metal2, motif, nice, warp3, warp4, win95.
 
 %description themes-base -l pl
-Standardowy zestaw tematów dla IceWMa, dostarczany wraz z nim.
-Wszystkie stworzone przez Marko Macek: gtk2, metal2, motif, nice,
+Standardowy zestaw tematów dla IceWM-a, dostarczany wraz z nim.
+Wszystkie stworzone przez Marko Macka: gtk2, metal2, motif, nice,
 warp3, warp4, win95.
 
 %prep -q
