@@ -66,21 +66,20 @@ autoconf
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__install} -d $RPM_BUILD_ROOT%{_wmpropsdir}
-%{__install} -d $RPM_BUILD_ROOT%{_prefix}/share/applnk/Settings/IceWM
+%{__install} -d $RPM_BUILD_ROOT{%{_wmpropsdir},%{_applnkdir}/Settings/IceWM}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__install} %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
 %{__install} %{SOURCE2} $RPM_BUILD_ROOT%{_applnkdir}/Settings/IceWM/.directory
-%{__install} lib/keys $RPM_BUILD_ROOT%{_sysconfdir}keys
-%{__install} lib/menu $RPM_BUILD_ROOT%{_sysconfdir}menu
+%{__install} lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/keys
+%{__install} lib/menu $RPM_BUILD_ROOT%{_sysconfdir}/menu
 %{__install} lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}toolbar
-%{__install} lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}preferences
-%{__install} lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}winoptions
+%{__install} lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/preferences
+%{__install} lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/winoptions
 
-gzip -9nf README CHANGES TODO BUGS COPYING FAQ INSTALL icewm.lsm PLATFORMS VERSION
+gzip -9nf README CHANGES TODO BUGS FAQ icewm.lsm PLATFORMS
 
 %find_lang %{name}
 
