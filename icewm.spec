@@ -10,6 +10,7 @@
 # TODO:
 # - make a PLD-theme - default :]
 #
+%define	_pre	pre3
 
 Summary:	IceWM X11 Window Manager
 Summary(es):	Administrador de Ventanas X11
@@ -19,12 +20,12 @@ Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
 Version:	1.2.10
-Release:	0.pre2
+Release:	0.%{_pre}
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
-Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}pre2.tar.gz
-# Source0-md5:	1b26b539f574f3ec5869dd565989c5ed
+Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}%{_pre}.tar.gz
+# Source0-md5:	ef821341e207868480890ce60d83a9a7
 Source1:	IceWM.desktop
 Source2:	%{name}.directory
 Source3:	http://dl.sourceforge.net/icewm/iceicons-0.6.tar.gz
@@ -111,7 +112,7 @@ Wszystkie stworzone przez Marko Macka: gtk2, metal2, motif, nice,
 nice2, warp3, warp4, win95.
 
 %prep
-%setup -q -n %{name}-%{version}pre2
+%setup -q -n %{name}-%{version}%{_pre}
 %patch0 -p1
 
 cd lib/icons
