@@ -1,7 +1,11 @@
 #
 # Conditional build:
-# _with_antialiasing - enable antialiasing
-# _with_gradients - enable gradients (implies _with_antialiasing)
+# _with_antialiasing	- enable antialiasing
+# _with_gradients	- enable gradients (implies _with_antialiasing)
+# _without_guievents	- disable guievents
+# _without_gnome	- disable GNOME support
+# _without_imlib	- disable imlib support
+# _without_freetype	- disable xfreetype support
 #
 # TODO:
 # - make a PLD-theme - default :]
@@ -29,9 +33,10 @@ Source6:	%{name}-menu
 Source7:	ftp://ftp.sourceforge.net/pub/sourceforge/icewm/netscapeicons-0.2.tar.gz
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
-BuildRequires:	gnome-libs-devel
-BuildRequires:	imlib-devel
-BuildRequires:	libstdc++-devel
+%{!?_without_guievents:BuildRequires:	esound-devel}
+BuildRequires:	gcc-c++
+%{!?_without_gnome:BuildRequires:	gnome-libs-devel}
+%{!?_without_imlib:BuildRequires:	imlib-devel}
 Requires(pre):	fileutils
 Requires(pre):	sh-utils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -110,10 +115,10 @@ cd ../..
 %configure \
 	--with-docdir=%{_docdir} \
 	--enable-i18n \
-	--enable-guievents \
-	--enable-xfreetype \
-	--with-gnome-menus \
-	--with-imlib \
+	%{!?_without_guievents:--enable-guievents} \
+	%{!?_without_freetype:--enable-xfreetype} \
+	%{!?_without_gnome:--with-gnome-menus} \
+	%{!?_without_imlib:--with-imlib} \
 	%{?_with_antialiasing:--enable-antialiasing} \
 	%{?_with_gradients:--enable-gradients}
 %{__make}
