@@ -19,7 +19,7 @@ Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
 Version:	1.2.15
 %define _pre pre1
-Release:	1.%{_pre}.3
+Release:	1.%{_pre}.4
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
@@ -37,6 +37,7 @@ Patch1:		%{name}-home_etc.patch
 Patch2:		%{name}-link_with_g++.patch
 Patch3:		%{name}-showdesktopkey.patch
 Patch4:		%{name}-gcc34.patch
+Patch5:		%{name}-helpbrowser.patch
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf >= 2.50
@@ -123,6 +124,7 @@ nice2, warp3, warp4, win95.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 mv -f po/{no,nb}.po
 mv -f po/{zh_TW.Big5,zh_TW}.po
