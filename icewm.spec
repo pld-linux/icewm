@@ -1,6 +1,5 @@
 #
 # TODO:
-# - separate themes from main package (one should stay)
 # - make a PLD-theme - default :]
 # - bigger menu-file
 #
