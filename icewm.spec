@@ -1,4 +1,8 @@
 #
+# Conditional build:
+# _with_antialiasing - enable antialiasing
+# _with_gradients - enable gradients (implies _with_antialiasing)
+#
 # TODO:
 # - make a PLD-theme - default :]
 # - bigger menu-file
@@ -10,7 +14,7 @@ Summary(pt_BR):	Gerenciador de Janelas X11
 Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
-Version:	1.2.0pre2
+Version:	1.2.0pre3
 Release:	1
 License:	LGPL
 Group:		X11/Window Managers
@@ -102,14 +106,15 @@ tar -xzf %{SOURCE7}
 cd ../..
 
 %build
-export LDFLAGS
 %configure \
 	--with-docdir=%{_docdir} \
 	--enable-i18n \
 	--enable-guievents \
 	--enable-xfreetype \
 	--with-gnome-menus \
-	--with-imlib
+	--with-imlib \
+	%{?_with_antialiasing:--enable-antialiasing} \
+	%{?_with_gradients:--enable-gradients}
 %{__make}
 
 %install
