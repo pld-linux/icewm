@@ -62,9 +62,9 @@ Standard pack of themes delivered with IceWM. All of them made by
 Marko Macek: gtk2, metal2, motif, nice, warp3, warp4, win95
 
 %description themes-base -l pl
-Standardowy zestaw tematów dla IceWMa, dostarczany wraz nim.
-Wszystkie stworzone przez Marko Macek: gtk2, metal2, motif, nice,
-warp3, warp4, win95
+Standardowy zestaw tematów dla IceWMa, dostarczany wraz nim. Wszystkie
+stworzone przez Marko Macek: gtk2, metal2, motif, nice, warp3, warp4,
+win95
 
 %prep -q
 %setup -q
@@ -90,7 +90,7 @@ export LDFLAGS
 	--enable-guievents \
 	--enable-gradients \
 	--enable-xfreetype \
-	--enable-nls 
+	--enable-nls
 
 %{__make}
 
