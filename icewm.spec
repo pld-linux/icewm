@@ -15,7 +15,7 @@
 
 Summary:	IceWM X11 Window Manager
 Summary(es):	Administrador de Ventanas X11
-Summary(pl):	IceWM - mened¿er okienek X11
+Summary(pl):	IceWM - zarz±dca okienek X11
 Summary(pt_BR):	Gerenciador de Janelas X11
 Summary(ru):	ïËÏÎÎÙÊ ÍÅÎÅÄÖÅÒ ÄÌÑ X11
 Summary(uk):	÷¦ËÏÎÎÉÊ ÍÅÎÅÄÖÅÒ ÄÌÑ X11
@@ -64,9 +64,9 @@ tareas, lista de ventanas, estado de la caja de entrada del correo y
 reloj digital. Rápido y pequeño.
 
 %description -l pl
-Mened¿er okienek pod X11. Mo¿e emulowaæ wygl±d Windows'95, OS/2 Warp
-3,4, MWM. Mened¿er ten próbuje wybraæ najlepsze cechy dostêpne w
-powy¿szych ¶rodowiskach, jak: wiele jednocze¶nie obecnych przestrzeni
+Zarz±dca okienek pod X11. Mo¿e emulowaæ wygl±d Windows'95, OS/2 Warp
+3, 4, MWM. Zarz±dca ten próbuje przej±æ z powy¿szych ¶rodowisk ich
+najlepsze cechy, takie jak: wiele jednocze¶nie obecnych przestrzeni
 roboczych, paski narzêdziowe, status skrzynki z poczt±, cyfrowy zegar.
 Jest przy tym ma³y i szybki.
 
