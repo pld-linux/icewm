@@ -50,6 +50,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_wmstyledir	/etc/sysconfig/wmstyle
 %define		_wmpropsdir	/usr/share/wm-properties
+%define		specflags_ia32	"-fomit-frame-pointer"
 
 %description
 Window Manager for X Window System. Can emulate the look of
