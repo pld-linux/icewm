@@ -20,6 +20,8 @@ Source3:	ftp://download.sourceforge.net/pub/sourceforge/icewm/iceicons-0.6.tar.g
 Patch0:		icewm-DESTDIR.patch
 Patch1:		%{name}-time.patch
 Patch2:		%{name}-menu.patch
+Patch3:		%{name}-env_var_in_menu_prog_line.patch
+Patch4:		%{name}-config.patch
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
@@ -74,6 +76,8 @@ gtk2, metal2, motif, nice, warp3, warp4, win95
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+#%patch3 -p1
+#%patch4 -p1
 
 cd lib/icons
 tar -xvf %{SOURCE3}
@@ -81,9 +85,10 @@ cd ../../
 
 %build
 libtoolize --copy --force
-%{__autoconf}
-%configure \
+autoconf
+./configure \
 	--with-shape \
+	--prefix=%{_prefix} \
 	--with-docdir=/usr/share/doc \
 	--with-cfgdir=%{_sysconfdir} \
 	--with-sm \
