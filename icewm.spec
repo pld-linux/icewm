@@ -1,4 +1,8 @@
 #
+# Conditional build:
+# _with_antialiasing - enable antialiasing
+# _with_gradients - enable gradients (implies _with_antialiasing)
+#
 # TODO:
 # - make a PLD-theme - default :]
 # - bigger menu-file
@@ -18,7 +22,6 @@ Source4:	IceWM.RunWM
 Source5:	IceWM.wm_style
 Source6:	%{name}-menu
 Source7:	ftp://download.sourceforge.net/pub/sourceforge/icewm/netscapeicons-0.2.tar.gz
-#Patch0:		%{name}-DESTDIR.patch
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
 BuildRequires:	gnome-libs-devel
@@ -63,7 +66,6 @@ warp3, warp4, win95.
 
 %prep -q
 %setup -q
-#%patch0 -p1
 
 cd lib/icons
 tar -xzf %{SOURCE3}
@@ -80,7 +82,9 @@ export LDFLAGS
 	--enable-guievents \
 	--enable-xfreetype \
 	--with-gnome-menus \
-	--with-imlib
+	--with-imlib \
+	%{?_with_antialiasing:--enable-antialiasing} \
+	%{?_with_gradients:--enable-gradients}
 %{__make}
 
 %install
