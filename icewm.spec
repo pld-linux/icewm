@@ -10,10 +10,6 @@ Version:	1.0.9
 Release:	5
 License:	LGPL
 Group:		X11/Window Managers
-Group(de):	X11/Fenstermanager
-Group(es):	X11/Administraadores De Ventanas
-Group(fr):	X11/Gestionnaires De Fenêtres
-Group(pl):	X11/Zarz±dcy Okien
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/icewm/%{name}-%{version}-2.tar.bz2
 Source1:	IceWM.desktop
 Source2:	%{name}.directory
@@ -59,8 +55,6 @@ Jest przy tym ma³y i szybki.
 Summary:	Pack of themes for IceWM
 Summary(pl):	Zestaw tematów dla IceWM
 Group:		Themes
-Group(de):	Themen
-Group(pl):	Motywy
 Requires:	icewm
 
 %description themes-base
