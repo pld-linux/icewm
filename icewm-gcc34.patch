@@ -1,0 +1,24 @@
+diff -ruN icewm-1.2.14pre10./src/iceicon.cc icewm-1.2.14pre10/src/iceicon.cc
+--- icewm-1.2.14pre10./src/iceicon.cc	2004-02-29 16:09:01.000000000 +0100
++++ icewm-1.2.14pre10/src/iceicon.cc	2004-03-13 22:37:58.480776816 +0100
+@@ -161,7 +161,7 @@
+ void YIconView::updateItems() {
+     if (fItems == 0) {
+         //fMaxWidth = 0;
+-        fItems = new (YIconItem *)[fItemCount];
++        fItems = new YIconItem *[fItemCount];
+         if (fItems) {
+             YIconItem *a = getFirst();
+             int n = 0;
+diff -ruN icewm-1.2.14pre10./src/wmwinlist.cc icewm-1.2.14pre10/src/wmwinlist.cc
+--- icewm-1.2.14pre10./src/wmwinlist.cc	2004-02-29 16:09:01.000000000 +0100
++++ icewm-1.2.14pre10/src/wmwinlist.cc	2004-03-13 22:38:16.576025920 +0100
+@@ -269,7 +269,7 @@
+     list->show();
+     scroll->show();
+ 
+-    workspaceItem = new (WindowListItem *)[workspaceCount + 1];
++    workspaceItem = new WindowListItem *[workspaceCount + 1];
+     for (int ws = 0; ws < workspaceCount; ws++) {
+         workspaceItem[ws] = new WindowListItem(0, ws);
+         list->addItem(workspaceItem[ws]);
