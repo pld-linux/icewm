@@ -19,7 +19,7 @@ Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
 Version:	1.2.14
-Release:	0.1
+Release:	0.2
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
@@ -35,6 +35,7 @@ Source6:	http://dl.sourceforge.net/icewm/netscapeicons-0.2.tar.gz
 # Source6-md5:	409aa9b02adc11309ed546c5120c01d2
 Source7:	%{name}-xsession.desktop
 Patch0:		%{name}-broken-xrandr.patch
+Patch1:		%{name}-home_etc.patch
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
@@ -114,6 +115,7 @@ nice2, warp3, warp4, win95.
 %prep
 %setup -q -n %{name}-%{version}pre1
 %patch0 -p1
+%patch1 -p1
 
 cd lib/icons
 tar -xzf %{SOURCE3}
