@@ -79,7 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__install} lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/preferences
 %{__install} lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/winoptions
 
-#gzip -9nf README CHANGES TODO BUGS
+gzip -9nf README CHANGES TODO BUGS
 
 %find_lang %{name}
 
