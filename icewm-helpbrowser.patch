@@ -1,0 +1,48 @@
+diff -ur icewm-1.2.15pre1/Makefile.in icewm-1.2.15pre1-doc/Makefile.in
+--- icewm-1.2.15pre1/Makefile.in	2004-06-27 22:02:00.000000000 +0200
++++ icewm-1.2.15pre1-doc/Makefile.in	2004-08-09 15:23:29.292894656 +0200
+@@ -9,6 +9,7 @@
+ 
+ PACKAGE = @PACKAGE@
+ VERSION = @VERSION@
++DOCVERSION = 1.2.15
+ 
+ PREFIX = @PREFIX@
+ BINDIR = @BINDIR@
+@@ -116,12 +117,12 @@
+ 
+ install-docs: docs
+ 	@echo ------------------------------------------
+-	@rm -fr "$(DESTDIR)$(DOCDIR)/icewm-$(VERSION)"
+-	@$(INSTALLDIR) "$(DESTDIR)$(DOCDIR)/icewm-$(VERSION)"
++	@rm -fr "$(DESTDIR)$(DOCDIR)/icewm-$(DOCVERSION)"
++	@$(INSTALLDIR) "$(DESTDIR)$(DOCDIR)/icewm-$(DOCVERSION)"
+ 	@echo "Installing documentation in $(DESTDIR)$(DOCDIR)"
+-	@$(INSTALLLIB) $(DOCFILES) "$(DESTDIR)$(DOCDIR)/icewm-$(VERSION)"
+-	@$(INSTALLLIB) "$(top_srcdir)/doc/"*.sgml "$(DESTDIR)$(DOCDIR)/icewm-$(VERSION)"
+-	@$(INSTALLLIB) "$(top_srcdir)/doc/"*.html "$(DESTDIR)$(DOCDIR)/icewm-$(VERSION)"
++	@$(INSTALLLIB) $(DOCFILES) "$(DESTDIR)$(DOCDIR)/icewm-$(DOCVERSION)"
++	@$(INSTALLLIB) "$(top_srcdir)/doc/"*.sgml "$(DESTDIR)$(DOCDIR)/icewm-$(DOCVERSION)"
++	@$(INSTALLLIB) "$(top_srcdir)/doc/"*.html "$(DESTDIR)$(DOCDIR)/icewm-$(DOCVERSION)"
+ 	@echo ------------------------------------------
+ 
+ install-nls: nls
+diff -ur icewm-1.2.15pre1/src/Makefile.in icewm-1.2.15pre1-doc/src/Makefile.in
+--- icewm-1.2.15pre1/src/Makefile.in	2004-06-27 22:02:01.000000000 +0200
++++ icewm-1.2.15pre1-doc/src/Makefile.in	2004-08-09 15:24:03.318721944 +0200
+@@ -1,5 +1,6 @@
+ PACKAGE = @PACKAGE@
+ VERSION = @VERSION@
++DOCVERSION = 1.2.15
+ HOSTOS  = @HOSTOS@
+ HOSTCPU = @HOSTCPU@
+ 
+@@ -31,7 +32,7 @@
+                 -DICEWMBGEXE='"icewmbg$(EXEEXT)"' \
+                 -DICESMEXE='"icewm-session$(EXEEXT)"' \
+                 -DICEHELPEXE='"icehelp$(EXEEXT)"' \
+-                -DICEHELPIDX='"$(DOCDIR)/icewm-$(VERSION)/icewm.html"'
++                -DICEHELPIDX='"$(DOCDIR)/icewm-$(DOCVERSION)/icewm.html"'
+ 
+ CXXFLAGS =      @CXXFLAGS@ $(DEBUG) $(DEFS) \
+ 	        @CORE_CFLAGS@ @IMAGE_CFLAGS@ @AUDIO_CFLAGS@ # `fc-config --cflags`
