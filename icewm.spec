@@ -42,7 +42,6 @@ BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 %{?with_guievents:BuildRequires:	esound-devel}
 BuildRequires:	gettext-devel
-%{?with_gnome:BuildRequires:	gnome-desktop-devel}
 %{?with_imlib:BuildRequires:	imlib-devel}
 BuildRequires:	libstdc++-devel
 %{?with_freetype:BuildRequires:	xft-devel >= 2.1}
@@ -139,8 +138,8 @@ cp -f /usr/share/automake/config.sub .
 	%{?with_antialiasing:--enable-antialiasing} \
 	%{!?with_freetype:--disable-xfreetype} \
 	%{?with_guievents:--enable-guievents} \
-	%{?with_gnome:--enable-menus-gnome} \
 	%{!?with_imlib:--without-imlib} \
+	--disable-menus-gnome \
 	--enable-shaped-decorations \
 	--with-cfgdir=%{_sysconfdir}/X11/%{name} \
 	--with-docdir=%{_docdir}
