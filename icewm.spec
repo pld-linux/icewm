@@ -10,6 +10,7 @@ Group(fr):	X11/Gestionnaires De Fenêtres
 Group(pl):	X11/Zarz±dcy Okien
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/icewm/%{name}-%{version}-7.tar.bz2
 Source1:	IceWM.desktop
+Source2:	%{name}.directory
 Patch0:		icewm-DESTDIR.patch
 Patch1:		%{name}-time.patch
 URL:		http://www.icewm.org/
@@ -64,19 +65,21 @@ autoconf
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_wmpropsdir}
+%{__install} -d $RPM_BUILD_ROOT%{_wmpropsdir}
+%{__install} -d $RPM_BUILD_ROOT%{_prefix}/share/applnk/Settings/IceWM
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
-install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/keys
-install lib/menu $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/menu
-install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/toolbar
-install lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/preferences
-install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/winoptions
+%{__install} %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
+%{__install} %{SOURCE2} $RPM_BUILD_ROOT%{_prefix}/share/applnk/Settings/IceWM/.directory
+%{__install} lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/keys
+%{__install} lib/menu $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/menu
+%{__install} lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/toolbar
+%{__install} lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/preferences
+%{__install} lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/winoptions
 
-gzip -9nf README CHANGES TODO BUGS
+#gzip -9nf README CHANGES TODO BUGS
 
 %find_lang %{name}
 
@@ -88,6 +91,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*
 %doc {README,CHANGES,TODO,BUGS}.gz doc/*.html
 %attr(755,root,root) %{_bindir}/*
+%attr(644,root,root)
+%dir %{_prefix}/share/applnk/Settings/IceWM
+%{_prefix}/share/applnk/Settings/IceWM/.directory
 %dir %{_libdir}/X11/icewm
 %{_libdir}/X11/icewm/*
 %{_wmpropsdir}/*

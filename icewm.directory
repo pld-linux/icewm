@@ -4,5 +4,5 @@ Name[pl]=IceWM
 Comment=IceWM Settings
 Comment[pl]=Ustawienia dla IceWM
 Comment[pt_BR]=Configurações do IceWM
-Icon=package_settings.png
+Icon=
 Type=Directory
