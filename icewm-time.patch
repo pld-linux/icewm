@@ -1,0 +1,22 @@
+diff -urN icewm-1.0.6/src/aclock.cc icewm-1.0.6-florin/src/aclock.cc
+--- icewm-1.0.6/src/aclock.cc	Sun Jan 14 22:49:39 2001
++++ icewm-1.0.6-florin/src/aclock.cc	Mon Feb 19 19:42:05 2001
+@@ -8,6 +8,7 @@
+ #include "config.h"
+ #include "ylib.h"
+ #include "aclock.h"
++#include "time.h"
+ 
+ #include "yapp.h"
+ #include "prefs.h"
+diff -urN icewm-1.0.6/src/apppstatus.cc icewm-1.0.6-florin/src/apppstatus.cc
+--- icewm-1.0.6/src/apppstatus.cc	Sun Jan 14 22:49:39 2001
++++ icewm-1.0.6-florin/src/apppstatus.cc	Mon Feb 19 19:46:42 2001
+@@ -12,6 +12,7 @@
+ 
+ #include "ylib.h"
+ #include "yapp.h"
++#include "time.h"
+ 
+ #include "apppstatus.h"
+ 
