@@ -19,7 +19,7 @@ Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
 Version:	1.2.16
 #%define _pre pre1
-Release:	2
+Release:	3
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
@@ -115,11 +115,11 @@ Wszystkie stworzone przez Marko Macka: gtk2, metal2, motif, nice,
 nice2, warp3, warp4, win95.
 
 %prep
-#%setup -q -n %{name}-%{version}%{_pre}
+#setup -q -n %{name}-%{version}%{_pre}
 %setup -q
 %patch0 -p1
 %patch1 -p1
-#%patch2 -p1
+#patch2 -p1
 
 mv -f po/{no,nb}.po
 mv -f po/{zh_TW.Big5,zh_TW}.po
@@ -136,7 +136,7 @@ cp -f /usr/share/automake/config.sub .
 %configure \
 	%{?with_gradients:--enable-gradients} \
 	%{?with_antialiasing:--enable-antialiasing} \
-	%{!?with_freetype:--disable-xfreetype} \
+	%{!?with_freetype:--disable-xfreetype --enable-corefonts} \
 	%{?with_guievents:--enable-guievents} \
 	%{!?with_imlib:--without-imlib} \
 	--disable-menus-gnome \
