@@ -123,6 +123,7 @@ rm -f missing
 	%{!?_without_guievents:--enable-guievents} \
 	%{!?_without_gnome:--with-gnome-menus} \
 	%{?_without_imlib:--without-imlib} \
+	--enable-shaped-decorations \
 	--with-cfgdir=%{_sysconfdir}/X11/%{name} \
 	--with-docdir=%{_docdir}
 %{__make}
