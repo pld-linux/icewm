@@ -116,9 +116,9 @@ cd ../..
 
 %build
 rm -f missing
+%{__gettextize}
 %{__aclocal}
 %{__autoconf}
-%{__gettextize}
 %configure \
 	%{?_with_gradients:--enable-gradients} \
 	%{?_with_antialiasing:--enable-antialiasing} \
