@@ -8,7 +8,7 @@ Summary:	IceWM X11 Window Manager
 Summary(pl):	IceWM - Mened¿er okienek X11
 Name:		icewm
 Version:	1.0.8
-Release:	2
+Release:	3
 License:	LGPL
 Group:		X11/Window Managers
 Group(es):	X11/Administraadores De Ventanas
@@ -49,6 +49,24 @@ Mened¿er okienek pod X11. Mo¿e emulowaæ wygl±d Windows'95, OS/2 Warp
 powy¿szych ¶rodowiskach, jak: wiele jednocze¶nie obecnych przestrzeni
 roboczych, paski narzêdziowe, status skrzynki z poczt±, cyfrowy zegar.
 Jest przy tym ma³y i szybki.
+
+%package -n %{name}-themes-base
+Summary:        Pack of themes for icewm
+Summary(pl):    Zestaw tematów dla icewm
+Group:		Themes
+Group(de):	Themen
+Group(pl):	Motywy
+Requires:	icewm
+
+%description -n %{name}-themes-base
+Standard pack of themes delivered with icewm.
+All of them made by Marko Macek:
+gtk2, metal2, motif, nice, warp3, warp4, win95
+
+%description -n %{name}-themes-base -l pl
+Standardowy zestaw tematów dla IceWM'a, dostarczany wraz nim.
+Wszystkie stwarzone przez Marko Macek:
+gtk2, metal2, motif, nice, warp3, warp4, win95
 
 %prep -q
 %setup -q
@@ -105,4 +123,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_applnkdir}/Settings/IceWM/.directory
 %{_wmpropsdir}/*
 %dir %{_libdir}/X11/icewm
-%{_libdir}/X11/icewm/*
+%{_libdir}/X11/icewm/icons/*
+%{_libdir}/X11/icewm/ledclock/*
+%{_libdir}/X11/icewm/mailbox/*
+%{_libdir}/X11/icewm/taskbar/*
+%{_libdir}/X11/icewm/themes/Infadel2/*
+
+%files -n %{name}-themes-base
+%{_libdir}/X11/icewm/themes/gtk2/*
+%{_libdir}/X11/icewm/themes/metal2/*
+%{_libdir}/X11/icewm/themes/motif/*
+%{_libdir}/X11/icewm/themes/nice/*
+%{_libdir}/X11/icewm/themes/warp3/*
+%{_libdir}/X11/icewm/themes/warp4/*
+%{_libdir}/X11/icewm/themes/win95/*
