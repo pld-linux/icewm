@@ -11,6 +11,8 @@
 # - make a PLD-theme - default :]
 # - bigger menu-file
 #
+%define		_pre		pre1
+
 Summary:	IceWM X11 Window Manager
 Summary(es):	Administrador de Ventanas X11
 Summary(pl):	IceWM - mened©er okienek X11
@@ -18,12 +20,12 @@ Summary(pt_BR):	Gerenciador de Janelas X11
 Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
-Version:	1.2.2
-Release:	2
+Version:	1.2.3
+Release:	%{_pre}.1
 Epoch:		1
 License:	LGPL
 Group:		X11/Window Managers
-Source0:	http://prdownloads.sourceforge.net/icewm/%{name}-%{version}.tar.gz
+Source0:	http://prdownloads.sourceforge.net/icewm/%{name}-%{version}%{_pre}.tar.gz
 Source1:	IceWM.desktop
 Source2:	%{name}.directory
 Source3:	http://prdownloads.sourceforge.net/icewm/iceicons-0.6.tar.gz
@@ -32,6 +34,7 @@ Source5:	IceWM.wm_style
 Source6:	%{name}-menu
 Source7:	http://prdownloads.sourceforge.net/icewm/netscapeicons-0.2.tar.gz
 Patch0:		%{name}-menu.patch
+Patch1:		%{name}-compile-fixes.patch
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
 %{!?_without_guievents:BuildRequires:	esound-devel}
@@ -105,8 +108,9 @@ Wszystkie stworzone przez Marko Macka: gtk2, metal2, motif, nice,
 warp3, warp4, win95.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}%{_pre}
 %patch0 -p1
+%patch1 -p1
 
 cd lib/icons
 tar -xzf %{SOURCE3}
@@ -114,6 +118,9 @@ tar -xzf %{SOURCE7}
 cd ../..
 
 %build
+rm -f missing
+%{__aclocal}
+%{__autoconf}
 %configure \
 	%{?_with_gradients:--enable-gradients} \
 	%{?_with_antialiasing:--enable-antialiasing} \
