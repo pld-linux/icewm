@@ -152,7 +152,7 @@ install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/winoptions
 
 ln -s %{_datadir}/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
 
-echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm wmconfig --output icewm > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
+echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm wmconfig --output icewm" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
 
 %find_lang %{name}
 
