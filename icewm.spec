@@ -7,6 +7,8 @@
 # - make a PLD-theme - default :]
 # - bigger menu-file
 #
+%define _noautocompressdoc *.sgml
+
 Summary:	IceWM X11 Window Manager
 Summary(pl):	IceWM - mened¿er okienek X11
 Name:		icewm
@@ -104,8 +106,6 @@ install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/winoptions
 
 ln -s %{_libdir}/X11/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
 
-gzip -9nf AUTHORS BUGS CHANGES FAQ PLATFORMS README* TODO icewm.lsm
-
 %find_lang %{name}
 
 %clean
@@ -116,7 +116,7 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc *.gz doc/*.*ml
+%doc AUTHORS BUGS CHANGES FAQ PLATFORMS README* TODO icewm.lsm doc/*.*ml
 %attr(755,root,root) %{_bindir}/*
 %dir %{_sysconfdir}
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/*
