@@ -19,7 +19,7 @@ Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
 Version:	1.2.15
 %define _pre pre1
-Release:	1.%{_pre}.1
+Release:	1.%{_pre}.2
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
@@ -157,8 +157,8 @@ install -d $RPM_BUILD_ROOT{%{_datadir}/xsessions,%{_pixmapsdir},%{_wmstyledir}} 
 	DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
-install %{SOURCE4} $RPM_BUILD_ROOT%{_wmstyledir}/%{name}.sh
-install %{SOURCE5} $RPM_BUILD_ROOT%{_wmstyledir}/%{name}.names
+install %{SOURCE4} $RPM_BUILD_ROOT%{_wmstyledir}/%{name}-session.sh
+install %{SOURCE5} $RPM_BUILD_ROOT%{_wmstyledir}/%{name}-session.names
 install %{SOURCE7} $RPM_BUILD_ROOT%{_datadir}/xsessions/%{name}.desktop
 install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/keys
 install lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/preferences
