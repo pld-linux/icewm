@@ -32,8 +32,6 @@ Source4:	IceWM.RunWM
 Source5:	IceWM.wm_style
 Source6:	%{name}-menu
 Source7:	http://cesnet.dl.sourceforge.net/sourceforge/icewm/netscapeicons-0.2.tar.gz
-Patch0:		%{name}-menu.patch
-Patch1:		%{name}-compile-fixes.patch
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
 %{!?_without_guievents:BuildRequires:	esound-devel}
@@ -108,8 +106,6 @@ nice2, warp3, warp4, win95.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
 
 cd lib/icons
 tar -xzf %{SOURCE3}
