@@ -40,7 +40,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 %{!?_without_guievents:BuildRequires:	esound-devel}
 BuildRequires:	gettext-devel
-%{!?_without_gnome:BuildRequires:	gnome-libs-devel}
+%{!?_without_gnome:BuildRequires:	gnome-desktop-devel}
 %{!?_without_imlib:BuildRequires:	imlib-devel}
 BuildRequires:	libstdc++-devel
 %{!?_without_freetype:BuildRequires:	xft-devel >= 2.1}
