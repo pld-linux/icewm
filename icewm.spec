@@ -157,7 +157,7 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
 install %{SOURCE4} $RPM_BUILD_ROOT%{_wmstyledir}/%{name}-session.sh
 install %{SOURCE7} $RPM_BUILD_ROOT%{_datadir}/xsessions/%{name}.desktop
 install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/keys
-install lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/preferences
+sed 's|^# IconPath=""|IconPath="/usr/share/pixmaps:/usr/share/icons"|' < lib/preferences > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/preferences
 install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/toolbar
 install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/winoptions
 echo %{_bindir}/icewmbg > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/startup
