@@ -7,7 +7,7 @@ Summary:	IceWM X11 Window Manager
 Summary(pl):	IceWM - Mened¿er okienek X11
 Name:		icewm
 Version:	1.0.9
-Release:	4
+Release:	5
 License:	LGPL
 Group:		X11/Window Managers
 Group(de):	X11/Fenstermanager
@@ -89,7 +89,7 @@ export LDFLAGS
 	--with-docdir=%{_docdir} \
 	--with-gnome \
 	--with-gnome-menus \
-	--with-i18n \
+	--enable-i18n \
 	--with-imlib \
 	--with-shape \
 	--with-sm \
