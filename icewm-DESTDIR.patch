@@ -1,0 +1,106 @@
+diff -Nru icewm-1.0.5/Makefile.in icewm-1.0.5.new/Makefile.in
+--- icewm-1.0.5/Makefile.in	Sat Dec 16 04:34:56 2000
++++ icewm-1.0.5.new/Makefile.in	Sat Dec 16 04:34:36 2000
+@@ -62,57 +62,51 @@
+ # Makefile TABS *SUCK*
+ install-base: base
+ 	@echo ------------------------------------------
+-	@echo Installing icewm to $(BINDIR)
+-	@$(INSTALLDIR) $(BINDIR)
++	@echo Installing icewm to $(DESTDIR)$(BINDIR)
++	@$(INSTALLDIR) $(DESTDIR)$(BINDIR)
+ 	@for app in $(BINFILES) ; do \
+-            $(INSTALLBIN) $$app $(BINDIR); \
++            $(INSTALLBIN) $$app $(DESTDIR)$(BINDIR); \
+         done
+-	@echo Installing defaults, icons and themes to $(LIBDIR)
+-	@$(INSTALLDIR) $(LIBDIR)
+-	@$(INSTALLDIR) $(ETCDIR)
++	@echo Installing defaults, icons and themes to $(DESTDIR)$(LIBDIR)
++	@$(INSTALLDIR) $(DESTDIR)$(LIBDIR)
++	@$(INSTALLDIR) $(DESTDIR)$(ETCDIR)
+ 	@for lib in $(LIBFILES) ; do \
+-            $(INSTALLLIB) $$lib $(LIBDIR); \
++            $(INSTALLLIB) $$lib $(DESTDIR)$(LIBDIR); \
+         done
+ 	@for xpmdir in $(XPMDIRS) ; do \
+-            $(INSTALLDIR) $(LIBDIR)/$$xpmdir; \
++            $(INSTALLDIR) $(DESTDIR)$(LIBDIR)/$$xpmdir; \
+             for icon in lib/$$xpmdir/*.xpm ; do \
+-                $(INSTALLLIB) $$icon $(LIBDIR)/$$xpmdir; \
++                $(INSTALLLIB) $$icon $(DESTDIR)$(LIBDIR)/$$xpmdir; \
+             done; \
+         done
+ 	@for theme in $(THEMES) ; do \
+             echo Installing theme: $$theme; \
+-            $(INSTALLDIR) $(LIBDIR)/themes/$$theme; \
++            $(INSTALLDIR) $(DESTDIR)$(LIBDIR)/themes/$$theme; \
+             for pixmap in lib/themes/$$theme/*.xpm ; do \
+-                $(INSTALLLIB) $$pixmap $(LIBDIR)/themes/$$theme; \
++                $(INSTALLLIB) $$pixmap $(DESTDIR)$(LIBDIR)/themes/$$theme; \
+             done; \
+             for config in lib/themes/$$theme/*.theme ; do \
+-                $(INSTALLLIB) $$config $(LIBDIR)/themes/$$theme; \
++                $(INSTALLLIB) $$config $(DESTDIR)$(LIBDIR)/themes/$$theme; \
+             done; \
+             for l in $(XPMDIRS) ; do \
+                 if [ -d lib/themes/$$theme/$$l ] ; then \
+-                    $(INSTALLDIR) $(LIBDIR)/themes/$$theme/$$l; \
++                    $(INSTALLDIR) $(DESTDIR)$(LIBDIR)/themes/$$theme/$$l; \
+                     for f in lib/themes/$$theme/$$l/* ; do \
+-                        $(INSTALLLIB) $$f $(LIBDIR)/themes/$$theme/$$l; \
++                        $(INSTALLLIB) $$f $(DESTDIR)$(LIBDIR)/themes/$$theme/$$l; \
+                     done;\
+                 fi;\
+             done;\
+         done
+-	@#for a in $(ETCFILES) ; do $(INSTALLETC) $$a $(ETCDIR) ; done
+-
+-install-docs: docs $(LSM)
+-	@echo ------------------------------------------
+-	@$(INSTALLDIR) $(DOCDIR)/icewm-$(VERSION)
+-	cp $(DOCFILES) $(DOCDIR)/icewm-$(VERSION)
+-	cp -r doc $(DOCDIR)/icewm-$(VERSION)
++	@#for a in $(ETCFILES) ; do $(INSTALLETC) $$a $(DESTDIR)$(ETCDIR) ; done
+ 
+ install-nls: nls
+ 	@echo ------------------------------------------
+-	@cd po ; ${MAKE} install
++	@cd po ; ${MAKE} DESTDIR=$(DESTDIR) install
+ 
+ install-gnome: gnome
+ 	@echo ------------------------------------------
+-	@echo Installing icewm-gnome to $(BINDIR)
+-	@$(INSTALLDIR) $(BINDIR)
++	@echo Installing icewm-gnome to $(DESTDIR)$(BINDIR)
++	@$(INSTALLDIR) $(DESTDIR)$(BINDIR)
+ 	@for a in $(GNOMEFILES) ; do \
+-            $(INSTALLBIN) $$a $(BINDIR); \
++            $(INSTALLBIN) $$a $(DESTDIR)$(BINDIR); \
+         done
+diff -Nru icewm-1.0.5/configure.in icewm-1.0.5.new/configure.in
+--- icewm-1.0.5/configure.in	Tue Dec 12 22:45:28 2000
++++ icewm-1.0.5.new/configure.in	Sat Dec 16 04:35:10 2000
+@@ -66,7 +66,7 @@
+ AC_FUNC_SELECT_ARGTYPES
+ 
+ dnl Configuring features
+-TARGETS='base docs'
++TARGETS='base'
+ 
+ dnl Checking for X11
+ AC_PATH_XTRA
+diff -Nru icewm-1.0.5/po/Makefile icewm-1.0.5.new/po/Makefile
+--- icewm-1.0.5/po/Makefile	Sat Dec 16 04:34:56 2000
++++ icewm-1.0.5.new/po/Makefile	Sat Dec 16 04:34:36 2000
+@@ -20,8 +20,8 @@
+ 	  LANG=`echo $$c|sed -e 's/.mo//'` ; \
+ 	  MSGDIR="$(LOCALEDIR)/$$LANG/LC_MESSAGES"; \
+ 	  echo Installing language: $$LANG ; \
+-	  $(INSTALLDIR) $$MSGDIR; \
+-	  $(INSTALLBIN) $$c $$MSGDIR/$(PACKAGE).mo; \
++	  $(INSTALLDIR) $(DESTDiR)$$MSGDIR; \
++	  $(INSTALLBIN) $$c $(DESTDIR)$$MSGDIR/$(PACKAGE).mo; \
+ 	done
+ 
+ clean:
