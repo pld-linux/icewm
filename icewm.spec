@@ -69,6 +69,11 @@ install -d $RPM_BUILD_ROOT%{_datadir}/gnome/wm-properties
 	DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/gnome/wm-properties
+install lib/keys $RPM_BUILD_ROOT/etc/X11/icewm/keys
+install lib/menu $RPM_BUILD_ROOT/etc/X11/icewm/menu
+install lib/toolbar $RPM_BUILD_ROOT/etc/X11/icewm/toolbar
+install lib/preferences $RPM_BUILD_ROOT/etc/X11/icewm/preferences
+install lib/winoptions $RPM_BUILD_ROOT/etc/X11/icewm/winoptions
 
 gzip -9nf README CHANGES TODO BUGS
 
@@ -78,6 +83,7 @@ gzip -9nf README CHANGES TODO BUGS
 rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
+%config(noreplace) %verify(not md5 mtime size) /etc/X11/icewm/*
 %defattr(644,root,root,755)
 %doc {README,CHANGES,TODO,BUGS}.gz doc/*.html
 %attr(755,root,root) %{_bindir}/*
