@@ -1,5 +1,5 @@
---- icewm-1.0.8/po/Makefile.orig	Tue Apr 24 17:24:52 2001
-+++ icewm-1.0.8/po/Makefile	Tue Apr 24 17:27:06 2001
+--- icewm-1.0.8/po/Makefile.orig	Fri Apr 27 20:09:30 2001
++++ icewm-1.0.8/po/Makefile	Fri Apr 27 20:10:19 2001
 @@ -18,10 +18,10 @@
  all: $(MOFILES)
  
@@ -13,14 +13,10 @@
  	  echo Installing language: $$LANG ; \
  	  $(INSTALLDIR) $$MSGDIR; \
  	  $(INSTALLLIB) $$c $$MSGDIR/$(PACKAGE).mo; \
---- icewm-1.0.8/Makefile.in.orig	Tue Apr 24 17:06:18 2001
-+++ icewm-1.0.8/Makefile.in	Tue Apr 24 17:16:51 2001
-@@ -61,71 +61,71 @@
- 	    -e "s|@@VERSION@@|$(VERSION)|g" \
- 	    -e "s|@@DATE@@|`date +%d%b%Y | tr 'a-z' 'A-Z'`|"
- 
--# Makefile TABS *SUCK*
-+
+--- icewm-1.0.8/Makefile.in.orig	Fri Apr 27 20:10:53 2001
++++ icewm-1.0.8/Makefile.in	Fri Apr 27 20:18:10 2001
+@@ -64,56 +64,56 @@
+ # Makefile TABS *SUCK*
  install-base: base
  	@echo ------------------------------------------
 -	@echo Installing icewm in $(BINDIR)
@@ -69,9 +65,10 @@
 +		    $(INSTALLLIB) "$$fontfile" $(DESTDIR)$(LIBDIR)/themes/$$theme; \
  		done; \
  		if test -x "$(MKFONTDIR)"; then \
--		  cd "$(LIBDIR)/themes/$$theme"; \
-+		  cd "$(DESTDIR)$(LIBDIR)/themes/$$theme"; \
+-		  pushd "$(LIBDIR)/themes/$$theme"; \
++		  pushd "$(DESTDIR)$(LIBDIR)/themes/$$theme"; \
  		  $(MKFONTDIR); \
+ 		  popd; \
  		else \
  		  echo "WARNING: A dummy file has been copied to"; \
 -		  echo "         $(LIBDIR)/themes/$$theme/fonts.dir"; \
@@ -80,7 +77,7 @@
  		  echo "         --with-mkfontdir option of the configure script."; \
 -		  $(INSTALLLIB) "lib/themes/$$theme/fonts.dir.default" \
 -				"$(LIBDIR)/themes/$$theme/fonts.dir"; \
-+		  $(INSTALLLIB) "$(DESTDIR)/lib/themes/$$theme/fonts.dir.default" \
++		  $(INSTALLLIB) "$(DESTDIR)lib/themes/$$theme/fonts.dir.default" \
 +				"$(DESTDIR)$(LIBDIR)/themes/$$theme/fonts.dir"; \
  		fi; \
  	    fi; \
@@ -94,11 +91,9 @@
                      done;\
                  fi;\
              done;\
-         done
- 	@#for a in $(ETCFILES) ; do $(INSTALLETC) "$$a" $(CFGDIR) ; done
+@@ -122,11 +122,11 @@
  
--install-docs: docs $(LSM)
-+
+ install-docs: docs $(LSM)
  	@echo ------------------------------------------
 -	@rm -fr $(DOCDIR)/icewm-$(VERSION)
 -	@$(INSTALLDIR) $(DOCDIR)/icewm-$(VERSION)
@@ -113,7 +108,7 @@
  
  install-nls: nls
  	@echo ------------------------------------------
-@@ -133,12 +133,12 @@
+@@ -134,12 +134,12 @@
  
  install-%: %
  	@echo ------------------------------------------
@@ -132,9 +127,9 @@
 +	@echo Installing icewm-gnome in $(DESTDIR)$(WMPROPDIR)
 +	@$(INSTALLDIR) $(DESTDIR)$(WMPROPDIR)
 +	@$(INSTALLLIB) lib/IceWM.desktop $(DESTDIR)$(WMPROPDIR)
---- icewm-1.0.8/configure.in.orig	Tue Apr 24 17:17:17 2001
-+++ icewm-1.0.8/configure.in	Tue Apr 24 17:17:46 2001
-@@ -66,7 +66,7 @@
+--- icewm-1.0.8/configure.in.orig	Fri Apr 27 20:18:31 2001
++++ icewm-1.0.8/configure.in	Fri Apr 27 20:19:13 2001
+@@ -75,7 +75,7 @@
  AC_FUNC_SELECT_ARGTYPES
  
  dnl Configuring features
