@@ -28,10 +28,10 @@ mailbox status, digital clock. Fast and small.
 
 %description -l pl
 Mened¿er okienek pod X11. Mo¿e emulowaæ wygl±d Windows'95, OS/2 Warp 3,4,
-MWM. Mened¿er ten próbije wybraæ najjleprze cechy dostêpne w powy¿szych
-¶rodowiskach jak wiele jednocze¶nie obecnych przestrzeni roboczych, paski
-narzêdziowe, status skrzynki z poczt±, cyfrowy zegar. Jest tak¿e ma³y i
-szybki przy tym.
+MWM. Mened¿er ten próbuje wybraæ najlepsze cechy dostêpne w powy¿szych
+¶rodowiskach, jak: wiele jednocze¶nie obecnych przestrzeni roboczych, paski
+narzêdziowe, status skrzynki z poczt±, cyfrowy zegar. Jest przy tym ma³y i
+szybki.
 
 %prep
 %setup -q
