@@ -80,6 +80,7 @@ tar -xvf %{SOURCE3}
 cd ../../
 
 %build
+libtoolize --copy --force
 %{__autoconf}
 %configure \
 	--with-shape \
@@ -110,6 +111,10 @@ cd ../../
 %{__install} lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}toolbar
 %{__install} lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/preferences
 %{__install} lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/winoptions
+
+#mv -f %{_libdir}/X11/icewm/icons/* %{_pixmapsdir}/icewm/
+#rm -rf %{_libdir}/X11/icewm/icons
+#ln -s %{_pixmapsdir}/icewm $RPM_BUILD_ROOT%{_libdir}/X11/icewm/icons
 
 %{__gzip} -9nf BUGS CHANGES FAQ PLATFORMS README TODO icewm.lsm
 
