@@ -131,8 +131,7 @@ rm -f missing
 	%{?_without_imlib:--without-imlib} \
 	--enable-shaped-decorations \
 	--with-cfgdir=%{_sysconfdir}/X11/%{name} \
-	--with-docdir=%{_docdir} \
-	--disable-nls
+	--with-docdir=%{_docdir}
 %{__make}
 
 %install
@@ -155,8 +154,7 @@ ln -s %{_datadir}/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
 
 echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm icewm-menu-gnome2 --list \"%{_applnkdir}\"" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
 
-#%find_lang %{name}
-touch %{name}.lang
+%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
