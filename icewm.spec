@@ -10,6 +10,7 @@ Version:	1.0.8
 Release:	8
 License:	LGPL
 Group:		X11/Window Managers
+Group(de):	X11/Fenstermanager
 Group(es):	X11/Administraadores De Ventanas
 Group(fr):	X11/Gestionnaires De Fenêtres
 Group(pl):	X11/Zarz±dcy Okien
@@ -17,7 +18,7 @@ Source0:	ftp://download.sourceforge.net/pub/sourceforge/icewm/%{name}-%{version}
 Source1:	IceWM.desktop
 Source2:	%{name}.directory
 Source3:	ftp://download.sourceforge.net/pub/sourceforge/icewm/iceicons-0.6.tar.gz
-Patch0:		icewm-DESTDIR.patch
+Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-time.patch
 Patch2:		%{name}-menu.patch
 Patch3:		%{name}-env_var_in_menu_prog_line.patch
