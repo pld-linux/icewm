@@ -1,0 +1,1 @@
+- %%configure is back (solution: export LDFLAGS;configure2_13)
