@@ -127,11 +127,12 @@ rm -f missing
 	%{!?_without_antialiasing:--enable-antialiasing} \
 	%{?_without_freetype:--disable-xfreetype} \
 	%{!?_without_guievents:--enable-guievents} \
-	%{!?_without_gnome:--with-gnome-menus} \
+	%{!?_without_gnome:--enable-menus-gnome1} \
 	%{?_without_imlib:--without-imlib} \
 	--enable-shaped-decorations \
 	--with-cfgdir=%{_sysconfdir}/X11/%{name} \
-	--with-docdir=%{_docdir}
+	--with-docdir=%{_docdir} \
+	--disable-nls
 %{__make}
 
 %install
@@ -154,7 +155,8 @@ ln -s %{_datadir}/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
 
 echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm icewm-menu-gnome1 --list \"%{_applnkdir}\"" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
 
-%find_lang %{name}
+#%find_lang %{name}
+touch %{name}.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
