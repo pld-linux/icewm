@@ -17,15 +17,15 @@ Summary(pt_BR):	Gerenciador de Janelas X11
 Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
-Version:	1.2.16
+Version:	1.2.20
 #%define _pre pre1
-Release:	3
+Release:	0.1
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
 #Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}%{_pre}.tar.gz
 Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}.tar.gz
-# Source0-md5:	1aa92846cc516a2ac1d668d80c3ca5ea
+# Source0-md5:	6c94dae56fbf9aa085a1d780538018c1
 Source1:	IceWM.desktop
 Source3:	http://dl.sourceforge.net/icewm/iceicons-0.6.tar.gz
 # Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
