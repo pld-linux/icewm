@@ -10,7 +10,7 @@
 # TODO:
 # - make a PLD-theme - default :]
 #
-%define	_pre	pre6
+%define	_pre	pre7
 
 Summary:	IceWM X11 Window Manager
 Summary(es):	Administrador de Ventanas X11
@@ -25,7 +25,7 @@ Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
 Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}%{_pre}.tar.gz
-# Source0-md5:	ff297b47eb5c1f2eec5488de7d4bf4f4
+# Source0-md5:	44eac85d6eecffd6165517adb2d5ad5a
 Source1:	IceWM.desktop
 Source2:	%{name}.directory
 Source3:	http://dl.sourceforge.net/icewm/iceicons-0.6.tar.gz
