@@ -24,13 +24,13 @@ Release:	4
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
-Source0:	http://cesnet.dl.sourceforge.net/sourceforge/icewm/%{name}-%{version}.tar.gz
+Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}.tar.gz
 Source1:	IceWM.desktop
 Source2:	%{name}.directory
-Source3:	http://cesnet.dl.sourceforge.net/sourceforge/icewm/iceicons-0.6.tar.gz
+Source3:	http://dl.sourceforge.net/icewm/iceicons-0.6.tar.gz
 Source4:	IceWM.RunWM
 Source5:	IceWM.wm_style
-Source6:	http://cesnet.dl.sourceforge.net/sourceforge/icewm/netscapeicons-0.2.tar.gz
+Source6:	http://dl.sourceforge.net/icewm/netscapeicons-0.2.tar.gz
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
@@ -46,7 +46,7 @@ Requires(pre):	sh-utils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_wmstyledir	/etc/sysconfig/wmstyle
-%define		_wmpropsdir	%{_datadir}/wm-properties
+%define		_wmpropsdir	/usr/share/wm-properties
 
 %description
 Window Manager for X Window System. Can emulate the look of
@@ -116,7 +116,6 @@ cd ../..
 
 %build
 rm -f missing
-#%%{__gettextize}
 %{__aclocal}
 %{__autoconf}
 %{__autoheader}
