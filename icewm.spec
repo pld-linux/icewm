@@ -19,8 +19,8 @@ Summary(pt_BR):	Gerenciador de Janelas X11
 Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
-Version:	1.2.6
-Release:	4
+Version:	1.2.7
+Release:	1
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
@@ -134,7 +134,7 @@ rm -f missing
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_pixmapsdir},%{_wmstyledir}} \
-	$RPM_BUILD_ROOT{%{_applnkdir}/Settings/IceWM,%{_wmpropsdir}}
+	$RPM_BUILD_ROOT{%{_applnkdir}/Settings/IceWM,%{_wmpropsdir},%{_sysconfdir}/X11/%{name}}
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
@@ -173,6 +173,7 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %{_datadir}/icewm/taskbar
 %dir %{_datadir}/icewm/themes
 %{_datadir}/icewm/themes/Infadel2
+%{_datadir}/icewm/themes/icedesert
 %dir %{_applnkdir}/Settings/IceWM
 %{_applnkdir}/Settings/IceWM/.directory
 %{_wmpropsdir}/*
