@@ -82,20 +82,19 @@ cd ../../
 %build
 export LDFLAGS
 %configure \
-	--with-shape \
 	--prefix=%{_prefix} \
-	--with-docdir=/usr/share/doc \
 	--with-cfgdir=%{_sysconfdir} \
-	--with-sm \
-	--with-imlib \
+	--with-docdir=%{_docdir} \
 	--with-gnome \
 	--with-gnome-menus \
 	--with-i18n \
-	--enable-nls \
-	--enable-guievents \
 	--with-imlib \
-	--enable-gradients \
+	--with-shape \
+	--with-sm \
 	--enable-antialiasing \
+	--enable-gradients \
+	--enable-guievents \
+	--enable-nls \
 	--enable-xfreetype 
 
 %{__make}
