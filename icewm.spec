@@ -93,7 +93,7 @@ Windows'95, OS/2 Warp 3,4, Motif. Ó¡Õ¡«¡§‘ÿ”— ◊⁄—‘… Œ¡ À“¡›≈ ¶⁄
 
 %package themes-base
 Summary:	Pack of themes for IceWM
-Summary(pl):	Zestaw tematÛw dla IceWM-a
+Summary(pl):	Zestaw motywÛw dla IceWM-a
 Group:		Themes
 Requires:	icewm
 
@@ -102,7 +102,7 @@ Standard pack of themes delivered with IceWM. All of them made by
 Marko Macek: gtk2, metal2, motif, nice, nice2, warp3, warp4, win95.
 
 %description themes-base -l pl
-Standardowy zestaw tematÛw dla IceWM-a, dostarczany wraz z nim.
+Standardowy zestaw motywÛw dla IceWM-a, dostarczany wraz z nim.
 Wszystkie stworzone przez Marko Macka: gtk2, metal2, motif, nice,
 nice2, warp3, warp4, win95.
 
