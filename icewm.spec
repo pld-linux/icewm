@@ -42,7 +42,6 @@ Requires(pre):	fileutils
 Requires(pre):	sh-utils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_prefix		/usr/X11R6
 %define		_wmstyledir	/etc/sysconfig/wmstyle
 %define		_wmpropsdir	%{_datadir}/wm-properties
 
