@@ -3,7 +3,7 @@ Summary(pl):	IceWM - Mened¿er okienek X11
 Name:		icewm
 Version:	1.0.8
 Release:	1
-License:	GPL
+License:	LGPL
 Group:		X11/Window Managers
 Group(es):	X11/Administraadores De Ventanas
 Group(fr):	X11/Gestionnaires De Fenêtres
@@ -29,6 +29,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_prefix		/usr/X11R6
 %define		_sysconfdir	/etc
 %define		_wmpropsdir	%{_datadir}/wm-properties
+%define		_localesdir	%{_prefix}/share/locale
 
 %description
 Window Manager for X Window System. Can emulate the look of
@@ -72,14 +73,14 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__install} %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
-%{__install} %{SOURCE2} $RPM_BUILD_ROOT%{_prefix}/share/applnk/Settings/IceWM/.directory
+%{__install} %{SOURCE2} $RPM_BUILD_ROOT%{_applnkdir}/Settings/IceWM/.directory
 %{__install} lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/keys
 %{__install} lib/menu $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/menu
 %{__install} lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/toolbar
 %{__install} lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/preferences
 %{__install} lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/winoptions
 
-gzip -9nf README CHANGES TODO BUGS
+gzip -9nf README CHANGES TODO BUGS COPYING FAQ INSTALL icewm.lsm PLATFORMS VERSION
 
 %find_lang %{name}
 
@@ -89,11 +90,12 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*
-%doc {README,CHANGES,TODO,BUGS}.gz doc/*.html
+%doc *.gz doc/*.*ml
 %attr(755,root,root) %{_bindir}/*
 %attr(644,root,root)
-%dir %{_prefix}/share/applnk/Settings/IceWM
-%{_prefix}/share/applnk/Settings/IceWM/.directory
+%dir %{_applnkdir}/Settings/IceWM
+%{_applnkdir}/Settings/IceWM/.directory
+%{_wmpropsdir}/*
+#%{_localesdir}/*
 %dir %{_libdir}/X11/icewm
 %{_libdir}/X11/icewm/*
-%{_wmpropsdir}/*
