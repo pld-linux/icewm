@@ -84,9 +84,10 @@ tar -xvf %{SOURCE3}
 cd ../../
 
 %build
+export LDFLAGS
 libtoolize --copy --force
 autoconf
-./configure \
+%configure2_13 \
 	--with-shape \
 	--prefix=%{_prefix} \
 	--with-docdir=/usr/share/doc \
