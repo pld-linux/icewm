@@ -25,12 +25,15 @@ Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
 Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}.tar.gz
+# Source0-md5:	b2423bdcf841a552d8c60a03858a1116
 Source1:	IceWM.desktop
 Source2:	%{name}.directory
 Source3:	http://dl.sourceforge.net/icewm/iceicons-0.6.tar.gz
+# Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
 Source4:	IceWM.RunWM
 Source5:	IceWM.wm_style
 Source6:	http://dl.sourceforge.net/icewm/netscapeicons-0.2.tar.gz
+# Source6-md5:	409aa9b02adc11309ed546c5120c01d2
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
