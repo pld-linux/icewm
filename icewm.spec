@@ -116,7 +116,7 @@ cd ../..
 
 %build
 rm -f missing
-#%{__gettextize}
+#%%{__gettextize}
 %{__aclocal}
 %{__autoconf}
 %{__autoheader}
