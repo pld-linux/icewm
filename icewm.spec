@@ -7,7 +7,7 @@ Summary:	IceWM X11 Window Manager
 Summary(pl):	IceWM - Mened¿er okienek X11
 Name:		icewm
 Version:	1.0.9
-Release:	3
+Release:	4
 License:	LGPL
 Group:		X11/Window Managers
 Group(de):	X11/Fenstermanager
@@ -38,9 +38,9 @@ BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
-%define		_sysconfdir	/etc/X11/icewm/
-%define		_wmpropsdir	%{_datadir}/wm-properties
+%define		_sysconfdir	/etc/X11/icewm
 %define		_wmstyledir	/etc/sysconfig/wmstyle
+%define		_wmpropsdir	%{_datadir}/wm-properties
 
 %description
 Window Manager for X Window System. Can emulate the look of
@@ -103,7 +103,7 @@ export LDFLAGS
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_wmpropsdir},%{_applnkdir}/Settings/IceWM,%{_wmstyledir}}
+install -d $RPM_BUILD_ROOT{%{_wmstyledir},%{_applnkdir}/Settings/IceWM,%{_wmpropsdir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -113,7 +113,7 @@ install %{SOURCE2} $RPM_BUILD_ROOT%{_applnkdir}/Settings/IceWM/.directory
 install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/keys
 install lib/menu $RPM_BUILD_ROOT%{_sysconfdir}/menu
 install lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/preferences
-install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}toolbar
+install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/toolbar
 install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/winoptions
 install %{SOURCE4} $RPM_BUILD_ROOT%{_wmstyledir}/IceWM.sh
 install %{SOURCE5} $RPM_BUILD_ROOT%{_wmstyledir}/IceWM.names
@@ -134,6 +134,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc *.gz doc/*.*ml
 %attr(755,root,root) %{_bindir}/*
+%dir %{_sysconfdir}
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/*
 %dir %{_applnkdir}/Settings/IceWM
 %{_applnkdir}/Settings/IceWM/.directory
@@ -145,8 +146,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/X11/icewm/taskbar
 %dir %{_libdir}/X11/icewm/themes
 %{_libdir}/X11/icewm/themes/Infadel2
-%attr(755,root,root)/etc/sysconfig/wmstyle/IceWM.sh
-%attr(644,root,root)/etc/sysconfig/wmstyle/IceWM.names
+%attr(755,root,root) %{_wmstyledir}/IceWM.sh
+%attr(644,root,root) %{_wmstyledir}/IceWM.names
 
 %files themes-base
 %defattr(644,root,root,755)
