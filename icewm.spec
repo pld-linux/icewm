@@ -1,17 +1,17 @@
 Summary:	IceWM X11 Window Manager
 Summary(pl):	IceWM - Mened¿er okienek X11
 Name:		icewm
-Version:	1.0.5
+Version:	1.0.6
 Release:	1
 License:	GPL
 Group:		X11/Window Managers
 Group(es):	X11/Administraadores De Ventanas
 Group(fr):	X11/Gestionnaires De Fenêtres
 Group(pl):	X11/Zarz±dcy Okien
-Source0:	ftp://download.sourceforge.net/pub/sourceforge/icewm/%{name}-%{version}.src.tar.gz
+Source0:	ftp://download.sourceforge.net/pub/sourceforge/icewm/%{name}-%{version}-4.tar.bz2
 Source1:	IceWM.desktop
 Patch0:		icewm-DESTDIR.patch
-URL:		http://icewm.sourceforge.net/
+URL:		http://www.icewm.org/
 BuildRequires:	autoconf
 BuildRequires:	imlib-devel
 BuildRequires:	libjpeg-devel
@@ -20,6 +20,8 @@ BuildRequires:	libtiff-devel
 BuildRequires:	libungif-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	zlib-devel
+BuildRequires:	gnome-libs-devel
+BuildRequires:	libstdc++-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -49,7 +51,11 @@ autoconf
 	--with-sm \
 	--with-imlib \
 	--with-gnome \
-	--with-i18n
+	--with-gnome-menus \
+	--with-i18n \
+	--enable-nls \
+	--enable-guievents \
+	--with-imlib
 
 %{__make}
 
@@ -64,10 +70,12 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/gnome/wm-properties
 
 gzip -9nf README CHANGES TODO BUGS
 
+%find_lang %{name}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc {README,CHANGES,TODO,BUGS}.gz doc/*.html
 %attr(755,root,root) %{_bindir}/*
