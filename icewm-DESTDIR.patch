@@ -1,11 +1,11 @@
---- icewm-1.0.8/po/Makefile.orig	Fri Apr 27 20:09:30 2001
-+++ icewm-1.0.8/po/Makefile	Fri Apr 27 20:10:19 2001
+--- ./po/Makefile.org	Thu Oct 11 02:21:25 2001
++++ ./po/Makefile	Thu Oct 11 02:22:19 2001
 @@ -18,10 +18,10 @@
  all: $(MOFILES)
  
  install: all
--	@echo Installing localized messages in $(LOCDIR)
-+	@echo Installing localized messages in $(DESTDIR)$(LOCDIR)
+-	@echo Installing message catalogues in $(LOCDIR)
++	@echo Installing message catalogues in $(DESTDIR)$(LOCDIR)
  	@for c in $(MOFILES); do \
  	  LANG=`echo $$c|sed -e 's/.mo//'` ; \
 -	  MSGDIR="$(LOCDIR)/$$LANG/LC_MESSAGES"; \
@@ -13,24 +13,24 @@
  	  echo Installing language: $$LANG ; \
  	  $(INSTALLDIR) $$MSGDIR; \
  	  $(INSTALLLIB) $$c $$MSGDIR/$(PACKAGE).mo; \
---- icewm-1.0.8/Makefile.in.orig	Fri Apr 27 20:10:53 2001
-+++ icewm-1.0.8/Makefile.in	Fri Apr 27 20:18:10 2001
-@@ -64,56 +64,56 @@
+--- ./Makefile.in.org	Thu Oct 11 02:22:32 2001
++++ ./Makefile.in	Thu Oct 11 02:27:57 2001
+@@ -70,57 +70,57 @@
  # Makefile TABS *SUCK*
  install-base: base
  	@echo ------------------------------------------
--	@echo Installing icewm in $(BINDIR)
+-	@echo "Installing binaries in $(BINDIR)"
 -	@$(INSTALLDIR) $(BINDIR)
-+	@echo Installing icewm in $(DESTDIR)$(BINDIR)
++	@echo "Installing binaries in $(DESTDIR)$(BINDIR)"
 +	@$(INSTALLDIR) $(DESTDIR)$(BINDIR)
  	@for app in $(BINFILES) ; do \
 -            $(INSTALLBIN) "$$app" $(BINDIR); \
 +            $(INSTALLBIN) "$$app" $(DESTDIR)$(BINDIR); \
          done
--	@echo Installing defaults, icons and themes in $(LIBDIR)
+-	@echo "Installing defaults, icons and themes in $(LIBDIR)"
 -	@$(INSTALLDIR) $(LIBDIR)
 -	@$(INSTALLDIR) $(CFGDIR)
-+	@echo Installing defaults, icons and themes in $(DESTDIR)$(LIBDIR)
++	@echo "Installing defaults, icons and themes in $(DESTDIR)$(LIBDIR)"
 +	@$(INSTALLDIR) $(DESTDIR)$(LIBDIR)
 +	@$(INSTALLDIR) $(DESTDIR)$(CFGDIR)
  	@for lib in $(LIBFILES) ; do \
@@ -47,8 +47,9 @@
  		done; \
  	    fi; \
          done
+ 	@echo ------------------------------------------
  	@for theme in $(THEMES) ; do \
-             echo Installing theme: $$theme; \
+             echo "Installing theme: $$theme"; \
 -            $(INSTALLDIR) $(LIBDIR)/themes/$$theme; \
 +            $(INSTALLDIR) $(DESTDIR)$(LIBDIR)/themes/$$theme; \
              for pixmap in lib/themes/$$theme/*.xpm; do \
@@ -65,10 +66,10 @@
 +		    $(INSTALLLIB) "$$fontfile" $(DESTDIR)$(LIBDIR)/themes/$$theme; \
  		done; \
  		if test -x "$(MKFONTDIR)"; then \
--		  pushd "$(LIBDIR)/themes/$$theme"; \
-+		  pushd "$(DESTDIR)$(LIBDIR)/themes/$$theme"; \
+-		  cwd=$$PWD; cd "$(LIBDIR)/themes/$$theme"; \
++		  cwd=$$PWD; cd "$(DESTDIR)$(LIBDIR)/themes/$$theme"; \
  		  $(MKFONTDIR); \
- 		  popd; \
+ 		  cd $$cwd; \
  		else \
  		  echo "WARNING: A dummy file has been copied to"; \
 -		  echo "         $(LIBDIR)/themes/$$theme/fonts.dir"; \
@@ -77,7 +78,7 @@
  		  echo "         --with-mkfontdir option of the configure script."; \
 -		  $(INSTALLLIB) "lib/themes/$$theme/fonts.dir.default" \
 -				"$(LIBDIR)/themes/$$theme/fonts.dir"; \
-+		  $(INSTALLLIB) "$(DESTDIR)lib/themes/$$theme/fonts.dir.default" \
++		  $(INSTALLLIB) "$(DESTDIR)/lib/themes/$$theme/fonts.dir.default" \
 +				"$(DESTDIR)$(LIBDIR)/themes/$$theme/fonts.dir"; \
  		fi; \
  	    fi; \
@@ -91,7 +92,7 @@
                      done;\
                  fi;\
              done;\
-@@ -122,11 +122,11 @@
+@@ -130,11 +130,11 @@
  
  install-docs: docs $(LSM)
  	@echo ------------------------------------------
@@ -99,25 +100,16 @@
 -	@$(INSTALLDIR) $(DOCDIR)/icewm-$(VERSION)
 -	@echo Installing documentation in $(DOCDIR); \
 -	cp $(DOCFILES) $(DOCDIR)/icewm-$(VERSION); \
--	cp -r doc/*.{sgml,html} $(DOCDIR)/icewm-$(VERSION)
+-	cp -r doc/*.sgml doc/*.html $(DOCDIR)/icewm-$(VERSION)
 +	@rm -fr $(DESTDIR)$(DOCDIR)/icewm-$(VERSION)
 +	@$(INSTALLDIR) $(DESTDIR)$(DOCDIR)/icewm-$(VERSION)
 +	@echo Installing documentation in $(DESTDIR)$(DOCDIR); \
 +	cp $(DOCFILES) $(DESTDIR)$(DOCDIR)/icewm-$(VERSION); \
-+	cp -r doc/*.{sgml,html} $(DESTDIR)$(DOCDIR)/icewm-$(VERSION)
++	cp -r doc/*.sgml doc/*.html $(DESTDIR)$(DOCDIR)/icewm-$(VERSION)
+ 	@echo ------------------------------------------
  
  install-nls: nls
- 	@echo ------------------------------------------
-@@ -134,12 +134,12 @@
- 
- install-%: %
- 	@echo ------------------------------------------
--	@echo Installing $* in $(BINDIR)
--	@$(INSTALLDIR) $(BINDIR)
--	@$(INSTALLBIN) src/$* $(BINDIR)
-+	@echo Installing $* in $(DESTDIR)$(BINDIR)
-+	@$(INSTALLDIR) $(DESTDIR)$(BINDIR)
-+	@$(INSTALLBIN) src/$* $(DESTDIR)$(BINDIR)
+@@ -144,7 +144,7 @@
  
  install-gnome: gnome
  	@echo ------------------------------------------
@@ -127,14 +119,15 @@
 +	@echo Installing icewm-gnome in $(DESTDIR)$(WMPROPDIR)
 +	@$(INSTALLDIR) $(DESTDIR)$(WMPROPDIR)
 +	@$(INSTALLLIB) lib/IceWM.desktop $(DESTDIR)$(WMPROPDIR)
---- icewm-1.0.8/configure.in.orig	Fri Apr 27 20:18:31 2001
-+++ icewm-1.0.8/configure.in	Fri Apr 27 20:19:13 2001
-@@ -75,7 +75,7 @@
+ 	@echo ------------------------------------------
+--- ./configure.in.org	Thu Oct 11 02:28:10 2001
++++ ./configure.in	Thu Oct 11 02:28:32 2001
+@@ -83,7 +83,7 @@
  AC_FUNC_SELECT_ARGTYPES
  
  dnl Configuring features
 -TARGETS='base docs'
 +TARGETS='base'
+ APPLICATIONS='genpref icewm icesh icewmhint icewmbg'
  
  dnl Checking for X11
- AC_PATH_XTRA
