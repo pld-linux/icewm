@@ -25,6 +25,7 @@ Patch4:		%{name}-config.patch
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
+BuildRequires:	libtool
 BuildRequires:	esound-devel
 BuildRequires:	gnome-libs-devel
 BuildRequires:	imlib-devel
