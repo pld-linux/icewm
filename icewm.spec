@@ -73,9 +73,7 @@ tar -xzf %{SOURCE7}
 cd ../..
 
 %build
-export LDFLAGS
 %configure \
-	--prefix=%{_prefix} \
 	--with-cfgdir=%{_sysconfdir} \
 	--with-docdir=%{_docdir} \
 	--enable-i18n \
