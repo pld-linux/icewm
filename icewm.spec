@@ -33,6 +33,7 @@ Source4:	IceWM.RunWM
 Source5:	IceWM.wm_style
 Source6:	http://dl.sourceforge.net/icewm/netscapeicons-0.2.tar.gz
 # Source6-md5:	409aa9b02adc11309ed546c5120c01d2
+Source7:	%{name}-xsession.desktop
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
@@ -135,7 +136,7 @@ rm -f missing
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_pixmapsdir},%{_wmstyledir}} \
+install -d $RPM_BUILD_ROOT{%{_datadir}/xsessions,%{_pixmapsdir},%{_wmstyledir}} \
 	$RPM_BUILD_ROOT{%{_applnkdir}/Settings/IceWM,%{_wmpropsdir},%{_sysconfdir}/X11/%{name}}
 
 %{__make} install \
@@ -143,8 +144,9 @@ install -d $RPM_BUILD_ROOT{%{_pixmapsdir},%{_wmstyledir}} \
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_applnkdir}/Settings/IceWM/.directory
-install %{SOURCE4} $RPM_BUILD_ROOT%{_wmstyledir}/IceWM.sh
-install %{SOURCE5} $RPM_BUILD_ROOT%{_wmstyledir}/IceWM.names
+install %{SOURCE4} $RPM_BUILD_ROOT%{_wmstyledir}/%{name}.sh
+install %{SOURCE5} $RPM_BUILD_ROOT%{_wmstyledir}/%{name}.names
+install %{SOURCE7} $RPM_BUILD_ROOT%{_datadir}/xsesions/%{name}.desktop
 install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/keys
 install lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/preferences
 install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/toolbar
@@ -184,11 +186,12 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %dir %{_datadir}/icewm/themes
 %{_datadir}/icewm/themes/Infadel2
 %{_datadir}/icewm/themes/icedesert
+%{_datadir}/xsessions/%{name}.desktop
 %dir %{_applnkdir}/Settings/IceWM
 %{_applnkdir}/Settings/IceWM/.directory
 %{_wmpropsdir}/*
-%attr(755,root,root) %{_wmstyledir}/IceWM.sh
-%attr(644,root,root) %{_wmstyledir}/IceWM.names
+%{_wmstyledir}/%{name}.names
+%attr(755,root,root) %{_wmstyledir}/%{name}.sh
 
 %files themes-base
 %defattr(644,root,root,755)
