@@ -4,7 +4,7 @@
 # - bigger menu-file
 #
 Summary:	IceWM X11 Window Manager
-Summary(pl):	IceWM - Mened¿er okienek X11
+Summary(pl):	IceWM - mened¿er okienek X11
 Name:		icewm
 Version:	1.0.9
 Release:	5
@@ -56,19 +56,19 @@ roboczych, paski narzêdziowe, status skrzynki z poczt±, cyfrowy zegar.
 Jest przy tym ma³y i szybki.
 
 %package themes-base
-Summary:	Pack of themes for icewm
-Summary(pl):	Zestaw tematów dla icewm
+Summary:	Pack of themes for IceWM
+Summary(pl):	Zestaw tematów dla IceWM
 Group:		Themes
 Group(de):	Themen
 Group(pl):	Motywy
 Requires:	icewm
 
 %description themes-base
-Standard pack of themes delivered with icewm. All of them made by
+Standard pack of themes delivered with IceWM. All of them made by
 Marko Macek: gtk2, metal2, motif, nice, warp3, warp4, win95
 
 %description themes-base -l pl
-Standardowy zestaw tematów dla IceWM'a, dostarczany wraz nim.
+Standardowy zestaw tematów dla IceWMa, dostarczany wraz nim.
 Wszystkie stworzone przez Marko Macek: gtk2, metal2, motif, nice,
 warp3, warp4, win95
 
