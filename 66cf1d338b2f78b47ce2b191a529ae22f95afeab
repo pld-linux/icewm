@@ -1,0 +1,2 @@
+- added using %{__*} macros,
+- added %{_libdir}/X11/icewm/themes to the package contents.
