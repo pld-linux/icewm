@@ -1,11 +1,11 @@
 #
 # Conditional build:
-# _with_gradients	- enable gradients (implies _with_antialiasing)
-# _without_antialiasing	- disable antialiasing
-# _without_freetype	- disable xfreetype support (implies _without_antialiasing)
-# _without_guievents	- disable guievents
-# _with_gnome		- enable GNOME support
-# _without_imlib	- disable imlib support
+%bcond_with	gradients	# enable gradients (implies with_antialiasing)
+%bcond_without	antialiasing	# disable antialiasing
+%bcond_without	freetype	# disable xfreetype support (implies !with_antialiasing)
+%bcond_without	guievents	# disable guievents
+%bcond_with	gnome		# enable GNOME support
+%bcond_without	imlib		# disable imlib support
 #
 # TODO:
 # - make a PLD-theme - default :]
@@ -20,7 +20,7 @@ Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
 Version:	1.2.14
 %define _pre pre9
-Release:	1.%{_pre}.1
+Release:	1.%{_pre}.2
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
@@ -41,14 +41,14 @@ Patch2:		%{name}-link_with_g++.patch
 Patch3:		%{name}-showdesktopkey.patch
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
-%{!?_without_guievents:BuildRequires:	esound-devel}
+%{?with_guievents:BuildRequires:	esound-devel}
 BuildRequires:	gettext-devel
-%{?_with_gnome:BuildRequires:	gnome-desktop-devel}
-%{!?_without_imlib:BuildRequires:	imlib-devel}
+%{?with_gnome:BuildRequires:	gnome-desktop-devel}
+%{?with_imlib:BuildRequires:	imlib-devel}
 BuildRequires:	libstdc++-devel
-%{!?_without_freetype:BuildRequires:	xft-devel >= 2.1}
+%{?with_freetype:BuildRequires:	xft-devel >= 2.1}
 BuildRequires:	yiff-devel
 Requires(pre):	fileutils
 Requires(pre):	sh-utils
@@ -123,23 +123,25 @@ nice2, warp3, warp4, win95.
 %patch2 -p1
 %patch3 -p1
 
+mv -f po/{no,nb}.po
+mv -f po/{zh_TW.Big5,zh_TW}.po
+
 cd lib/icons
 tar -xzf %{SOURCE3}
 tar -xzf %{SOURCE6}
 
 %build
-rm -f missing
 cp -f /usr/share/automake/config.sub .
 %{__aclocal}
 %{__autoconf}
 %{__autoheader}
 %configure \
-	%{?_with_gradients:--enable-gradients} \
-	%{!?_without_antialiasing:--enable-antialiasing} \
-	%{?_without_freetype:--disable-xfreetype} \
-	%{!?_without_guievents:--enable-guievents} \
-	%{?_with_gnome:--enable-menus-gnome} \
-	%{?_without_imlib:--without-imlib} \
+	%{?with_gradients:--enable-gradients} \
+	%{?with_antialiasing:--enable-antialiasing} \
+	%{!?with_freetype:--disable-xfreetype} \
+	%{?with_guievents:--enable-guievents} \
+	%{?with_gnome:--enable-menus-gnome} \
+	%{!?with_imlib:--without-imlib} \
 	--enable-shaped-decorations \
 	--with-cfgdir=%{_sysconfdir}/X11/%{name} \
 	--with-docdir=%{_docdir}
@@ -167,7 +169,7 @@ echo %{_bindir}/icewmbg > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/startup
 
 ln -s %{_datadir}/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
 
-%if 0%{?_with_gnome:1}
+%if %{with gnome}
 echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm icewm-menu-gnome2 --list \"%{_applnkdir}\"" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
 %else
 echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm wmconfig --output icewm" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
