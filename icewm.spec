@@ -1,12 +1,13 @@
 Summary:	IceWM X11 Window Manager
 Summary(pl):	IceWM - Mened¿er okienek X11
 Name:		icewm
-Version:	1.0.0
+Version:	1.0.1
 Release:	1
 License:	GPL
 Group:		X11/Window Managers
 Group(pl):	X11/Zarz±dcy Okien
 Source:		http://download.sourceforge.net/icewm/%{name}-%{version}.src.tar.gz
+Source1:	IceWM.desktop
 URL:		http://icewm.sourceforge.net/
 BuildRequires:	imlib-devel
 BuildRequires:	libjpeg-devel
@@ -49,11 +50,15 @@ make PREFIX=/usr/X11R6 optimize="$RPM_OPT_FLAGS"
 %install
 rm -rf $RPM_BUILD_ROOT
 
+install -d $RPM_BUILD_ROOT%{_datadir}/gnome/wm-properties
+
 make install \
 	PREFIX=$RPM_BUILD_ROOT%{_prefix} \
 	BINDIR=$RPM_BUILD_ROOT%{_bindir} \
 	LIBDIR=$RPM_BUILD_ROOT%{_libdir}/X11/icewm \
 	ETCDIR=$RPM_BUILD_ROOT%{_sysconfdir}
+
+install %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/gnome/wm-properties
 
 gzip -9nf README CHANGES TODO BUGS
 
@@ -63,6 +68,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc {README,CHANGES,TODO,BUGS}.gz doc/*.html
+%attr(755,root,root) %{_bindir}/*
 %dir %{_sysconfdir}
 %{_libdir}/X11/icewm
-%attr(755,root,root) %{_bindir}/*
+%{_datadir}/gnome/wm-properties/*
