@@ -1,0 +1,4 @@
+- more macros (use %%{_applnkdir} macro),
+- removed COPYING, INSTALL, VERSION from %doc (these files aren't realy
+  neccessary :)),
+- a few cosmetics.
