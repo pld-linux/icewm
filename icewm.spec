@@ -197,8 +197,8 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %{_datadir}/icewm/themes/icedesert
 %{_datadir}/xsessions/%{name}.desktop
 %{_wmpropsdir}/*
-%{_wmstyledir}/%{name}.names
-%attr(755,root,root) %{_wmstyledir}/%{name}.sh
+%{_wmstyledir}/%{name}-session.names
+%attr(755,root,root) %{_wmstyledir}/%{name}-session.sh
 
 %files themes-base
 %defattr(644,root,root,755)
