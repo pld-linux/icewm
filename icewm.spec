@@ -37,7 +37,7 @@ BuildRequires:	XFree86-devel
 %{!?_without_gnome:BuildRequires:	gnome-libs-devel}
 %{!?_without_imlib:BuildRequires:	imlib-devel}
 BuildRequires:	libstdc++-devel
-BuildRequires:	Xft-devel
+%{!?_without_freetype:BuildRequires:	Xft-devel >= 2.1}
 Requires(pre):	fileutils
 Requires(pre):	sh-utils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
