@@ -23,8 +23,8 @@ Release:	0.2
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
-Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}pre1.tar.gz
-# Source0-md5:	12dcbab8083a800354b1974c278581d9
+Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}pre2.tar.gz
+# Source0-md5:	795c4e613f9866af4b2b51f881b4f68c
 Source1:	IceWM.desktop
 Source2:	%{name}.directory
 Source3:	http://dl.sourceforge.net/icewm/iceicons-0.6.tar.gz
@@ -113,7 +113,7 @@ Wszystkie stworzone przez Marko Macka: gtk2, metal2, motif, nice,
 nice2, warp3, warp4, win95.
 
 %prep
-%setup -q -n %{name}-%{version}pre1
+%setup -q -n %{name}-%{version}pre2
 %patch0 -p1
 %patch1 -p1
 
