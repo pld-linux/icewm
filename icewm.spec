@@ -20,17 +20,10 @@ Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-menu.patch
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
-BuildRequires:	autoconf
-BuildRequires:	libtool
 BuildRequires:	esound-devel
 BuildRequires:	gnome-libs-devel
 BuildRequires:	imlib-devel
-BuildRequires:	libjpeg-devel
-BuildRequires:	libpng >= 1.0.8
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtiff-devel
-BuildRequires:	libungif-devel
-BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -72,7 +65,7 @@ win95
 %patch1 -p1
 
 cd lib/icons
-tar -xvf %{SOURCE3}
+tar -zxf %{SOURCE3}
 cd ../../
 
 %build
@@ -86,15 +79,14 @@ export LDFLAGS
 	--enable-xfreetype \
 	--with-gnome-menus \
 	--with-imlib
-
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_wmstyledir},%{_applnkdir}/Settings/IceWM,%{_wmpropsdir}}
+install -d $RPM_BUILD_ROOT{%{_wmstyledir},%{_pixmapsdir}/icewm} \
+	$RPM_BUILD_ROOT{%{_applnkdir}/Settings/IceWM,%{_wmpropsdir}}
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+%{__make} install DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_applnkdir}/Settings/IceWM/.directory
@@ -106,10 +98,9 @@ install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/winoptions
 install %{SOURCE4} $RPM_BUILD_ROOT%{_wmstyledir}/IceWM.sh
 install %{SOURCE5} $RPM_BUILD_ROOT%{_wmstyledir}/IceWM.names
 
-
-#mv -f %{_libdir}/X11/icewm/icons/* %{_pixmapsdir}/icewm/
-#rm -rf %{_libdir}/X11/icewm/icons
-#ln -s %{_pixmapsdir}/icewm $RPM_BUILD_ROOT%{_libdir}/X11/icewm/icons
+mv -f $RPM_BUILD_ROOT%{_libdir}/X11/icewm/icons/* $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
+rm -rf $RPM_BUILD_ROOT%{_libdir}/X11/icewm/icons
+ln -s %{_pixmapsdir}/icewm $RPM_BUILD_ROOT%{_libdir}/X11/icewm/icons
 
 gzip -9nf BUGS CHANGES FAQ PLATFORMS README TODO icewm.lsm
 
@@ -127,6 +118,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_applnkdir}/Settings/IceWM
 %{_applnkdir}/Settings/IceWM/.directory
 %{_wmpropsdir}/*
+%{_pixmapsdir}/icewm
 %dir %{_libdir}/X11/icewm
 %{_libdir}/X11/icewm/icons
 %{_libdir}/X11/icewm/ledclock
