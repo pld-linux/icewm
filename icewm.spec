@@ -35,7 +35,6 @@ Source6:	http://dl.sourceforge.net/icewm/netscapeicons-0.2.tar.gz
 # Source6-md5:	409aa9b02adc11309ed546c5120c01d2
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
-BuildRequires:	XFree86-xrender-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{!?_without_guievents:BuildRequires:	esound-devel}
