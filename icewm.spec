@@ -27,9 +27,8 @@ BuildRequires:	libstdc++-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
-%define		_sysconfdir	/etc
+%define		_sysconfdir	/etc/X11/icewm/
 %define		_wmpropsdir	%{_datadir}/wm-properties
-%define		_localesdir	%{_prefix}/share/locale
 
 %description
 Window Manager for X Window System. Can emulate the look of
@@ -44,7 +43,7 @@ powy¿szych ¶rodowiskach, jak: wiele jednocze¶nie obecnych przestrzeni
 roboczych, paski narzêdziowe, status skrzynki z poczt±, cyfrowy zegar.
 Jest przy tym ma³y i szybki.
 
-%prep
+%prep -q
 %setup -q
 %patch0 -p1
 %patch1 -p1
@@ -53,6 +52,7 @@ Jest przy tym ma³y i szybki.
 autoconf
 %configure \
 	--with-shape \
+	--with-docdir=/usr/share/doc \
 	--with-sm \
 	--with-imlib \
 	--with-gnome \
@@ -74,11 +74,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__install} %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
 %{__install} %{SOURCE2} $RPM_BUILD_ROOT%{_applnkdir}/Settings/IceWM/.directory
-%{__install} lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/keys
-%{__install} lib/menu $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/menu
-%{__install} lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/toolbar
-%{__install} lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/preferences
-%{__install} lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/winoptions
+%{__install} lib/keys $RPM_BUILD_ROOT%{_sysconfdir}keys
+%{__install} lib/menu $RPM_BUILD_ROOT%{_sysconfdir}menu
+%{__install} lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}toolbar
+%{__install} lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}preferences
+%{__install} lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}winoptions
 
 gzip -9nf README CHANGES TODO BUGS COPYING FAQ INSTALL icewm.lsm PLATFORMS VERSION
 
@@ -96,6 +96,5 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_applnkdir}/Settings/IceWM
 %{_applnkdir}/Settings/IceWM/.directory
 %{_wmpropsdir}/*
-#%{_localesdir}/*
 %dir %{_libdir}/X11/icewm
 %{_libdir}/X11/icewm/*
