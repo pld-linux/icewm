@@ -21,17 +21,17 @@ Patch0:		icewm-DESTDIR.patch
 Patch1:		%{name}-time.patch
 Patch2:		%{name}-menu.patch
 URL:		http://www.icewm.org/
+BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
+BuildRequires:	esound-devel
+BuildRequires:	gnome-libs-devel
 BuildRequires:	imlib-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng >= 1.0.8
+BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libungif-devel
-BuildRequires:	XFree86-devel
 BuildRequires:	zlib-devel
-BuildRequires:	gnome-libs-devel
-BuildRequires:	libstdc++-devel
-BuildRequires:	esound-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -51,20 +51,20 @@ powy¿szych ¶rodowiskach, jak: wiele jednocze¶nie obecnych przestrzeni
 roboczych, paski narzêdziowe, status skrzynki z poczt±, cyfrowy zegar.
 Jest przy tym ma³y i szybki.
 
-%package -n %{name}-themes-base
-Summary:        Pack of themes for icewm
-Summary(pl):    Zestaw tematów dla icewm
+%package themes-base
+Summary:	Pack of themes for icewm
+Summary(pl):	Zestaw tematów dla icewm
 Group:		Themes
 Group(de):	Themen
 Group(pl):	Motywy
 Requires:	icewm
 
-%description -n %{name}-themes-base
+%description themes-base
 Standard pack of themes delivered with icewm.
 All of them made by Marko Macek:
 gtk2, metal2, motif, nice, warp3, warp4, win95
 
-%description -n %{name}-themes-base -l pl
+%description themes-base -l pl
 Standardowy zestaw tematów dla IceWM'a, dostarczany wraz nim.
 Wszystkie stworzone przez Marko Macek:
 gtk2, metal2, motif, nice, warp3, warp4, win95
@@ -80,7 +80,7 @@ tar -xvf %{SOURCE3}
 cd ../../
 
 %build
-autoconf
+%{__autoconf}
 %configure \
 	--with-shape \
 	--with-docdir=/usr/share/doc \
@@ -92,12 +92,12 @@ autoconf
 	--with-i18n \
 	--enable-nls \
 	--enable-guievents \
-	--with-imlib 
+	--with-imlib
 
 %{__make}
 
 %install
-rm -rf $RPM_BUILD_ROOT
+%{__rm} -rf $RPM_BUILD_ROOT
 %{__install} -d $RPM_BUILD_ROOT{%{_wmpropsdir},%{_applnkdir}/Settings/IceWM}
 
 %{__make} install \
@@ -111,19 +111,18 @@ rm -rf $RPM_BUILD_ROOT
 %{__install} lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/preferences
 %{__install} lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/winoptions
 
-gzip -9nf README CHANGES TODO BUGS FAQ icewm.lsm PLATFORMS
+%{__gzip} -9nf BUGS CHANGES FAQ PLATFORMS README TODO icewm.lsm
 
 %find_lang %{name}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+%{__rm} -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*
 %doc *.gz doc/*.*ml
 %attr(755,root,root) %{_bindir}/*
-%attr(644,root,root)
+%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/*
 %dir %{_applnkdir}/Settings/IceWM
 %{_applnkdir}/Settings/IceWM/.directory
 %{_wmpropsdir}/*
@@ -132,9 +131,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/X11/icewm/ledclock
 %{_libdir}/X11/icewm/mailbox
 %{_libdir}/X11/icewm/taskbar
+%dir %{_libdir}/X11/icewm/themes
 %{_libdir}/X11/icewm/themes/Infadel2
 
-%files -n %{name}-themes-base
+%files themes-base
 %defattr(644,root,root,755)
 %{_libdir}/X11/icewm/themes/gtk2
 %{_libdir}/X11/icewm/themes/metal2
