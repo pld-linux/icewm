@@ -93,7 +93,10 @@ export LDFLAGS
 	--with-i18n \
 	--enable-nls \
 	--enable-guievents \
-	--with-imlib
+	--with-imlib \
+	--enable-gradients \
+	--enable-antialiasing \
+	--enable-xfreetype 
 
 %{__make}
 
