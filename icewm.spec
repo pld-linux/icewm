@@ -16,11 +16,10 @@ Source2:	%{name}.directory
 Source3:	ftp://download.sourceforge.net/pub/sourceforge/icewm/iceicons-0.6.tar.gz
 Source4:	IceWM.RunWM
 Source5:	IceWM.wm_style
+Source6:	%{name}-menu
 Patch0:		%{name}-DESTDIR.patch
-Patch1:		%{name}-menu.patch
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
-BuildRequires:	esound-devel
 BuildRequires:	gnome-libs-devel
 BuildRequires:	imlib-devel
 BuildRequires:	libstdc++-devel
@@ -52,21 +51,20 @@ Requires:	icewm
 
 %description themes-base
 Standard pack of themes delivered with IceWM. All of them made by
-Marko Macek: gtk2, metal2, motif, nice, warp3, warp4, win95
+Marko Macek: gtk2, metal2, motif, nice, warp3, warp4, win95.
 
 %description themes-base -l pl
 Standardowy zestaw tematów dla IceWMa, dostarczany wraz nim. Wszystkie
 stworzone przez Marko Macek: gtk2, metal2, motif, nice, warp3, warp4,
-win95
+win95.
 
 %prep -q
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 cd lib/icons
 tar -zxf %{SOURCE3}
-cd ../../
+cd ../..
 
 %build
 export LDFLAGS
@@ -90,19 +88,19 @@ install -d $RPM_BUILD_ROOT{%{_wmstyledir},%{_pixmapsdir}/icewm} \
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_applnkdir}/Settings/IceWM/.directory
+install %{SOURCE4} $RPM_BUILD_ROOT%{_wmstyledir}/IceWM.sh
+install %{SOURCE5} $RPM_BUILD_ROOT%{_wmstyledir}/IceWM.names
+install %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/menu
 install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/keys
-install lib/menu $RPM_BUILD_ROOT%{_sysconfdir}/menu
 install lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/preferences
 install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/toolbar
 install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/winoptions
-install %{SOURCE4} $RPM_BUILD_ROOT%{_wmstyledir}/IceWM.sh
-install %{SOURCE5} $RPM_BUILD_ROOT%{_wmstyledir}/IceWM.names
 
 mv -f $RPM_BUILD_ROOT%{_libdir}/X11/icewm/icons/* $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
 rm -rf $RPM_BUILD_ROOT%{_libdir}/X11/icewm/icons
 ln -s %{_pixmapsdir}/icewm $RPM_BUILD_ROOT%{_libdir}/X11/icewm/icons
 
-gzip -9nf BUGS CHANGES FAQ PLATFORMS README TODO icewm.lsm
+gzip -9nf BUGS CHANGES FAQ PLATFORMS README* TODO icewm.lsm
 
 %find_lang %{name}
 
