@@ -2,7 +2,7 @@ Summary:	IceWM X11 Window Manager
 Summary(pl):	IceWM - Mened¿er okienek X11
 Name:		icewm
 Version:	1.0.7
-Release:	2
+Release:	3
 License:	GPL
 Group:		X11/Window Managers
 Group(es):	X11/Administraadores De Ventanas
@@ -26,7 +26,7 @@ BuildRequires:	libstdc++-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
-%define		_sysconfdir	/etc/X11/icewm
+%define		_sysconfdir	/etc
 
 %description
 Window Manager for X Window System. Can emulate the look of
@@ -57,7 +57,7 @@ autoconf
 	--with-i18n \
 	--enable-nls \
 	--enable-guievents \
-	--with-imlib
+	--with-imlib 
 
 %{__make}
 
@@ -69,11 +69,11 @@ install -d $RPM_BUILD_ROOT%{_datadir}/gnome/wm-properties
 	DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/gnome/wm-properties
-install lib/keys $RPM_BUILD_ROOT/etc/X11/icewm/keys
-install lib/menu $RPM_BUILD_ROOT/etc/X11/icewm/menu
-install lib/toolbar $RPM_BUILD_ROOT/etc/X11/icewm/toolbar
-install lib/preferences $RPM_BUILD_ROOT/etc/X11/icewm/preferences
-install lib/winoptions $RPM_BUILD_ROOT/etc/X11/icewm/winoptions
+install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/keys
+install lib/menu $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/menu
+install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/toolbar
+install lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/preferences
+install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/winoptions
 
 gzip -9nf README CHANGES TODO BUGS
 
@@ -83,10 +83,10 @@ gzip -9nf README CHANGES TODO BUGS
 rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
-%config(noreplace) %verify(not md5 mtime size) /etc/X11/icewm/*
 %defattr(644,root,root,755)
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*
 %doc {README,CHANGES,TODO,BUGS}.gz doc/*.html
 %attr(755,root,root) %{_bindir}/*
-%dir %{_sysconfdir}
 %{_libdir}/X11/icewm
+%{__sysconfdir}/X11/icewm
 %{_datadir}/gnome/wm-properties/*
