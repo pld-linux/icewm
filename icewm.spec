@@ -7,7 +7,7 @@ Summary:	IceWM X11 Window Manager
 Summary(pl):	IceWM - Mened¿er okienek X11
 Name:		icewm
 Version:	1.0.9
-Release:	1
+Release:	2
 License:	LGPL
 Group:		X11/Window Managers
 Group(de):	X11/Fenstermanager
@@ -18,6 +18,8 @@ Source0:	ftp://download.sourceforge.net/pub/sourceforge/icewm/%{name}-%{version}
 Source1:	IceWM.desktop
 Source2:	%{name}.directory
 Source3:	ftp://download.sourceforge.net/pub/sourceforge/icewm/iceicons-0.6.tar.gz
+Source4:	IceWM.RunWM
+Source5:	IceWM.wm_style
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-menu.patch
 URL:		http://www.icewm.org/
@@ -38,6 +40,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_prefix		/usr/X11R6
 %define		_sysconfdir	/etc/X11/icewm/
 %define		_wmpropsdir	%{_datadir}/wm-properties
+%define		_wmstyledir	/etc/sysconfig/wmstyle
 
 %description
 Window Manager for X Window System. Can emulate the look of
@@ -101,7 +104,7 @@ export LDFLAGS
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_wmpropsdir},%{_applnkdir}/Settings/IceWM}
+install -d $RPM_BUILD_ROOT{%{_wmpropsdir},%{_applnkdir}/Settings/IceWM,%{_wmstyledir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -113,6 +116,9 @@ install lib/menu $RPM_BUILD_ROOT%{_sysconfdir}/menu
 install lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/preferences
 install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}toolbar
 install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/winoptions
+install %{SOURCE4} $RPM_BUILD_ROOT%{_wmstyledir}/IceWM.sh
+install %{SOURCE5} $RPM_BUILD_ROOT%{_wmstyledir}/IceWM.names
+
 
 #mv -f %{_libdir}/X11/icewm/icons/* %{_pixmapsdir}/icewm/
 #rm -rf %{_libdir}/X11/icewm/icons
@@ -140,6 +146,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/X11/icewm/taskbar
 %dir %{_libdir}/X11/icewm/themes
 %{_libdir}/X11/icewm/themes/Infadel2
+%attr(755,root,root)/etc/sysconfig/wmstyle/IceWM.sh
+%attr(644,root,root)/etc/sysconfig/wmstyle/IceWM.names
 
 %files themes-base
 %defattr(644,root,root,755)
