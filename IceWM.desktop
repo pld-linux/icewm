@@ -4,10 +4,11 @@ Name[ca]=Gestor Ice
 Name[da]=IceWM
 Name[gl]=IceWM
 Name[ko]=Ice WM
-Name[no]=Ice vindushÂndterer
-Name[pl]=Menedøer okien Ice (IceWM)
+Name[no]=Ice vindush√•ndterer
+Name[pl]=Mened≈ºer okien Ice (IceWM)
 Exec=icewm
 TryExec=icewm
 
 [Window Manager]
 SessionManaged=true
+# vi: encoding=utf-8
