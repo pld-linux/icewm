@@ -20,7 +20,7 @@ Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
 Version:	1.2.10
-Release:	0.%{_pre}
+Release:	0.%{_pre}.1
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
@@ -150,6 +150,8 @@ install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/keys
 install lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/preferences
 install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/toolbar
 install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/winoptions
+echo %{_bindir}/icewmbg > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/startup
+:> $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/restart
 
 ln -s %{_datadir}/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
 
@@ -172,7 +174,8 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %doc AUTHORS BUGS CHANGES PLATFORMS README* TODO icewm.lsm doc/*.html
 %attr(755,root,root) %{_bindir}/*
 %dir %{_sysconfdir}/X11/%{name}
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/X11/%{name}/*
+%config(noreplace,missingok) %verify(not md5 size mtime) %{_sysconfdir}/X11/%{name}/[!rs]*
+%config(noreplace,missingok) %verify(not md5 size mtime) %attr(755,root,root) %{_sysconfdir}/X11/%{name}/[rs]*
 %{_pixmapsdir}/icewm
 %dir %{_datadir}/icewm
 %{_datadir}/icewm/icons
