@@ -1,8 +1,8 @@
 Summary:	IceWM X11 Window Manager
 Summary(pl):	IceWM - Mened¿er okienek X11
 Name:		icewm
-Version:	1.0.4
-Release:	2
+Version:	1.0.5
+Release:	1
 License:	GPL
 Group:		X11/Window Managers
 Group(es):	X11/Administraadores De Ventanas
@@ -10,7 +10,9 @@ Group(fr):	X11/Gestionnaires De Fenêtres
 Group(pl):	X11/Zarz±dcy Okien
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/icewm/%{name}-%{version}.src.tar.gz
 Source1:	IceWM.desktop
+Patch0:		icewm-DESTDIR.patch
 URL:		http://icewm.sourceforge.net/
+BuildRequires:	autoconf
 BuildRequires:	imlib-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng >= 1.0.8
@@ -38,8 +40,10 @@ Jest przy tym ma³y i szybki.
 
 %prep
 %setup -q
+%patch -p1
 
 %build
+autoconf
 %configure \
 	--with-shape \
 	--with-sm \
@@ -47,17 +51,14 @@ Jest przy tym ma³y i szybki.
 	--with-gnome \
 	--with-i18n
 
-%{__make} PREFIX=%{_prefix} optimize="$RPM_OPT_FLAGS"
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_datadir}/gnome/wm-properties
 
 %{__make} install \
-	PREFIX=$RPM_BUILD_ROOT%{_prefix} \
-	BINDIR=$RPM_BUILD_ROOT%{_bindir} \
-	LIBDIR=$RPM_BUILD_ROOT%{_libdir}/X11/icewm \
-	ETCDIR=$RPM_BUILD_ROOT%{_sysconfdir}
+	DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/gnome/wm-properties
 
