@@ -7,7 +7,7 @@ Summary:	IceWM X11 Window Manager
 Summary(pl):	IceWM - mened¿er okienek X11
 Name:		icewm
 Version:	1.0.9
-Release:	8
+Release:	9
 License:	LGPL
 Group:		X11/Window Managers
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/icewm/%{name}-%{version}-2.tar.bz2
@@ -85,7 +85,7 @@ export LDFLAGS
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_wmstyledir},%{_pixmapsdir}/icewm} \
+install -d $RPM_BUILD_ROOT{%{_wmstyledir},%{_pixmapsdir}} \
 	$RPM_BUILD_ROOT{%{_applnkdir}/Settings/IceWM,%{_wmpropsdir}}
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
@@ -100,9 +100,7 @@ install lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/preferences
 install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/toolbar
 install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/winoptions
 
-mv -f $RPM_BUILD_ROOT%{_libdir}/X11/icewm/icons/* $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
-rm -rf $RPM_BUILD_ROOT%{_libdir}/X11/icewm/icons
-ln -s %{_pixmapsdir}/icewm $RPM_BUILD_ROOT%{_libdir}/X11/icewm/icons
+ln -s %{_libdir}/X11/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
 
 gzip -9nf BUGS CHANGES FAQ PLATFORMS README* TODO icewm.lsm
 
@@ -112,7 +110,7 @@ gzip -9nf BUGS CHANGES FAQ PLATFORMS README* TODO icewm.lsm
 rm -rf $RPM_BUILD_ROOT
 
 %pre
-test -h %{_libdir}/X11/icewm/icons || rm -rf %{_libdir}/X11/icewm/icons
+test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
