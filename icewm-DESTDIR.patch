@@ -1,17 +1,16 @@
 diff -urN icewm-1.0.6.org/Makefile.in icewm-1.0.6/Makefile.in
---- icewm-1.0.6.org/Makefile.in	Wed Jan 17 19:04:09 2001
-+++ icewm-1.0.6/Makefile.in	Wed Jan 17 19:54:39 2001
+--- icewm-1.0.6.org/Makefile.in	Wed Jan 17 20:34:20 2001
++++ icewm-1.0.6/Makefile.in	Wed Jan 17 20:35:33 2001
 @@ -67,37 +67,37 @@
  # Makefile TABS *SUCK*
  install-base: base
  	@echo ------------------------------------------
 -	@echo Installing icewm to $(BINDIR)
 -	@$(INSTALLDIR) $(BINDIR)
--	@for app in $(BINFILES) ; do \
--            $(INSTALLBIN) $$app $(BINDIR); \
 +	@echo Installing icewm to $(DESTDIR)$(BINDIR)
 +	@$(INSTALLDIR) $(DESTDIR)$(BINDIR)
-+	@for app in $(DESTDIR)$(BINFILES) ; do \
+ 	@for app in $(BINFILES) ; do \
+-            $(INSTALLBIN) $$app $(BINDIR); \
 +            $(INSTALLBIN) $$app $(DESTDIR)$(BINDIR); \
          done
 -	@echo Installing defaults, icons and themes to $(LIBDIR)
@@ -89,8 +88,8 @@ diff -urN icewm-1.0.6.org/Makefile.in icewm-1.0.6/Makefile.in
 +	@$(INSTALLDIR) $(DESTDIR)$(WMPROPDIR)
 +	@$(INSTALLLIB) lib/IceWM.desktop $(DESTDIR)$(WMPROPDIR)
 diff -urN icewm-1.0.6.org/configure.in icewm-1.0.6/configure.in
---- icewm-1.0.6.org/configure.in	Wed Jan 17 19:04:10 2001
-+++ icewm-1.0.6/configure.in	Wed Jan 17 19:06:15 2001
+--- icewm-1.0.6.org/configure.in	Wed Jan 17 20:34:20 2001
++++ icewm-1.0.6/configure.in	Wed Jan 17 20:34:27 2001
 @@ -66,7 +66,7 @@
  AC_FUNC_SELECT_ARGTYPES
  
@@ -101,8 +100,8 @@ diff -urN icewm-1.0.6.org/configure.in icewm-1.0.6/configure.in
  dnl Checking for X11
  AC_PATH_XTRA
 diff -urN icewm-1.0.6.org/po/Makefile icewm-1.0.6/po/Makefile
---- icewm-1.0.6.org/po/Makefile	Wed Jan 17 19:04:10 2001
-+++ icewm-1.0.6/po/Makefile	Wed Jan 17 20:05:49 2001
+--- icewm-1.0.6.org/po/Makefile	Wed Jan 17 20:34:20 2001
++++ icewm-1.0.6/po/Makefile	Wed Jan 17 20:34:27 2001
 @@ -23,8 +23,8 @@
  	  LANG=`echo $$c|sed -e 's/.mo//'` ; \
  	  MSGDIR="$(LOCDIR)/$$LANG/LC_MESSAGES"; \
