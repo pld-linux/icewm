@@ -51,6 +51,7 @@ BuildRequires:	yiff-devel
 Requires(pre):	fileutils
 Requires(pre):	sh-utils
 Requires:	vfmg
+Requires:	xinitrc-ng
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_wmstyledir	/etc/sysconfig/wmstyle
