@@ -19,7 +19,7 @@ Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
 Version:	1.2.16
 #%define _pre pre1
-Release:	1
+Release:	2
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
