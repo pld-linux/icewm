@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_with	gradients	# enable gradients (implies with_antialiasing)
+%bcond_without	gradients	# enable gradients (implies with_antialiasing)
 %bcond_without	antialiasing	# disable antialiasing
 %bcond_without	freetype	# disable xfreetype support (implies !with_antialiasing)
 %bcond_without	guievents	# disable guievents
