@@ -1,8 +1,8 @@
 [Desktop Entry]
 Encoding=UTF-8
 Type=XSession
-Exec=icewm
-TryExec=icewm
+Exec=icewm-session
+TryExec=icewm-session
 Name=IceWM
 Name[af]=Icewm
 Name[lo]=ຕົວຈັດການຫນ້າຕ່າງ IceWM
