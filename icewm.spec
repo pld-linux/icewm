@@ -1,7 +1,7 @@
 Summary:	IceWM X11 Window Manager
 Summary(pl):	IceWM - Mened¿er okienek X11
 Name:		icewm
-Version:	0.9.35
+Version:	0.9.37
 Release:	1
 Copyright:	GPL
 Group:		X11/Window Managers
@@ -42,6 +42,7 @@ make install \
 	ETCDIR=$RPM_BUILD_ROOT/etc/X11/icewm
 
 gzip -9nf README CHANGES TODO BUGS
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
