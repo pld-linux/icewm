@@ -11,7 +11,6 @@
 # - make a PLD-theme - default :]
 # - bigger menu-file
 #
-%define		_pre		pre1
 
 Summary:	IceWM X11 Window Manager
 Summary(es):	Administrador de Ventanas X11
@@ -21,26 +20,26 @@ Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
 Version:	1.2.3
-Release:	%{_pre}.1
+Release:	1
 Epoch:		1
 License:	LGPL
 Group:		X11/Window Managers
-Source0:	http://prdownloads.sourceforge.net/icewm/%{name}-%{version}%{_pre}.tar.gz
+Source0:	http://cesnet.dl.sourceforge.net/sourceforge/icewm/%{name}-%{version}.tar.gz
 Source1:	IceWM.desktop
 Source2:	%{name}.directory
-Source3:	http://prdownloads.sourceforge.net/icewm/iceicons-0.6.tar.gz
+Source3:	http://cesnet.dl.sourceforge.net/sourceforge/icewm/iceicons-0.6.tar.gz
 Source4:	IceWM.RunWM
 Source5:	IceWM.wm_style
 Source6:	%{name}-menu
-Source7:	http://prdownloads.sourceforge.net/icewm/netscapeicons-0.2.tar.gz
+Source7:	http://cesnet.dl.sourceforge.net/sourceforge/icewm/netscapeicons-0.2.tar.gz
 Patch0:		%{name}-menu.patch
 Patch1:		%{name}-compile-fixes.patch
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
 %{!?_without_guievents:BuildRequires:	esound-devel}
-BuildRequires:	gcc-c++
 %{!?_without_gnome:BuildRequires:	gnome-libs-devel}
 %{!?_without_imlib:BuildRequires:	imlib-devel}
+BuildRequires:	libstdc++-devel
 Requires(pre):	fileutils
 Requires(pre):	sh-utils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -100,15 +99,15 @@ Requires:	icewm
 
 %description themes-base
 Standard pack of themes delivered with IceWM. All of them made by
-Marko Macek: gtk2, metal2, motif, nice, warp3, warp4, win95.
+Marko Macek: gtk2, metal2, motif, nice, nice2, warp3, warp4, win95.
 
 %description themes-base -l pl
 Standardowy zestaw tematСw dla IceWM-a, dostarczany wraz z nim.
 Wszystkie stworzone przez Marko Macka: gtk2, metal2, motif, nice,
-warp3, warp4, win95.
+nice2, warp3, warp4, win95.
 
 %prep
-%setup -q -n %{name}-%{version}%{_pre}
+%setup -q
 %patch0 -p1
 %patch1 -p1
 
@@ -128,6 +127,7 @@ rm -f missing
 	%{!?_without_guievents:--enable-guievents} \
 	%{!?_without_gnome:--with-gnome-menus} \
 	%{?_without_imlib:--without-imlib} \
+	--with-cfgdir=%{_sysconfdir}/X11/{name} \
 	--with-docdir=%{_docdir}
 %{__make}
 
@@ -148,7 +148,7 @@ install lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/preferences
 install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/toolbar
 install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/winoptions
 
-ln -s %{_libdir}/X11/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
+ln -s %{_datadir}/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
 
 %find_lang %{name}
 
@@ -165,13 +165,13 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %dir %{_sysconfdir}/X11/icewm
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/X11/icewm/*
 %{_pixmapsdir}/icewm
-%dir %{_libdir}/X11/icewm
-%{_libdir}/X11/icewm/icons
-%{_libdir}/X11/icewm/ledclock
-%{_libdir}/X11/icewm/mailbox
-%{_libdir}/X11/icewm/taskbar
-%dir %{_libdir}/X11/icewm/themes
-%{_libdir}/X11/icewm/themes/Infadel2
+%dir %{_datadir}/icewm
+%{_datadir}/icewm/icons
+%{_datadir}/icewm/ledclock
+%{_datadir}/icewm/mailbox
+%{_datadir}/icewm/taskbar
+%dir %{_datadir}/icewm/themes
+%{_datadir}/icewm/themes/Infadel2
 %dir %{_applnkdir}/Settings/IceWM
 %{_applnkdir}/Settings/IceWM/.directory
 %{_wmpropsdir}/*
@@ -180,10 +180,11 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 
 %files themes-base
 %defattr(644,root,root,755)
-%{_libdir}/X11/icewm/themes/gtk2
-%{_libdir}/X11/icewm/themes/metal2
-%{_libdir}/X11/icewm/themes/motif
-%{_libdir}/X11/icewm/themes/nice
-%{_libdir}/X11/icewm/themes/warp3
-%{_libdir}/X11/icewm/themes/warp4
-%{_libdir}/X11/icewm/themes/win95
+%{_datadir}/icewm/themes/gtk2
+%{_datadir}/icewm/themes/metal2
+%{_datadir}/icewm/themes/motif
+%{_datadir}/icewm/themes/nice
+%{_datadir}/icewm/themes/nice2
+%{_datadir}/icewm/themes/warp3
+%{_datadir}/icewm/themes/warp4
+%{_datadir}/icewm/themes/win95
