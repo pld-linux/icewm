@@ -64,5 +64,5 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc {README,CHANGES,TODO,BUGS}.gz doc/*.html
 %dir %{_sysconfdir}
-%{_libdie}/X11/icewm
+%{_libdir}/X11/icewm
 %attr(755,root,root) %{_bindir}/*
