@@ -6,11 +6,11 @@
 Summary:	IceWM X11 Window Manager
 Summary(pl):	IceWM - mened¿er okienek X11
 Name:		icewm
-Version:	1.0.9
-Release:	9
+Version:	1.2.0pre1
+Release:	0.1
 License:	LGPL
 Group:		X11/Window Managers
-Source0:	ftp://download.sourceforge.net/pub/sourceforge/icewm/%{name}-%{version}-2.tar.bz2
+Source0:	ftp://download.sourceforge.net/pub/sourceforge/icewm/%{name}-%{version}.tar.gz
 Source1:	IceWM.desktop
 Source2:	%{name}.directory
 Source3:	ftp://download.sourceforge.net/pub/sourceforge/icewm/iceicons-0.6.tar.gz
@@ -18,7 +18,7 @@ Source4:	IceWM.RunWM
 Source5:	IceWM.wm_style
 Source6:	%{name}-menu
 Source7:	ftp://download.sourceforge.net/pub/sourceforge/icewm/netscapeicons-0.2.tar.gz
-Patch0:		%{name}-DESTDIR.patch
+#Patch0:		%{name}-DESTDIR.patch
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
 BuildRequires:	gnome-libs-devel
@@ -63,7 +63,7 @@ warp3, warp4, win95.
 
 %prep -q
 %setup -q
-%patch0 -p1
+#%patch0 -p1
 
 cd lib/icons
 tar -xzf %{SOURCE3}
@@ -102,7 +102,7 @@ install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/winoptions
 
 ln -s %{_libdir}/X11/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
 
-gzip -9nf BUGS CHANGES FAQ PLATFORMS README* TODO icewm.lsm
+gzip -9nf AUTHORS BUGS CHANGES FAQ PLATFORMS README* TODO icewm.lsm
 
 %find_lang %{name}
 
