@@ -29,7 +29,6 @@ Source1:	IceWM.desktop
 Source3:	http://dl.sourceforge.net/icewm/iceicons-0.6.tar.gz
 # Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
 Source4:	IceWM.RunWM
-Source5:	IceWM.wm_style
 Source6:	http://dl.sourceforge.net/icewm/netscapeicons-0.2.tar.gz
 # Source6-md5:	409aa9b02adc11309ed546c5120c01d2
 Source7:	%{name}-xsession.desktop
@@ -158,7 +157,6 @@ install -d $RPM_BUILD_ROOT{%{_datadir}/xsessions,%{_pixmapsdir},%{_wmstyledir}} 
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
 install %{SOURCE4} $RPM_BUILD_ROOT%{_wmstyledir}/%{name}-session.sh
-install %{SOURCE5} $RPM_BUILD_ROOT%{_wmstyledir}/%{name}-session.names
 install %{SOURCE7} $RPM_BUILD_ROOT%{_datadir}/xsessions/%{name}.desktop
 install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/keys
 install lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/preferences
@@ -197,7 +195,6 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %{_datadir}/icewm/themes/icedesert
 %{_datadir}/xsessions/%{name}.desktop
 %{_wmpropsdir}/*
-%{_wmstyledir}/%{name}-session.names
 %attr(755,root,root) %{_wmstyledir}/%{name}-session.sh
 
 %files themes-base
