@@ -7,7 +7,7 @@ Summary:	IceWM X11 Window Manager
 Summary(pl):	IceWM - Mened¿er okienek X11
 Name:		icewm
 Version:	1.0.8
-Release:	4
+Release:	5
 License:	LGPL
 Group:		X11/Window Managers
 Group(es):	X11/Administraadores De Ventanas
@@ -122,17 +122,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_applnkdir}/Settings/IceWM/.directory
 %{_wmpropsdir}/*
 %dir %{_libdir}/X11/icewm
-%{_libdir}/X11/icewm/icons/*
-%{_libdir}/X11/icewm/ledclock/*
-%{_libdir}/X11/icewm/mailbox/*
-%{_libdir}/X11/icewm/taskbar/*
-%{_libdir}/X11/icewm/themes/Infadel2/*
+%{_libdir}/X11/icewm/icons
+%{_libdir}/X11/icewm/ledclock
+%{_libdir}/X11/icewm/mailbox
+%{_libdir}/X11/icewm/taskbar
+%{_libdir}/X11/icewm/themes/Infadel2
 
 %files -n %{name}-themes-base
-%{_libdir}/X11/icewm/themes/gtk2/*
-%{_libdir}/X11/icewm/themes/metal2/*
-%{_libdir}/X11/icewm/themes/motif/*
-%{_libdir}/X11/icewm/themes/nice/*
-%{_libdir}/X11/icewm/themes/warp3/*
-%{_libdir}/X11/icewm/themes/warp4/*
-%{_libdir}/X11/icewm/themes/win95/*
+%defattr(644,root,root,755)
+%{_libdir}/X11/icewm/themes/gtk2
+%{_libdir}/X11/icewm/themes/metal2
+%{_libdir}/X11/icewm/themes/motif
+%{_libdir}/X11/icewm/themes/nice
+%{_libdir}/X11/icewm/themes/warp3
+%{_libdir}/X11/icewm/themes/warp4
+%{_libdir}/X11/icewm/themes/win95
