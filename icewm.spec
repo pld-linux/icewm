@@ -104,30 +104,30 @@ autoconf
 %{__make}
 
 %install
-%{__rm} -rf $RPM_BUILD_ROOT
-%{__install} -d $RPM_BUILD_ROOT{%{_wmpropsdir},%{_applnkdir}/Settings/IceWM}
+rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{%{_wmpropsdir},%{_applnkdir}/Settings/IceWM}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__install} %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
-%{__install} %{SOURCE2} $RPM_BUILD_ROOT%{_applnkdir}/Settings/IceWM/.directory
-%{__install} lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/keys
-%{__install} lib/menu $RPM_BUILD_ROOT%{_sysconfdir}/menu
-%{__install} lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}toolbar
-%{__install} lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/preferences
-%{__install} lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/winoptions
+install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
+install %{SOURCE2} $RPM_BUILD_ROOT%{_applnkdir}/Settings/IceWM/.directory
+install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/keys
+install lib/menu $RPM_BUILD_ROOT%{_sysconfdir}/menu
+install lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/preferences
+install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}toolbar
+install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/winoptions
 
 #mv -f %{_libdir}/X11/icewm/icons/* %{_pixmapsdir}/icewm/
 #rm -rf %{_libdir}/X11/icewm/icons
 #ln -s %{_pixmapsdir}/icewm $RPM_BUILD_ROOT%{_libdir}/X11/icewm/icons
 
-%{__gzip} -9nf BUGS CHANGES FAQ PLATFORMS README TODO icewm.lsm
+gzip -9nf BUGS CHANGES FAQ PLATFORMS README TODO icewm.lsm
 
 %find_lang %{name}
 
 %clean
-%{__rm} -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
