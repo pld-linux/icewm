@@ -19,7 +19,7 @@ Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
 Version:	1.2.13
-Release:	0.1
+Release:	0.pre3.1
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
