@@ -1,0 +1,2 @@
+- removed %%configure macro - it doesn't work. Other macros removed.
+- ac2.50 ready
