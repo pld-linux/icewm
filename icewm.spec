@@ -19,13 +19,13 @@ Summary(pt_BR):	Gerenciador de Janelas X11
 Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
-Version:	1.2.9
-Release:	2
+Version:	1.2.10
+Release:	0.pre1
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
-Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}.tar.gz
-# Source0-md5:	fe8ff73efc80a6c9eea34c26c66e0c53
+Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}pre1.tar.gz
+# Source0-md5:	029a2dd124bad3c99c40e2afba8693c2
 Source1:	IceWM.desktop
 Source2:	%{name}.directory
 Source3:	http://dl.sourceforge.net/icewm/iceicons-0.6.tar.gz
@@ -111,7 +111,7 @@ Wszystkie stworzone przez Marko Macka: gtk2, metal2, motif, nice,
 nice2, warp3, warp4, win95.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}pre1
 
 cd lib/icons
 tar -xzf %{SOURCE3}
@@ -153,7 +153,11 @@ install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/winoptions
 
 ln -s %{_datadir}/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
 
+%if 0%{?_with_gnome:1}
+echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm icewm-menu-gnome2 --list \"%{_applnkdir}\"" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
+%else
 echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm wmconfig --output icewm" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
+%endif
 
 %find_lang %{name}
 
