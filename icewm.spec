@@ -4,7 +4,7 @@
 # _without_antialiasing	- disable antialiasing
 # _without_freetype	- disable xfreetype support (implies _without_antialiasing)
 # _without_guievents	- disable guievents
-# _without_gnome	- disable GNOME support
+# _with_gnome		- enable GNOME support
 # _without_imlib	- disable imlib support
 #
 # TODO:
@@ -20,7 +20,7 @@ Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
 Version:	1.2.9
-Release:	1
+Release:	2
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
@@ -40,7 +40,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 %{!?_without_guievents:BuildRequires:	esound-devel}
 BuildRequires:	gettext-devel
-%{!?_without_gnome:BuildRequires:	gnome-desktop-devel}
+%{?_with_gnome:BuildRequires:	gnome-desktop-devel}
 %{!?_without_imlib:BuildRequires:	imlib-devel}
 BuildRequires:	libstdc++-devel
 %{!?_without_freetype:BuildRequires:	xft-devel >= 2.1}
@@ -127,7 +127,7 @@ rm -f missing
 	%{!?_without_antialiasing:--enable-antialiasing} \
 	%{?_without_freetype:--disable-xfreetype} \
 	%{!?_without_guievents:--enable-guievents} \
-	%{!?_without_gnome:--enable-menus-gnome} \
+	%{?_with_gnome:--enable-menus-gnome} \
 	%{?_without_imlib:--without-imlib} \
 	--enable-shaped-decorations \
 	--with-cfgdir=%{_sysconfdir}/X11/%{name} \
@@ -152,7 +152,7 @@ install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/winoptions
 
 ln -s %{_datadir}/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
 
-echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm icewm-menu-gnome2 --list \"%{_applnkdir}\"" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
+echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm wmconfig --output icewm > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
 
 %find_lang %{name}
 
