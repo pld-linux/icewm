@@ -64,7 +64,7 @@ gtk2, metal2, motif, nice, warp3, warp4, win95
 
 %description -n %{name}-themes-base -l pl
 Standardowy zestaw tematów dla IceWM'a, dostarczany wraz nim.
-Wszystkie stwarzone przez Marko Macek:
+Wszystkie stworzone przez Marko Macek:
 gtk2, metal2, motif, nice, warp3, warp4, win95
 
 %prep -q
