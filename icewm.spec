@@ -2,6 +2,7 @@
 # TODO:
 # - separate themes from main package (one should stay)
 # - make a PLD-theme - default :]
+# - bigger menu-file
 #
 Summary:	IceWM X11 Window Manager
 Summary(pl):	IceWM - Mened¿er okienek X11
