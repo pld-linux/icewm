@@ -1,11 +1,11 @@
 #
 # Conditional build:
-# _with_antialiasing	- enable antialiasing
 # _with_gradients	- enable gradients (implies _with_antialiasing)
+# _with_antialiasing	- enable antialiasing (implies _with_freetype)
+# _without_freetype	- disable xfreetype support
 # _without_guievents	- disable guievents
 # _without_gnome	- disable GNOME support
 # _without_imlib	- disable imlib support
-# _without_freetype	- disable xfreetype support
 #
 # TODO:
 # - make a PLD-theme - default :]
@@ -23,14 +23,14 @@ Release:	1
 Epoch:		1
 License:	LGPL
 Group:		X11/Window Managers
-Source0:	http://prdownloads.sourceforge.net/icewm/%{name}-%{version}.tar.gz
+Source0:	ftp://ftp.sourceforge.net/pub/sourceforge/icewm/%{name}-%{version}.tar.gz
 Source1:	IceWM.desktop
 Source2:	%{name}.directory
-Source3:	http://prdownloads.sourceforge.net/icewm/iceicons-0.6.tar.gz
+Source3:	ftp://ftp.sourceforge.net/pub/sourceforge/icewm/iceicons-0.6.tar.gz
 Source4:	IceWM.RunWM
 Source5:	IceWM.wm_style
 Source6:	%{name}-menu
-Source7:	http://prdownloads.sourceforge.net/icewm/netscapeicons-0.2.tar.gz
+Source7:	ftp://ftp.sourceforge.net/pub/sourceforge/icewm/netscapeicons-0.2.tar.gz
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
 %{!?_without_guievents:BuildRequires:	esound-devel}
@@ -113,14 +113,13 @@ cd ../..
 
 %build
 %configure \
-	--with-docdir=%{_docdir} \
-	--enable-i18n \
-	%{!?_without_guievents:--enable-guievents} \
-	%{!?_without_freetype:--enable-xfreetype} \
-	%{!?_without_gnome:--with-gnome-menus} \
-	%{!?_without_imlib:--with-imlib} \
+	%{?_with_gradients:--enable-gradients} \
 	%{?_with_antialiasing:--enable-antialiasing} \
-	%{?_with_gradients:--enable-gradients}
+	%{!?_without_freetype:--enable-xfreetype} \
+	%{!?_without_guievents:--enable-guievents} \
+	%{!?_without_gnome:--with-gnome-menus} \
+	%{?_without_imlib:--without-imlib} \
+	--with-docdir=%{_docdir}
 %{__make}
 
 %install
