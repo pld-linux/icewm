@@ -17,14 +17,15 @@ Summary(pt_BR):	Gerenciador de Janelas X11
 Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
-Version:	1.2.15
-%define _pre pre1
-Release:	1.%{_pre}.4
+Version:	1.2.16
+#%define _pre pre1
+Release:	1
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
-Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}%{_pre}.tar.gz
-# Source0-md5:	833578c36a47c70531f6c17f947d678d
+#Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}%{_pre}.tar.gz
+Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}.tar.gz
+# Source0-md5:	1aa92846cc516a2ac1d668d80c3ca5ea
 Source1:	IceWM.desktop
 Source3:	http://dl.sourceforge.net/icewm/iceicons-0.6.tar.gz
 # Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
@@ -34,10 +35,7 @@ Source6:	http://dl.sourceforge.net/icewm/netscapeicons-0.2.tar.gz
 Source7:	%{name}-xsession.desktop
 Patch0:		%{name}-broken-xrandr.patch
 Patch1:		%{name}-home_etc.patch
-Patch2:		%{name}-link_with_g++.patch
-Patch3:		%{name}-showdesktopkey.patch
-Patch4:		%{name}-gcc34.patch
-Patch5:		%{name}-helpbrowser.patch
+Patch2:		%{name}-helpbrowser.patch
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf >= 2.50
@@ -118,13 +116,11 @@ Wszystkie stworzone przez Marko Macka: gtk2, metal2, motif, nice,
 nice2, warp3, warp4, win95.
 
 %prep
-%setup -q -n %{name}-%{version}%{_pre}
+#%setup -q -n %{name}-%{version}%{_pre}
+%setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
+#%patch2 -p1
 
 mv -f po/{no,nb}.po
 mv -f po/{zh_TW.Big5,zh_TW}.po
