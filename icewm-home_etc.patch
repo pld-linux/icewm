@@ -15,13 +15,13 @@ diff -Nru icewm-1.2.14pre1.orig/src/icesound.cc icewm-1.2.14pre1/src/icesound.cc
 --- icewm-1.2.14pre1.orig/src/icesound.cc	2003-11-01 11:43:13.000000000 +0100
 +++ icewm-1.2.14pre1/src/icesound.cc	2003-11-09 10:13:06.000000000 +0100
 @@ -159,7 +159,7 @@
- char * YAudioInterface::findSample(char const * basename) {
+ char * YAudioInterface::findSample(char const * basefname) {
      static char const * paths[] = {
- 	IceSound::samples,
--	strJoin(getenv("HOME"), "/.icewm/sounds/", NULL),
-+	strJoin(getenv("HOME_ETC") != NULL ? getenv("HOME_ETC") : getenv("HOME"), "/.icewm/sounds/", NULL),
- 	strJoin(CFGDIR, "/sounds/", NULL),
- 	strJoin(LIBDIR, "/sounds/", NULL)
+         IceSound::samples,
+-        strJoin(getenv("HOME"), "/.icewm/sounds/", NULL),
++        strJoin(getenv("HOME_ETC") != NULL ? getenv("HOME_ETC") : getenv("HOME"), "/.icewm/sounds/", NULL),
+         strJoin(CFGDIR, "/sounds/", NULL),
+         strJoin(LIBDIR, "/sounds/", NULL)
      };
 diff -Nru icewm-1.2.14pre1.orig/src/themes.cc icewm-1.2.14pre1/src/themes.cc
 --- icewm-1.2.14pre1.orig/src/themes.cc	2003-11-01 11:43:13.000000000 +0100
@@ -45,13 +45,13 @@ diff -Nru icewm-1.2.14pre1.orig/src/themes.cc icewm-1.2.14pre1/src/themes.cc
 diff -Nru icewm-1.2.14pre1.orig/src/yapp.cc icewm-1.2.14pre1/src/yapp.cc
 --- icewm-1.2.14pre1.orig/src/yapp.cc	2003-11-01 11:43:13.000000000 +0100
 +++ icewm-1.2.14pre1/src/yapp.cc	2003-11-09 10:18:51.000000000 +0100
-@@ -381,7 +381,8 @@
-     	const char *env = getenv("ICEWM_PRIVCFG");
+@@ -44,7 +44,8 @@
+         const char *env = getenv("ICEWM_PRIVCFG");
  
- 	if (NULL == env) {
--	    env = getenv("HOME");
-+	    env = getenv("HOME_ETC");
+         if (NULL == env) {
+-            env = getenv("HOME");
++            env = getenv("HOME_ETC");
 +	    if (env == NULL) env = getenv("HOME");
- 	    strcpy(cfgdir, env ? env : "");
- 	    strcat(cfgdir, "/.icewm");
- 	} else {
+             strcpy(cfgdir, env ? env : "");
+             strcat(cfgdir, "/.icewm");
+         } else {
