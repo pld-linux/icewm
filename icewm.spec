@@ -16,6 +16,7 @@ Summary(pl):	IceWM - zarz╠dca okienek X11
 Summary(pt_BR):	Gerenciador de Janelas X11
 Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
+Summary(de):	Enlightenment ist ein Window Manager fЭr X
 Name:		icewm
 Version:	1.2.20
 #%define _pre pre1
@@ -54,7 +55,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_wmstyledir	/etc/sysconfig/wmstyle
 %define		_wmpropsdir	/usr/share/wm-properties
-%define		specflags_ia32	 -fomit-frame-pointer 
+%define		specflags_ia32	 -fomit-frame-pointer
 
 %description
 Window Manager for X Window System. Can emulate the look of
@@ -98,6 +99,16 @@ Windows'95, OS/2 Warp 3,4, Motif. Намага╓ться взяти найкраще ╕з
 згаданих систем. П╕дтриму╓ к╕лька робочих площин, непрозоре
 перем╕щення в╕кон, смужку завдань, список в╕кон, стан поштово╖
 скриньки, цифровий годинник. Швидкий та компактний.
+
+%description -l de
+IceWM ist ein in C++ programmierter, unter GPL stehender
+Fenstermanager fЭr das X11-Fenstersystem. Ziel von IceWM ist
+Geschwindigkeit, Schlichtheit und Bedienerfreundlichkeit.
+
+In der Standardeinstellung erinnert das Design von IceWM stark an
+Microsoft Windows: Er verfЭgt Эber eine Taskleiste am unteren
+Bildrand, das aktive Fenster lДsst sich mit der Tastenkombination
+ALT-TAB wechseln, etc.
 
 %package themes-base
 Summary:	Pack of themes for IceWM
@@ -157,7 +168,7 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
 install %{SOURCE4} $RPM_BUILD_ROOT%{_wmstyledir}/%{name}-session.sh
 install %{SOURCE7} $RPM_BUILD_ROOT%{_datadir}/xsessions/%{name}.desktop
 install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/keys
-sed 's|^# IconPath=""|IconPath="/usr/share/pixmaps:/usr/share/icons"|' < lib/preferences > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/preferences
+sed 's|^# IconPath=""|IconPath="%{_datadir}/pixmaps:%{_datadir}/icons"|' < lib/preferences > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/preferences
 install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/toolbar
 install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/winoptions
 echo %{_bindir}/icewmbg > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/startup
@@ -180,8 +191,8 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %doc AUTHORS BUGS CHANGES PLATFORMS README* TODO icewm.lsm doc/*.html
 %attr(755,root,root) %{_bindir}/*
 %dir %{_sysconfdir}/X11/%{name}
-%config(noreplace,missingok) %verify(not md5 size mtime) %{_sysconfdir}/X11/%{name}/[!rs]*
-%config(noreplace,missingok) %verify(not md5 size mtime) %attr(755,root,root) %{_sysconfdir}/X11/%{name}/[rs]*
+%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/[!rs]*
+%config(noreplace,missingok) %verify(not %attr(755,root,root md5 mtime) size) %{_sysconfdir}/X11/%{name}/[rs]*
 %{_pixmapsdir}/icewm
 %dir %{_datadir}/icewm
 %{_datadir}/icewm/icons
