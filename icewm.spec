@@ -19,12 +19,12 @@ Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
 Version:	1.2.14
-Release:	0.2
+Release:	0.3
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
-Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}pre2.tar.gz
-# Source0-md5:	795c4e613f9866af4b2b51f881b4f68c
+Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}pre6.tar.gz
+# Source0-md5:	f64fce93877e3ff7cc40c3eb62d2e9ab
 Source1:	IceWM.desktop
 Source2:	%{name}.directory
 Source3:	http://dl.sourceforge.net/icewm/iceicons-0.6.tar.gz
@@ -113,7 +113,7 @@ Wszystkie stworzone przez Marko Macka: gtk2, metal2, motif, nice,
 nice2, warp3, warp4, win95.
 
 %prep
-%setup -q -n %{name}-%{version}pre2
+%setup -q -n %{name}-%{version}pre6
 %patch0 -p1
 %patch1 -p1
 
