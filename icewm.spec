@@ -57,19 +57,3 @@ rm -rf $RPM_BUILD_ROOT
 %doc {README,CHANGES,TODO,BUGS}.gz doc/*.html
 /usr/X11R6/lib/X11/icewm
 %attr(755,root,root) /usr/X11R6/bin/*
-
-%changelog
-* Fri Mar 19 1999 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-  [0.9.34-1]
-- added gzipping some %doc,
-- added Group(pl).
-
-* Fri Nov 20 1998 Tomasz K³oczko <kloczek@rudy.mif.pg.gda.pl>
-  [0.9.17-1]
-- added -q %setup parameter,
-- changed Buildroot to /tmp/%%{name}-%%{version}-root,
-- added using %%{name} and %%{version} in Source,
-- added using $RPM_OPT_FLAGS during compile,
-- added pl translation,
-- added %attr and %defattr macros in %files (allows build package from
-  non-root account).
