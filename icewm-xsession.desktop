@@ -1,0 +1,14 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=XSession
+Exec=icewm
+TryExec=icewm
+Name=IceWM
+Name[af]=Icewm
+Name[lo]=ຕົວຈັດການຫນ້າຕ່າງ IceWM
+Name[sv]=Ice WM
+Name[th]=ตัวจัดการหน้าต่าง IceWM
+Comment=A Win95-OS/2-Motif-like window manager
+Comment[nl]=Een Win95-OS/2-Motif-achtige window manager
+Comment[sr]=Win95-OS/2-Motif-олики менаџер прозора
+Comment[sv]=En fönsterhanterare som liknar Windows 95-OS/2-Motif
