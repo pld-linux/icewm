@@ -1,8 +1,8 @@
 #
 # Conditional build:
 # _with_gradients	- enable gradients (implies _with_antialiasing)
-# _with_antialiasing	- enable antialiasing (implies _with_freetype)
-# _without_freetype	- disable xfreetype support
+# _without_antialiasing	- disable antialiasing
+# _without_freetype	- disable xfreetype support (implies _without_antialiasing)
 # _without_guievents	- disable guievents
 # _without_gnome	- disable GNOME support
 # _without_imlib	- disable imlib support
@@ -20,7 +20,7 @@ Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
 Version:	1.2.6
-Release:	1
+Release:	2
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
@@ -116,18 +116,18 @@ cd ../..
 
 %build
 rm -f missing
-%{__gettextize}
+#%{__gettextize}
 %{__aclocal}
 %{__autoconf}
 %configure \
 	%{?_with_gradients:--enable-gradients} \
-	%{?_with_antialiasing:--enable-antialiasing} \
+	%{!?_without_antialiasing:--enable-antialiasing} \
 	%{!?_without_freetype:--enable-xfreetype} \
 	%{!?_without_guievents:--enable-guievents} \
 	%{!?_without_gnome:--with-gnome-menus} \
 	%{?_without_imlib:--without-imlib} \
 	--enable-shaped-decorations \
-	--with-cfgdir=%{_sysconfdir}/X11/%{name} \
+	--with-cfgdir=%{_sysconfdir}/%{name} \
 	--with-docdir=%{_docdir}
 %{__make}
 
@@ -142,14 +142,14 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_applnkdir}/Settings/IceWM/.directory
 install %{SOURCE4} $RPM_BUILD_ROOT%{_wmstyledir}/IceWM.sh
 install %{SOURCE5} $RPM_BUILD_ROOT%{_wmstyledir}/IceWM.names
-install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/keys
-install lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/preferences
-install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/toolbar
-install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/winoptions
+install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/keys
+install lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/preferences
+install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/toolbar
+install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/winoptions
 
 ln -s %{_datadir}/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
 
-echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm icewm-menu-gnome1 --list \"%{_applnkdir}\"" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
+echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm icewm-menu-gnome1 --list \"%{_applnkdir}\"" > $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/menu
 
 %find_lang %{name}
 
@@ -163,8 +163,8 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %defattr(644,root,root,755)
 %doc AUTHORS BUGS CHANGES FAQ PLATFORMS README* TODO icewm.lsm doc/*.html
 %attr(755,root,root) %{_bindir}/*
-%dir %{_sysconfdir}/X11/%{name}
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/X11/%{name}/*
+%dir %{_sysconfdir}/%{name}
+%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/%{name}/*
 %{_pixmapsdir}/icewm
 %dir %{_datadir}/icewm
 %{_datadir}/icewm/icons
