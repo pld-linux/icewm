@@ -5,7 +5,7 @@ Name[da]=IceWM
 Name[gl]=IceWM
 Name[ko]=Ice WM
 Name[no]=Ice vindushåndterer
-Name[pl]=Menedżer okien Ice (IceWM)
+Name[pl]=IceWM
 Exec=icewm
 TryExec=icewm
 
