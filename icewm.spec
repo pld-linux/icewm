@@ -6,23 +6,20 @@
 Summary:	IceWM X11 Window Manager
 Summary(pl):	IceWM - Mened¿er okienek X11
 Name:		icewm
-Version:	1.0.8
-Release:	8
+Version:	1.0.9
+Release:	1
 License:	LGPL
 Group:		X11/Window Managers
 Group(de):	X11/Fenstermanager
 Group(es):	X11/Administraadores De Ventanas
 Group(fr):	X11/Gestionnaires De Fenêtres
 Group(pl):	X11/Zarz±dcy Okien
-Source0:	ftp://download.sourceforge.net/pub/sourceforge/icewm/%{name}-%{version}-6.tar.bz2
+Source0:	ftp://download.sourceforge.net/pub/sourceforge/icewm/%{name}-%{version}-2.tar.bz2
 Source1:	IceWM.desktop
 Source2:	%{name}.directory
 Source3:	ftp://download.sourceforge.net/pub/sourceforge/icewm/iceicons-0.6.tar.gz
 Patch0:		%{name}-DESTDIR.patch
-Patch1:		%{name}-time.patch
-Patch2:		%{name}-menu.patch
-Patch3:		%{name}-env_var_in_menu_prog_line.patch
-Patch4:		%{name}-config.patch
+Patch1:		%{name}-menu.patch
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
@@ -77,9 +74,6 @@ gtk2, metal2, motif, nice, warp3, warp4, win95
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-#%patch3 -p1
-#%patch4 -p1
 
 cd lib/icons
 tar -xvf %{SOURCE3}
@@ -87,9 +81,7 @@ cd ../../
 
 %build
 export LDFLAGS
-libtoolize --copy --force
-autoconf
-%configure2_13 \
+%configure \
 	--with-shape \
 	--prefix=%{_prefix} \
 	--with-docdir=/usr/share/doc \
