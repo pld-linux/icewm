@@ -1,7 +1,19 @@
-diff -urN icewm-1.0.6.org/Makefile.in icewm-1.0.6/Makefile.in
---- icewm-1.0.6.org/Makefile.in	Wed Jan 17 20:34:20 2001
-+++ icewm-1.0.6/Makefile.in	Wed Jan 17 20:35:33 2001
-@@ -67,37 +67,37 @@
+--- icewm-1.0.7/po/Makefile.orig	Sun Mar 25 01:54:17 2001
++++ icewm-1.0.7/po/Makefile	Sun Mar 25 01:53:08 2001
+@@ -23,8 +23,8 @@
+ 	  LANG=`echo $$c|sed -e 's/.mo//'` ; \
+ 	  MSGDIR="$(LOCDIR)/$$LANG/LC_MESSAGES"; \
+ 	  echo Installing language: $$LANG ; \
+-	  $(INSTALLDIR) $$MSGDIR; \
+-	  $(INSTALLLIB) $$c $$MSGDIR/$(PACKAGE).mo; \
++	  $(INSTALLDIR) $(DESTDIR)$$MSGDIR; \
++	  $(INSTALLLIB) $$c $(DESTDIR)$$MSGDIR/$(PACKAGE).mo; \
+ 	done
+ 
+ clean:
+--- icewm-1.0.7/Makefile.in.orig	Sun Mar 25 01:39:53 2001
++++ icewm-1.0.7/Makefile.in	Sun Mar 25 01:46:49 2001
+@@ -62,37 +62,37 @@
  # Makefile TABS *SUCK*
  install-base: base
  	@echo ------------------------------------------
@@ -53,7 +65,7 @@ diff -urN icewm-1.0.6.org/Makefile.in icewm-1.0.6/Makefile.in
                      done;\
                  fi;\
              done;\
-@@ -106,24 +106,24 @@
+@@ -101,9 +101,9 @@
  
  install-docs: docs $(LSM)
  	@echo ------------------------------------------
@@ -66,18 +78,16 @@ diff -urN icewm-1.0.6.org/Makefile.in icewm-1.0.6/Makefile.in
  
  install-nls: nls
  	@echo ------------------------------------------
--	@cd po ; ${MAKE} install
-+	@cd po ; ${MAKE} DESTDIR=$(DESTDIR) install
+@@ -111,12 +111,12 @@
  
- install-guievents: guievents
+ install-%: %
  	@echo ------------------------------------------
- 	@echo Installing GUI event support to $(BINDIR)
+-	@echo Installing $* to $(BINDIR)
 -	@$(INSTALLDIR) $(BINDIR)
+-	@$(INSTALLBIN) src/$* $(BINDIR)
++	@echo Installing $* to $(DESTDIR)$(BINDIR)
 +	@$(INSTALLDIR) $(DESTDIR)$(BINDIR)
- 	@for a in $(GUIEVENTSFILES) ; do \
--            $(INSTALLBIN) $$a $(BINDIR); \
-+            $(INSTALLBIN) $$a $(DESTDIR)$(BINDIR); \
-         done
++	@$(INSTALLBIN) src/$* $(DESTDIR)$(BINDIR)
  
  install-gnome: gnome
  	@echo ------------------------------------------
@@ -87,9 +97,8 @@ diff -urN icewm-1.0.6.org/Makefile.in icewm-1.0.6/Makefile.in
 +	@echo Installing icewm-gnome to $(DESTDIR)$(WMPROPDIR)
 +	@$(INSTALLDIR) $(DESTDIR)$(WMPROPDIR)
 +	@$(INSTALLLIB) lib/IceWM.desktop $(DESTDIR)$(WMPROPDIR)
-diff -urN icewm-1.0.6.org/configure.in icewm-1.0.6/configure.in
---- icewm-1.0.6.org/configure.in	Wed Jan 17 20:34:20 2001
-+++ icewm-1.0.6/configure.in	Wed Jan 17 20:34:27 2001
+--- icewm-1.0.7/configure.in.orig	Sun Mar 25 01:49:37 2001
++++ icewm-1.0.7/configure.in	Sun Mar 25 01:52:02 2001
 @@ -66,7 +66,7 @@
  AC_FUNC_SELECT_ARGTYPES
  
@@ -99,17 +108,5 @@ diff -urN icewm-1.0.6.org/configure.in icewm-1.0.6/configure.in
  
  dnl Checking for X11
  AC_PATH_XTRA
-diff -urN icewm-1.0.6.org/po/Makefile icewm-1.0.6/po/Makefile
---- icewm-1.0.6.org/po/Makefile	Wed Jan 17 20:34:20 2001
-+++ icewm-1.0.6/po/Makefile	Wed Jan 17 20:34:27 2001
-@@ -23,8 +23,8 @@
- 	  LANG=`echo $$c|sed -e 's/.mo//'` ; \
- 	  MSGDIR="$(LOCDIR)/$$LANG/LC_MESSAGES"; \
- 	  echo Installing language: $$LANG ; \
--	  $(INSTALLDIR) $$MSGDIR; \
--	  $(INSTALLBIN) $$c $$MSGDIR/$(PACKAGE).mo; \
-+	  $(INSTALLDIR) $(DESTDIR)$$MSGDIR; \
-+	  $(INSTALLBIN) $$c $(DESTDIR)$$MSGDIR/$(PACKAGE).mo; \
- 	done
  
- clean:
+
