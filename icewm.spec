@@ -19,7 +19,7 @@ Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
 Version:	1.2.14
 %define _pre pre10
-Release:	1.%{_pre}.2
+Release:	1.%{_pre}.3
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
@@ -169,7 +169,7 @@ echo %{_bindir}/icewmbg > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/startup
 
 ln -s %{_datadir}/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
 
-echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm vfmg -c -s icewm" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
+echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm vfmg -i -f -x -c -s icewm" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
 
 %find_lang %{name}
 
