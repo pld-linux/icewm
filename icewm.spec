@@ -7,12 +7,12 @@
 # - make a PLD-theme - default :]
 # - bigger menu-file
 #
-%define _noautocompressdoc *.sgml
+%define		_noautocompressdoc	*.sgml
 
 Summary:	IceWM X11 Window Manager
 Summary(pl):	IceWM - mened¿er okienek X11
 Name:		icewm
-Version:	1.2.0pre1
+Version:	1.2.0pre2
 Release:	0.1
 License:	LGPL
 Group:		X11/Window Managers
@@ -66,7 +66,7 @@ Standardowy zestaw tematów dla IceWM-a, dostarczany wraz z nim.
 Wszystkie stworzone przez Marko Macka: gtk2, metal2, motif, nice,
 warp3, warp4, win95.
 
-%prep -q
+%prep
 %setup -q
 
 cd lib/icons
