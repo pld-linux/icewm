@@ -21,7 +21,7 @@ Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
 Version:	1.2.3
 Release:	1
-Epoch:		1
+Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
 Source0:	http://cesnet.dl.sourceforge.net/sourceforge/icewm/%{name}-%{version}.tar.gz
