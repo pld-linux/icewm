@@ -4,7 +4,11 @@
 # - bigger menu-file
 #
 Summary:	IceWM X11 Window Manager
+Summary(es):	Administrador de Ventanas X11
 Summary(pl):	IceWM - mened©er okienek X11
+Summary(pt_BR):	Gerenciador de Janelas X11
+Summary(ru):	Оконный менеджер для X11
+Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
 Version:	1.2.0pre2
 Release:	1
@@ -37,12 +41,42 @@ Windows'95, OS/2 Warp 3,4, Motif. Tries to take the best features of
 the above systems. Features multiple workspaces, opaque move/resize,
 task bar, window list, mailbox status, digital clock. Fast and small.
 
+%description -l es
+Administrador de Ventanas para el X Window. Puede emular la apariencia
+del Windows'95, OS/2 Warp 3 y 4 y el Motif. Intenta usar las mejores
+caracterМsticas de los sistemas citados. CaracterМsticas: varios
+ambientes de trabajo, movimiento/ redimensionamiento opaco, barra de
+tareas, lista de ventanas, estado de la caja de entrada del correo y
+reloj digital. RАpido y pequeЯo.
+
 %description -l pl
 Mened©er okienek pod X11. Mo©e emulowaФ wygl╠d Windows'95, OS/2 Warp
 3,4, MWM. Mened©er ten prСbuje wybraФ najlepsze cechy dostЙpne w
 powy©szych ╤rodowiskach, jak: wiele jednocze╤nie obecnych przestrzeni
 roboczych, paski narzЙdziowe, status skrzynki z poczt╠, cyfrowy zegar.
 Jest przy tym maЁy i szybki.
+
+%description -l pt_BR
+Gerenciador de Janelas para o X Window. Pode emular a aparЙncia do
+Windows'95, OS/2 Warp 3 e 4 e o Motif. Tenta usar as melhores
+caracterМsticas dos sistemas citados. CaracterМsticas: vАrios
+ambientes de trabalho, movimentaГЦo/ redimensionamento opaco, barra de
+tarefas, lista de janelas, status da caixa de entrada do correio e
+relСgio digital. и rАpido e pequeno.
+
+%description -l ru
+Оконный менеджер для X Window System. Может эмулировать внешний вид
+Windows'95, OS/2 Warp 3,4, Motif. Старается взять лучшее из упомянутых
+систем. Поддерживает несколько рабочих поверхностей, непрозрачное
+перемещение окон, полоску заданий, список окон, статус почтового
+ящика, цифровые часы. Быстрый и компактный.
+
+%description -l uk
+В╕конний менеджер для X Window System. Може емулювати зовн╕шн╕й вигляд
+Windows'95, OS/2 Warp 3,4, Motif. Намага╓ться взяти найкраще ╕з
+згаданих систем. П╕дтриму╓ к╕лька робочих площин, непрозоре
+перем╕щення в╕кон, смужку завдань, список в╕кон, стан поштово╖
+скриньки, цифровий годинник. Швидкий та компактний.
 
 %package themes-base
 Summary:	Pack of themes for IceWM
