@@ -3,16 +3,16 @@
 # RunWM - this is a script used to launch window manager
 #
 
-if [ -x /usr/X11R6/bin/icewm ] ; then
+if [ -x /usr/bin/icewm ] ; then
 	if [ ! -d ~/.icewm ] ; then
 		mkdir -p ~/.icewm
 		install -m 644 /etc/X11/icewm/* ~/.icewm/
 	fi
-	eval "exec /usr/X11R6/bin/icewm"
+	eval "exec /usr/bin/icewm"
 else
 cat <<EOF
  WARNING: You selected IceWM as your window manager, but your
  installation of IceWM does not appear to be functional. Either
- /usr/X11R6/bin/icewm was not found.
+ /usr/bin/icewm was not found.
 EOF
 fi
