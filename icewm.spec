@@ -1,8 +1,8 @@
 #
 # Conditional build:
 # _with_gradients	- enable gradients (implies _with_antialiasing)
-# _without_antialiasing	- disable antialiasing
-# _without_freetype	- disable xfreetype support (implies _without_antialiasing)
+# _with_antialiasing	- enable antialiasing (implies _with_freetype)
+# _without_freetype	- disable xfreetype support
 # _without_guievents	- disable guievents
 # _without_gnome	- disable GNOME support
 # _without_imlib	- disable imlib support
@@ -20,7 +20,7 @@ Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
 Version:	1.2.4
-Release:	2
+Release:	3
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
@@ -118,7 +118,7 @@ rm -f missing
 %{__autoconf}
 %configure \
 	%{?_with_gradients:--enable-gradients} \
-	%{!?_without_antialiasing:--enable-antialiasing} \
+	%{?_with_antialiasing:--enable-antialiasing} \
 	%{!?_without_freetype:--enable-xfreetype} \
 	%{!?_without_guievents:--enable-guievents} \
 	%{!?_without_gnome:--with-gnome-menus} \
