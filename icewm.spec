@@ -87,5 +87,5 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*
 %doc {README,CHANGES,TODO,BUGS}.gz doc/*.html
 %attr(755,root,root) %{_bindir}/*
-%{_libdir}/X11/icewm
+%dir %{_libdir}/X11/icewm/*
 %{_datadir}/gnome/wm-properties/*
