@@ -1,14 +1,21 @@
-diff -dur icewm-1.2.14pre6.orig/configure.in icewm-1.2.14pre6/configure.in
---- icewm-1.2.14pre6.orig/configure.in	2003-12-30 22:40:04.000000000 +0100
-+++ icewm-1.2.14pre6/configure.in	2004-01-09 10:43:57.502805490 +0100
-@@ -29,9 +29,6 @@
- dnl ---- for linking. Also check how to turn off RTTI and exception handling ---
- if test x"$ac_cv_prog_gxx" != x; then
+diff -ruN icewm-1.2.15pre1./configure.in icewm-1.2.15pre1/configure.in
+--- icewm-1.2.15pre1./configure.in	2004-06-27 22:02:01.000000000 +0200
++++ icewm-1.2.15pre1/configure.in	2004-07-06 22:02:56.094810456 +0200
+@@ -21,7 +21,6 @@
+ 
+ dnl ---------- Checking for a C compiler in hope that it understands C++ too ---
+ dnl
+-ICE_PROG_CXX_LIGHT
+ AC_LANG_CPLUSPLUS
+ AC_PROG_CXX
+ 
+@@ -29,9 +28,6 @@
+ dnl ---- for linking. 
+ if test x"$ac_cv_prog_gxx" = x; then
    AC_PROG_CC
--  if test x"$ac_cv_prog_gcc" != x; then
+-  if test x"$ac_cv_prog_gcc" = x; then
 -    CXX_LINK=${CC}
 -  fi
-   
-   ICE_CXX_FLAG_ACCEPT(no_rtti, -fno-rtti)
-   dnl --- Intel C++ supports -fno-rtti, but doens't support -fno-*-exceptions
-Only in icewm-1.2.14pre6: configure.in~
+ fi
+ 
+ dnl ---------- Also check how to turn off RTTI and exception handling ---
