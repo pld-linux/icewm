@@ -1,7 +1,7 @@
 Summary:	IceWM X11 Window Manager
 Summary(pl):	IceWM - Mened¿er okienek X11
 Name:		icewm
-Version:	0.9.37
+Version:	0.9.41
 Release:	1
 Copyright:	GPL
 Group:		X11/Window Managers
@@ -9,6 +9,8 @@ Group(pl):	X11/Zarz±dcy Okien
 Source:		http://www.kiss.uni-lj.si/~k4fr0235/icewm/devel/%{name}-%{version}.src.tar.gz
 URL:		http://berta.fri.uni-lj.si/~markom/icewm/
 BuildRoot:	/tmp/%{name}-%{version}-root
+
+%define	_prefix	/usr/X11R6
 
 %description
 Window Manager for X Window System. Can emulate the look of Windows'95,
@@ -27,18 +29,22 @@ szybki przy tym.
 %setup -q
 
 %build
-./config \
+./configure \
+	--prefix=/usr/X11R6 \
+	--sysconfdir=/etc/X11/icewm \
 	--with-shape \
 	--with-sm \
 	--with-imlib \
 	--with-gnome \
-#	--with-i18n
+	--with-i18n
 
 make PREFIX=/usr/X11R6 optimize="$RPM_OPT_FLAGS"
 
 %install
 make install \
 	PREFIX=$RPM_BUILD_ROOT/usr/X11R6 \
+	BINDIR=$RPM_BUILD_ROOT/usr/X11R6/bin \
+	LIBDIR=$RPM_BUILD_ROOT/usr/X11R6/lib/X11/icewm \
 	ETCDIR=$RPM_BUILD_ROOT/etc/X11/icewm
 
 gzip -9nf README CHANGES TODO BUGS
