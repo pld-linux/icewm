@@ -1,8 +1,8 @@
 #
 # Conditional build:
 # _with_gradients	- enable gradients (implies _with_antialiasing)
-# _with_antialiasing	- enable antialiasing (implies _with_freetype)
-# _without_freetype	- disable xfreetype support
+# _without_antialiasing	- disable antialiasing
+# _without_freetype	- disable xfreetype support (implies _without_antialiasing)
 # _without_guievents	- disable guievents
 # _without_gnome	- disable GNOME support
 # _without_imlib	- disable imlib support
@@ -30,15 +30,14 @@ Source2:	%{name}.directory
 Source3:	http://cesnet.dl.sourceforge.net/sourceforge/icewm/iceicons-0.6.tar.gz
 Source4:	IceWM.RunWM
 Source5:	IceWM.wm_style
-Source6:	%{name}-menu
-Source7:	http://cesnet.dl.sourceforge.net/sourceforge/icewm/netscapeicons-0.2.tar.gz
-Patch0:		%{name}-xft.patch
+Source6:	http://cesnet.dl.sourceforge.net/sourceforge/icewm/netscapeicons-0.2.tar.gz
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
 %{!?_without_guievents:BuildRequires:	esound-devel}
 %{!?_without_gnome:BuildRequires:	gnome-libs-devel}
 %{!?_without_imlib:BuildRequires:	imlib-devel}
 BuildRequires:	libstdc++-devel
+BuildRequires:	Xft-devel
 Requires(pre):	fileutils
 Requires(pre):	sh-utils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -107,11 +106,10 @@ nice2, warp3, warp4, win95.
 
 %prep
 %setup -q
-%patch0 -p1
 
 cd lib/icons
 tar -xzf %{SOURCE3}
-tar -xzf %{SOURCE7}
+tar -xzf %{SOURCE6}
 cd ../..
 
 %build
@@ -120,7 +118,7 @@ rm -f missing
 %{__autoconf}
 %configure \
 	%{?_with_gradients:--enable-gradients} \
-	%{?_with_antialiasing:--enable-antialiasing} \
+	%{!?_without_antialiasing:--enable-antialiasing} \
 	%{!?_without_freetype:--enable-xfreetype} \
 	%{!?_without_guievents:--enable-guievents} \
 	%{!?_without_gnome:--with-gnome-menus} \
@@ -140,13 +138,14 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_applnkdir}/Settings/IceWM/.directory
 install %{SOURCE4} $RPM_BUILD_ROOT%{_wmstyledir}/IceWM.sh
 install %{SOURCE5} $RPM_BUILD_ROOT%{_wmstyledir}/IceWM.names
-install %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
 install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/keys
 install lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/preferences
 install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/toolbar
 install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/winoptions
 
 ln -s %{_datadir}/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
+
+echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm icewm-menu-gnome1 --list \"%{_applnkdir}\"" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
 
 %find_lang %{name}
 
