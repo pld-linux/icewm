@@ -8,7 +8,7 @@ Group:		X11/Window Managers
 Group(pl):	X11/Zarz±dcy Okien
 Source:		http://www.kiss.uni-lj.si/~k4fr0235/icewm/devel/%{name}-%{version}.src.tar.gz
 URL:		http://berta.fri.uni-lj.si/~markom/icewm/
-BuildRoot:	/tmp/%{name}-%{version}
+BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
 Window Manager for X Window System. Can emulate the look of Windows'95,
@@ -32,7 +32,7 @@ szybki przy tym.
 	--with-sm \
 	--with-imlib \
 	--with-gnome \
-#	--with-i18n
+	--with-i18n
 
 make PREFIX=/usr/X11R6 optimize="$RPM_OPT_FLAGS"
 
