@@ -19,6 +19,7 @@ Source1:	IceWM.desktop
 Source2:	%{name}.directory
 Patch0:		icewm-DESTDIR.patch
 Patch1:		%{name}-time.patch
+Patch2:		%{name}-menu.patch
 URL:		http://www.icewm.org/
 BuildRequires:	autoconf
 BuildRequires:	imlib-devel
@@ -53,6 +54,7 @@ Jest przy tym ma³y i szybki.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 autoconf
