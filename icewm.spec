@@ -19,13 +19,13 @@ Summary(pt_BR):	Gerenciador de Janelas X11
 Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
 Name:		icewm
-Version:	1.2.8
+Version:	1.2.9
 Release:	1
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
 Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}.tar.gz
-# Source0-md5:	8f4e57c875cfe3d612e4ee068a1c2d83
+# Source0-md5:	fe8ff73efc80a6c9eea34c26c66e0c53
 Source1:	IceWM.desktop
 Source2:	%{name}.directory
 Source3:	http://dl.sourceforge.net/icewm/iceicons-0.6.tar.gz
@@ -43,7 +43,7 @@ BuildRequires:	gettext-devel
 %{!?_without_gnome:BuildRequires:	gnome-libs-devel}
 %{!?_without_imlib:BuildRequires:	imlib-devel}
 BuildRequires:	libstdc++-devel
-%{!?_without_freetype:BuildRequires:	Xft-devel >= 2.1}
+%{!?_without_freetype:BuildRequires:	xft-devel >= 2.1}
 Requires(pre):	fileutils
 Requires(pre):	sh-utils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -127,7 +127,7 @@ rm -f missing
 	%{!?_without_antialiasing:--enable-antialiasing} \
 	%{?_without_freetype:--disable-xfreetype} \
 	%{!?_without_guievents:--enable-guievents} \
-	%{!?_without_gnome:--enable-menus-gnome1} \
+	%{!?_without_gnome:--enable-menus-gnome} \
 	%{?_without_imlib:--without-imlib} \
 	--enable-shaped-decorations \
 	--with-cfgdir=%{_sysconfdir}/X11/%{name} \
@@ -166,7 +166,7 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS BUGS CHANGES FAQ PLATFORMS README* TODO icewm.lsm doc/*.html
+%doc AUTHORS BUGS CHANGES PLATFORMS README* TODO icewm.lsm doc/*.html
 %attr(755,root,root) %{_bindir}/*
 %dir %{_sysconfdir}/X11/%{name}
 %config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/X11/%{name}/*
