@@ -119,6 +119,7 @@ rm -f missing
 #%{__gettextize}
 %{__aclocal}
 %{__autoconf}
+%{__autoheader}
 %configure \
 	%{?_with_gradients:--enable-gradients} \
 	%{!?_without_antialiasing:--enable-antialiasing} \
