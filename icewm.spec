@@ -4,7 +4,6 @@
 %bcond_without	antialiasing	# disable antialiasing
 %bcond_without	freetype	# disable xfreetype support (implies !with_antialiasing)
 %bcond_without	guievents	# disable guievents
-%bcond_with	gnome		# enable GNOME support
 %bcond_without	imlib		# disable imlib support
 #
 # TODO:
@@ -27,7 +26,6 @@ Group:		X11/Window Managers
 Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}%{_pre}.tar.gz
 # Source0-md5:	d58838b359592e4fd6a27af063b007de
 Source1:	IceWM.desktop
-Source2:	%{name}.directory
 Source3:	http://dl.sourceforge.net/icewm/iceicons-0.6.tar.gz
 # Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
 Source4:	IceWM.RunWM
@@ -53,6 +51,7 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	yiff-devel
 Requires(pre):	fileutils
 Requires(pre):	sh-utils
+Requires:	vfmg
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_wmstyledir	/etc/sysconfig/wmstyle
@@ -152,13 +151,12 @@ cp -f /usr/share/automake/config.sub .
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_datadir}/xsessions,%{_pixmapsdir},%{_wmstyledir}} \
-	$RPM_BUILD_ROOT{%{_applnkdir}/Settings/IceWM,%{_wmpropsdir},%{_sysconfdir}/X11/%{name}}
+	$RPM_BUILD_ROOT{%{_wmpropsdir},%{_sysconfdir}/X11/%{name}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
-install %{SOURCE2} $RPM_BUILD_ROOT%{_applnkdir}/Settings/IceWM/.directory
 install %{SOURCE4} $RPM_BUILD_ROOT%{_wmstyledir}/%{name}.sh
 install %{SOURCE5} $RPM_BUILD_ROOT%{_wmstyledir}/%{name}.names
 install %{SOURCE7} $RPM_BUILD_ROOT%{_datadir}/xsessions/%{name}.desktop
@@ -171,11 +169,7 @@ echo %{_bindir}/icewmbg > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/startup
 
 ln -s %{_datadir}/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
 
-%if %{with gnome}
-echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm icewm-menu-gnome2 --list \"%{_applnkdir}\"" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
-%else
-echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm wmconfig --output icewm" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
-%endif
+echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm vfmg -c -s icewm" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
 
 %find_lang %{name}
 
@@ -202,8 +196,6 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %{_datadir}/icewm/themes/Infadel2
 %{_datadir}/icewm/themes/icedesert
 %{_datadir}/xsessions/%{name}.desktop
-%dir %{_applnkdir}/Settings/IceWM
-%{_applnkdir}/Settings/IceWM/.directory
 %{_wmpropsdir}/*
 %{_wmstyledir}/%{name}.names
 %attr(755,root,root) %{_wmstyledir}/%{name}.sh
