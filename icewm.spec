@@ -8,7 +8,7 @@ Group:		X11/Window Managers
 Group(es):	X11/Administraadores De Ventanas
 Group(fr):	X11/Gestionnaires De Fenêtres
 Group(pl):	X11/Zarz±dcy Okien
-Source0:	http://download.sourceforge.net/icewm/%{name}-%{version}.src.tar.gz
+Source0:	ftp://download.sourceforge.net/pub/sourceforge/icewm/%{name}-%{version}.src.tar.gz
 Source1:	IceWM.desktop
 URL:		http://icewm.sourceforge.net/
 BuildRequires:	imlib-devel
