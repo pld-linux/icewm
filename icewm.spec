@@ -31,6 +31,7 @@ BuildRequires:	XFree86-devel
 BuildRequires:	zlib-devel
 BuildRequires:	gnome-libs-devel
 BuildRequires:	libstdc++-devel
+BuildRequires:	esound-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
