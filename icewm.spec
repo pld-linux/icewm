@@ -7,7 +7,7 @@ Summary:	IceWM X11 Window Manager
 Summary(pl):	IceWM - mened¿er okienek X11
 Name:		icewm
 Version:	1.0.9
-Release:	7
+Release:	8
 License:	LGPL
 Group:		X11/Window Managers
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/icewm/%{name}-%{version}-2.tar.bz2
@@ -17,6 +17,7 @@ Source3:	ftp://download.sourceforge.net/pub/sourceforge/icewm/iceicons-0.6.tar.g
 Source4:	IceWM.RunWM
 Source5:	IceWM.wm_style
 Source6:	%{name}-menu
+Source7:	ftp://download.sourceforge.net/pub/sourceforge/icewm/netscapeicons-0.2.tar.gz
 Patch0:		%{name}-DESTDIR.patch
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
@@ -65,7 +66,8 @@ warp3, warp4, win95.
 %patch0 -p1
 
 cd lib/icons
-tar -zxf %{SOURCE3}
+tar -xzf %{SOURCE3}
+tar -xzf %{SOURCE7}
 cd ../..
 
 %build
