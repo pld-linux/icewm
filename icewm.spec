@@ -3,14 +3,21 @@ Summary(pl):	IceWM - Mened¿er okienek X11
 Name:		icewm
 Version:	1.0.0
 Release:	1
-Copyright:	GPL
+License:	GPL
 Group:		X11/Window Managers
 Group(pl):	X11/Zarz±dcy Okien
-Source:		http://www.kiss.uni-lj.si/~k4fr0235/icewm/devel/%{name}-%{version}.src.tar.gz
-URL:		http://berta.fri.uni-lj.si/~markom/icewm/
+Source:		http://download.sourceforge.net/icewm/%{name}-%{version}.src.tar.gz
+URL:		http://icewm.sourceforge.net/
+BuildRequires:	imlib-devel
+BuildRequires:	libjpeg-devel
+BuildRequires:	libpng-devel
+BuildRequires:	libtiff-devel
+BuildRequires:	libungif-devel
+BuildRequires:	XFree86-devel
 BuildRoot:	/tmp/%{name}-%{version}-root
 
-%define	_prefix	/usr/X11R6
+%define		_prefix		/usr/X11R6
+%define		_sysconfdir	/etc/X11/icewm
 
 %description
 Window Manager for X Window System. Can emulate the look of Windows'95,
@@ -29,9 +36,8 @@ szybki przy tym.
 %setup -q
 
 %build
-./configure \
-	--prefix=/usr/X11R6 \
-	--sysconfdir=/etc/X11/icewm \
+LDFLAGS="-s"; export LDFLAGS
+%configure \
 	--with-shape \
 	--with-sm \
 	--with-imlib \
@@ -41,11 +47,13 @@ szybki przy tym.
 make PREFIX=/usr/X11R6 optimize="$RPM_OPT_FLAGS"
 
 %install
+rm -rf $RPM_BUILD_ROOT
+
 make install \
-	PREFIX=$RPM_BUILD_ROOT/usr/X11R6 \
-	BINDIR=$RPM_BUILD_ROOT/usr/X11R6/bin \
-	LIBDIR=$RPM_BUILD_ROOT/usr/X11R6/lib/X11/icewm \
-	ETCDIR=$RPM_BUILD_ROOT/etc/X11/icewm
+	PREFIX=$RPM_BUILD_ROOT%{_prefix} \
+	BINDIR=$RPM_BUILD_ROOT%{_bindir} \
+	LIBDIR=$RPM_BUILD_ROOT%{_libdir}/X11/icewm \
+	ETCDIR=$RPM_BUILD_ROOT%{_sysconfdir}
 
 gzip -9nf README CHANGES TODO BUGS
 
@@ -55,5 +63,6 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc {README,CHANGES,TODO,BUGS}.gz doc/*.html
-/usr/X11R6/lib/X11/icewm
-%attr(755,root,root) /usr/X11R6/bin/*
+%dir %{_sysconfdir}
+%{_libdie}/X11/icewm
+%attr(755,root,root) %{_bindir}/*
