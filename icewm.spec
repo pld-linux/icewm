@@ -146,7 +146,7 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_applnkdir}/Settings/IceWM/.directory
 install %{SOURCE4} $RPM_BUILD_ROOT%{_wmstyledir}/%{name}.sh
 install %{SOURCE5} $RPM_BUILD_ROOT%{_wmstyledir}/%{name}.names
-install %{SOURCE7} $RPM_BUILD_ROOT%{_datadir}/xsesions/%{name}.desktop
+install %{SOURCE7} $RPM_BUILD_ROOT%{_datadir}/xsessions/%{name}.desktop
 install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/keys
 install lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/preferences
 install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/toolbar
