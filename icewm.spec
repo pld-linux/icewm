@@ -95,7 +95,7 @@ export LDFLAGS
 	--with-sm \
 	--enable-guievents \
 	--enable-gradients \
-	--enable-xfreetype 
+	--enable-xfreetype \
 	--enable-nls 
 
 %{__make}
