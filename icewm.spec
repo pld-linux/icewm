@@ -127,7 +127,7 @@ rm -f missing
 	%{!?_without_guievents:--enable-guievents} \
 	%{!?_without_gnome:--with-gnome-menus} \
 	%{?_without_imlib:--without-imlib} \
-	--with-cfgdir=%{_sysconfdir}/X11/{name} \
+	--with-cfgdir=%{_sysconfdir}/X11/%{name} \
 	--with-docdir=%{_docdir}
 %{__make}
 
@@ -142,11 +142,11 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_applnkdir}/Settings/IceWM/.directory
 install %{SOURCE4} $RPM_BUILD_ROOT%{_wmstyledir}/IceWM.sh
 install %{SOURCE5} $RPM_BUILD_ROOT%{_wmstyledir}/IceWM.names
-install %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/menu
-install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/keys
-install lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/preferences
-install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/toolbar
-install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/icewm/winoptions
+install %{SOURCE6} $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
+install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/keys
+install lib/preferences $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/preferences
+install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/toolbar
+install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/winoptions
 
 ln -s %{_datadir}/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
 
@@ -162,8 +162,8 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %defattr(644,root,root,755)
 %doc AUTHORS BUGS CHANGES FAQ PLATFORMS README* TODO icewm.lsm doc/*.html
 %attr(755,root,root) %{_bindir}/*
-%dir %{_sysconfdir}/X11/icewm
-%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/X11/icewm/*
+%dir %{_sysconfdir}/X11/%{name}
+%config(noreplace) %verify(not md5 size mtime) %{_sysconfdir}/X11/%{name}/*
 %{_pixmapsdir}/icewm
 %dir %{_datadir}/icewm
 %{_datadir}/icewm/icons
