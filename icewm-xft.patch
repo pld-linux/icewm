@@ -1,0 +1,11 @@
+diff -urN icewm-1.2.4.orig/src/ypaint.h icewm-1.2.4/src/ypaint.h
+--- icewm-1.2.4.orig/src/ypaint.h	Fri Jan  3 17:25:45 2003
++++ icewm-1.2.4/src/ypaint.h	Sat Jan  4 14:59:20 2003
+@@ -14,7 +14,6 @@
+ 
+ #ifdef CONFIG_XFREETYPE //------------------------------------------------------
+ #include <X11/Xft/Xft.h>
+-#include <X11/Xft/XftCompat.h>
+ #define INIT_XFREETYPE(Member, Value) , Member(Value)
+ #else
+ #define INIT_XFREETYPE(Member, Value)
