@@ -192,7 +192,7 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %attr(755,root,root) %{_bindir}/*
 %dir %{_sysconfdir}/X11/%{name}
 %config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/[!rs]*
-%config(noreplace,missingok) %verify(not %attr(755,root,root md5 mtime) size) %{_sysconfdir}/X11/%{name}/[rs]*
+%config(noreplace,missingok) %verify(not md5 mtime size) %attr(755,root,root) %{_sysconfdir}/X11/%{name}/[rs]*
 %{_pixmapsdir}/icewm
 %dir %{_datadir}/icewm
 %{_datadir}/icewm/icons
