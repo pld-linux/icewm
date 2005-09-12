@@ -16,22 +16,24 @@ Summary(pl):	IceWM - zarz╠dca okienek X11
 Summary(pt_BR):	Gerenciador de Janelas X11
 Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
-Summary(de):	Enlightenment ist ein Window Manager fЭr X
+Summary(de):	IceWM ist ein Window Manager fЭr X
 Name:		icewm
-Version:	1.2.20
+Version:	1.2.23
 #%define _pre pre1
+%define	_iceicons_ver		0.6
+%define	_netscapeicons_ver	0.2
 Release:	0.1
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
 #Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}%{_pre}.tar.gz
 Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}.tar.gz
-# Source0-md5:	6c94dae56fbf9aa085a1d780538018c1
+# Source0-md5:	498a57f71ebbd541cef4aa635b4fc3b1
 Source1:	IceWM.desktop
-Source3:	http://dl.sourceforge.net/icewm/iceicons-0.6.tar.gz
+Source3:	http://dl.sourceforge.net/icewm/iceicons-%{_iceicons_ver}.tar.gz
 # Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
 Source4:	IceWM.RunWM
-Source6:	http://dl.sourceforge.net/icewm/netscapeicons-0.2.tar.gz
+Source6:	http://dl.sourceforge.net/icewm/netscapeicons-%{_netscapeicons_ver}.tar.gz
 # Source6-md5:	409aa9b02adc11309ed546c5120c01d2
 Source7:	%{name}-xsession.desktop
 Patch0:		%{name}-broken-xrandr.patch
