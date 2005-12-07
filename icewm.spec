@@ -48,7 +48,7 @@ BuildRequires:	gettext-devel
 %{?with_imlib:BuildRequires:	imlib-devel}
 BuildRequires:	libstdc++-devel
 %{?with_freetype:BuildRequires:	xft-devel >= 2.1}
-BuildRequires:	yiff-devel
+%{?with_guievents:BuildRequires:	yiff-devel}
 Requires(pre):	fileutils
 Requires(pre):	sh-utils
 Requires:	vfmg
