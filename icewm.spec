@@ -22,7 +22,7 @@ Version:	1.2.25
 #%define _pre pre1
 %define	_iceicons_ver		0.6
 %define	_netscapeicons_ver	0.2
-Release:	0.1
+Release:	0.2
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
@@ -51,7 +51,7 @@ BuildRequires:	libstdc++-devel
 %{?with_guievents:BuildRequires:	yiff-devel}
 Requires(pre):	fileutils
 Requires(pre):	sh-utils
-Requires:	vfmg
+Requires:	vfmg >= 0.9.95
 Requires:	xinitrc-ng
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -177,7 +177,7 @@ echo %{_bindir}/icewmbg > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/startup
 
 ln -s %{_datadir}/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
 
-echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm vfmg -i -f -x -c -s icewm" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
+echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm vfmg icewm" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
 
 %find_lang %{name}
 
