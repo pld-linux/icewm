@@ -22,7 +22,7 @@ Version:	1.2.25
 #%define _pre pre1
 %define	_iceicons_ver		0.6
 %define	_netscapeicons_ver	0.2
-Release:	0.1
+Release:	1
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
