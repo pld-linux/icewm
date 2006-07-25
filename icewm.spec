@@ -39,6 +39,7 @@ Source7:	%{name}-xsession.desktop
 Patch0:		%{name}-broken-xrandr.patch
 Patch1:		%{name}-home_etc.patch
 Patch2:		%{name}-helpbrowser.patch
+Patch3:		%{name}-types.patch
 URL:		http://www.icewm.org/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf >= 2.50
@@ -133,6 +134,7 @@ nice2, warp3, warp4, win95.
 %patch0 -p1
 %patch1 -p1
 #patch2 -p1
+%patch3 -p1
 
 mv -f po/{zh_TW.Big5,zh_TW}.po
 
