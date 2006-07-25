@@ -16,21 +16,24 @@ Summary(pl):	IceWM - zarz╠dca okienek X11
 Summary(pt_BR):	Gerenciador de Janelas X11
 Summary(ru):	Оконный менеджер для X11
 Summary(uk):	В╕конний менеджер для X11
+Summary(de):	IceWM ist ein Window Manager fЭr X
 Name:		icewm
-Version:	1.2.16
+Version:	1.2.25
 #%define _pre pre1
-Release:	3
+%define	_iceicons_ver		0.6
+%define	_netscapeicons_ver	0.2
+Release:	0.1
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
 #Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}%{_pre}.tar.gz
 Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}.tar.gz
-# Source0-md5:	1aa92846cc516a2ac1d668d80c3ca5ea
+# Source0-md5:	af69d095a6c6fba1f73f80e966bc4459
 Source1:	IceWM.desktop
-Source3:	http://dl.sourceforge.net/icewm/iceicons-0.6.tar.gz
+Source3:	http://dl.sourceforge.net/icewm/iceicons-%{_iceicons_ver}.tar.gz
 # Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
 Source4:	IceWM.RunWM
-Source6:	http://dl.sourceforge.net/icewm/netscapeicons-0.2.tar.gz
+Source6:	http://dl.sourceforge.net/icewm/netscapeicons-%{_netscapeicons_ver}.tar.gz
 # Source6-md5:	409aa9b02adc11309ed546c5120c01d2
 Source7:	%{name}-xsession.desktop
 Patch0:		%{name}-broken-xrandr.patch
@@ -45,16 +48,16 @@ BuildRequires:	gettext-devel
 %{?with_imlib:BuildRequires:	imlib-devel}
 BuildRequires:	libstdc++-devel
 %{?with_freetype:BuildRequires:	xft-devel >= 2.1}
-BuildRequires:	yiff-devel
+%{?with_guievents:BuildRequires:	yiff-devel}
 Requires(pre):	fileutils
 Requires(pre):	sh-utils
 Requires:	vfmg
 Requires:	xinitrc-ng
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_wmstyledir	/etc/sysconfig/wmstyle
+%define		_wmstyledir	/etc/sysconfig/wmstyles
 %define		_wmpropsdir	/usr/share/wm-properties
-%define		specflags_ia32	 -fomit-frame-pointer 
+%define		specflags_ia32	 -fomit-frame-pointer
 
 %description
 Window Manager for X Window System. Can emulate the look of
@@ -99,6 +102,16 @@ Windows'95, OS/2 Warp 3,4, Motif. Намага╓ться взяти найкраще ╕з
 перем╕щення в╕кон, смужку завдань, список в╕кон, стан поштово╖
 скриньки, цифровий годинник. Швидкий та компактний.
 
+%description -l de
+IceWM ist ein in C++ programmierter, unter GPL stehender
+Fenstermanager fЭr das X11-Fenstersystem. Ziel von IceWM ist
+Geschwindigkeit, Schlichtheit und Bedienerfreundlichkeit.
+
+In der Standardeinstellung erinnert das Design von IceWM stark an
+Microsoft Windows: Er verfЭgt Эber eine Taskleiste am unteren
+Bildrand, das aktive Fenster lДsst sich mit der Tastenkombination
+ALT-TAB wechseln, etc.
+
 %package themes-base
 Summary:	Pack of themes for IceWM
 Summary(pl):	Zestaw motywСw dla IceWM-a
@@ -121,7 +134,6 @@ nice2, warp3, warp4, win95.
 %patch1 -p1
 #patch2 -p1
 
-mv -f po/{no,nb}.po
 mv -f po/{zh_TW.Big5,zh_TW}.po
 
 cd lib/icons
@@ -157,7 +169,7 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
 install %{SOURCE4} $RPM_BUILD_ROOT%{_wmstyledir}/%{name}-session.sh
 install %{SOURCE7} $RPM_BUILD_ROOT%{_datadir}/xsessions/%{name}.desktop
 install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/keys
-sed 's|^# IconPath=""|IconPath="/usr/share/pixmaps:/usr/share/icons"|' < lib/preferences > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/preferences
+sed 's|^# IconPath=""|IconPath="%{_datadir}/pixmaps:%{_datadir}/icons"|' < lib/preferences > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/preferences
 install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/toolbar
 install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/winoptions
 echo %{_bindir}/icewmbg > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/startup
@@ -180,8 +192,8 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %doc AUTHORS BUGS CHANGES PLATFORMS README* TODO icewm.lsm doc/*.html
 %attr(755,root,root) %{_bindir}/*
 %dir %{_sysconfdir}/X11/%{name}
-%config(noreplace,missingok) %verify(not md5 size mtime) %{_sysconfdir}/X11/%{name}/[!rs]*
-%config(noreplace,missingok) %verify(not md5 size mtime) %attr(755,root,root) %{_sysconfdir}/X11/%{name}/[rs]*
+%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/[!rs]*
+%config(noreplace,missingok) %verify(not md5 mtime size) %attr(755,root,root) %{_sysconfdir}/X11/%{name}/[rs]*
 %{_pixmapsdir}/icewm
 %dir %{_datadir}/icewm
 %{_datadir}/icewm/icons
