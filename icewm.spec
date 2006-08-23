@@ -53,7 +53,6 @@ BuildRequires:	libstdc++-devel
 Requires(pre):	fileutils
 Requires(pre):	sh-utils
 Requires:	vfmg >= 0.9.95
-Requires:	xinitrc-ng
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_wmstyledir	/etc/sysconfig/wmstyles
