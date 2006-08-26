@@ -55,7 +55,7 @@ Requires(pre):	sh-utils
 Requires:	vfmg >= 0.9.95
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_wmstyledir	/etc/sysconfig/wmstyles
+%define		_wmstyledir	/etc/sysconfig/wmstyle
 %define		_wmpropsdir	/usr/share/wm-properties
 %define		specflags_ia32	 -fomit-frame-pointer
 
