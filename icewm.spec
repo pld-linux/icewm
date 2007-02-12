@@ -11,12 +11,12 @@
 #
 
 Summary:	IceWM X11 Window Manager
-Summary(es):	Administrador de Ventanas X11
-Summary(pl):	IceWM - zarz╠dca okienek X11
-Summary(pt_BR):	Gerenciador de Janelas X11
-Summary(ru):	Оконный менеджер для X11
-Summary(uk):	В╕конний менеджер для X11
-Summary(de):	IceWM ist ein Window Manager fЭr X
+Summary(es.UTF-8):   Administrador de Ventanas X11
+Summary(pl.UTF-8):   IceWM - zarzд┘dca okienek X11
+Summary(pt_BR.UTF-8):   Gerenciador de Janelas X11
+Summary(ru.UTF-8):   п·п╨п╬п╫п╫я▀п╧ п╪п╣п╫п╣п╢п╤п╣я─ п╢п╩я▐ X11
+Summary(uk.UTF-8):   п▓я√п╨п╬п╫п╫п╦п╧ п╪п╣п╫п╣п╢п╤п╣я─ п╢п╩я▐ X11
+Summary(de.UTF-8):   IceWM ist ein Window Manager fц╪r X
 Name:		icewm
 Version:	1.2.25
 #%define _pre pre1
@@ -65,56 +65,56 @@ Windows'95, OS/2 Warp 3,4, Motif. Tries to take the best features of
 the above systems. Features multiple workspaces, opaque move/resize,
 task bar, window list, mailbox status, digital clock. Fast and small.
 
-%description -l es
+%description -l es.UTF-8
 Administrador de Ventanas para el X Window. Puede emular la apariencia
 del Windows'95, OS/2 Warp 3 y 4 y el Motif. Intenta usar las mejores
-caracterМsticas de los sistemas citados. CaracterМsticas: varios
+caracterц╜sticas de los sistemas citados. Caracterц╜sticas: varios
 ambientes de trabajo, movimiento/ redimensionamiento opaco, barra de
 tareas, lista de ventanas, estado de la caja de entrada del correo y
-reloj digital. RАpido y pequeЯo.
+reloj digital. Rц║pido y pequeц╠o.
 
-%description -l pl
-Zarz╠dca okienek pod X11. Mo©e emulowaФ wygl╠d Windows'95, OS/2 Warp
-3, 4, MWM. Zarz╠dca ten prСbuje przej╠Ф z powy©szych ╤rodowisk ich
-najlepsze cechy, takie jak: wiele jednocze╤nie obecnych przestrzeni
-roboczych, paski narzЙdziowe, status skrzynki z poczt╠, cyfrowy zegar.
-Jest przy tym maЁy i szybki.
+%description -l pl.UTF-8
+Zarzд┘dca okienek pod X11. Moе╪e emulowaд┤ wyglд┘d Windows'95, OS/2 Warp
+3, 4, MWM. Zarzд┘dca ten prцЁbuje przejд┘д┤ z powyе╪szych е⌡rodowisk ich
+najlepsze cechy, takie jak: wiele jednoczeе⌡nie obecnych przestrzeni
+roboczych, paski narzд≥dziowe, status skrzynki z pocztд┘, cyfrowy zegar.
+Jest przy tym maе┌y i szybki.
 
-%description -l pt_BR
-Gerenciador de Janelas para o X Window. Pode emular a aparЙncia do
+%description -l pt_BR.UTF-8
+Gerenciador de Janelas para o X Window. Pode emular a aparц╙ncia do
 Windows'95, OS/2 Warp 3 e 4 e o Motif. Tenta usar as melhores
-caracterМsticas dos sistemas citados. CaracterМsticas: vАrios
-ambientes de trabalho, movimentaГЦo/ redimensionamento opaco, barra de
+caracterц╜sticas dos sistemas citados. Caracterц╜sticas: vц║rios
+ambientes de trabalho, movimentaц╖цёo/ redimensionamento opaco, barra de
 tarefas, lista de janelas, status da caixa de entrada do correio e
-relСgio digital. и rАpido e pequeno.
+relцЁgio digital. ц┴ rц║pido e pequeno.
 
-%description -l ru
-Оконный менеджер для X Window System. Может эмулировать внешний вид
-Windows'95, OS/2 Warp 3,4, Motif. Старается взять лучшее из упомянутых
-систем. Поддерживает несколько рабочих поверхностей, непрозрачное
-перемещение окон, полоску заданий, список окон, статус почтового
-ящика, цифровые часы. Быстрый и компактный.
+%description -l ru.UTF-8
+п·п╨п╬п╫п╫я▀п╧ п╪п╣п╫п╣п╢п╤п╣я─ п╢п╩я▐ X Window System. п°п╬п╤п╣я┌ я█п╪я┐п╩п╦я─п╬п╡п╟я┌я▄ п╡п╫п╣я┬п╫п╦п╧ п╡п╦п╢
+Windows'95, OS/2 Warp 3,4, Motif. п║я┌п╟я─п╟п╣я┌я│я▐ п╡п╥я▐я┌я▄ п╩я┐я┤я┬п╣п╣ п╦п╥ я┐п©п╬п╪я▐п╫я┐я┌я▀я┘
+я│п╦я│я┌п╣п╪. п÷п╬п╢п╢п╣я─п╤п╦п╡п╟п╣я┌ п╫п╣я│п╨п╬п╩я▄п╨п╬ я─п╟п╠п╬я┤п╦я┘ п©п╬п╡п╣я─я┘п╫п╬я│я┌п╣п╧, п╫п╣п©я─п╬п╥я─п╟я┤п╫п╬п╣
+п©п╣я─п╣п╪п╣я┴п╣п╫п╦п╣ п╬п╨п╬п╫, п©п╬п╩п╬я│п╨я┐ п╥п╟п╢п╟п╫п╦п╧, я│п©п╦я│п╬п╨ п╬п╨п╬п╫, я│я┌п╟я┌я┐я│ п©п╬я┤я┌п╬п╡п╬пЁп╬
+я▐я┴п╦п╨п╟, я├п╦я└я─п╬п╡я▀п╣ я┤п╟я│я▀. п▒я▀я│я┌я─я▀п╧ п╦ п╨п╬п╪п©п╟п╨я┌п╫я▀п╧.
 
-%description -l uk
-В╕конний менеджер для X Window System. Може емулювати зовн╕шн╕й вигляд
-Windows'95, OS/2 Warp 3,4, Motif. Намага╓ться взяти найкраще ╕з
-згаданих систем. П╕дтриму╓ к╕лька робочих площин, непрозоре
-перем╕щення в╕кон, смужку завдань, список в╕кон, стан поштово╖
-скриньки, цифровий годинник. Швидкий та компактний.
+%description -l uk.UTF-8
+п▓я√п╨п╬п╫п╫п╦п╧ п╪п╣п╫п╣п╢п╤п╣я─ п╢п╩я▐ X Window System. п°п╬п╤п╣ п╣п╪я┐п╩я▌п╡п╟я┌п╦ п╥п╬п╡п╫я√я┬п╫я√п╧ п╡п╦пЁп╩я▐п╢
+Windows'95, OS/2 Warp 3,4, Motif. п²п╟п╪п╟пЁп╟я■я┌я▄я│я▐ п╡п╥я▐я┌п╦ п╫п╟п╧п╨я─п╟я┴п╣ я√п╥
+п╥пЁп╟п╢п╟п╫п╦я┘ я│п╦я│я┌п╣п╪. п÷я√п╢я┌я─п╦п╪я┐я■ п╨я√п╩я▄п╨п╟ я─п╬п╠п╬я┤п╦я┘ п©п╩п╬я┴п╦п╫, п╫п╣п©я─п╬п╥п╬я─п╣
+п©п╣я─п╣п╪я√я┴п╣п╫п╫я▐ п╡я√п╨п╬п╫, я│п╪я┐п╤п╨я┐ п╥п╟п╡п╢п╟п╫я▄, я│п©п╦я│п╬п╨ п╡я√п╨п╬п╫, я│я┌п╟п╫ п©п╬я┬я┌п╬п╡п╬я≈
+я│п╨я─п╦п╫я▄п╨п╦, я├п╦я└я─п╬п╡п╦п╧ пЁп╬п╢п╦п╫п╫п╦п╨. п╗п╡п╦п╢п╨п╦п╧ я┌п╟ п╨п╬п╪п©п╟п╨я┌п╫п╦п╧.
 
-%description -l de
+%description -l de.UTF-8
 IceWM ist ein in C++ programmierter, unter GPL stehender
-Fenstermanager fЭr das X11-Fenstersystem. Ziel von IceWM ist
+Fenstermanager fц╪r das X11-Fenstersystem. Ziel von IceWM ist
 Geschwindigkeit, Schlichtheit und Bedienerfreundlichkeit.
 
 In der Standardeinstellung erinnert das Design von IceWM stark an
-Microsoft Windows: Er verfЭgt Эber eine Taskleiste am unteren
-Bildrand, das aktive Fenster lДsst sich mit der Tastenkombination
+Microsoft Windows: Er verfц╪gt ц╪ber eine Taskleiste am unteren
+Bildrand, das aktive Fenster lц╓sst sich mit der Tastenkombination
 ALT-TAB wechseln, etc.
 
 %package themes-base
 Summary:	Pack of themes for IceWM
-Summary(pl):	Zestaw motywСw dla IceWM-a
+Summary(pl.UTF-8):   Zestaw motywцЁw dla IceWM-a
 Group:		Themes
 Requires:	icewm
 
@@ -122,8 +122,8 @@ Requires:	icewm
 Standard pack of themes delivered with IceWM. All of them made by
 Marko Macek: gtk2, metal2, motif, nice, nice2, warp3, warp4, win95.
 
-%description themes-base -l pl
-Standardowy zestaw motywСw dla IceWM-a, dostarczany wraz z nim.
+%description themes-base -l pl.UTF-8
+Standardowy zestaw motywцЁw dla IceWM-a, dostarczany wraz z nim.
 Wszystkie stworzone przez Marko Macka: gtk2, metal2, motif, nice,
 nice2, warp3, warp4, win95.
 
