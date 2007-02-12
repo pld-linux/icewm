@@ -10,7 +10,7 @@
 %define		_noautocompressdoc	*.sgml
 
 Summary:	IceWM X11 Window Manager
-Summary(pl):	IceWM - mened¿er okienek X11
+Summary(pl.UTF-8):   IceWM - menedÅ¼er okienek X11
 Name:		icewm
 Version:	1.2.0pre3
 Release:	1
@@ -44,16 +44,16 @@ Windows'95, OS/2 Warp 3,4, Motif. Tries to take the best features of
 the above systems. Features multiple workspaces, opaque move/resize,
 task bar, window list, mailbox status, digital clock. Fast and small.
 
-%description -l pl
-Mened¿er okienek pod X11. Mo¿e emulowaæ wygl±d Windows'95, OS/2 Warp
-3,4, MWM. Mened¿er ten próbuje wybraæ najlepsze cechy dostêpne w
-powy¿szych ¶rodowiskach, jak: wiele jednocze¶nie obecnych przestrzeni
-roboczych, paski narzêdziowe, status skrzynki z poczt±, cyfrowy zegar.
-Jest przy tym ma³y i szybki.
+%description -l pl.UTF-8
+MenedÅ¼er okienek pod X11. MoÅ¼e emulowaÄ‡ wyglÄ…d Windows'95, OS/2 Warp
+3,4, MWM. MenedÅ¼er ten prÃ³buje wybraÄ‡ najlepsze cechy dostÄ™pne w
+powyÅ¼szych Å›rodowiskach, jak: wiele jednoczeÅ›nie obecnych przestrzeni
+roboczych, paski narzÄ™dziowe, status skrzynki z pocztÄ…, cyfrowy zegar.
+Jest przy tym maÅ‚y i szybki.
 
 %package themes-base
 Summary:	Pack of themes for IceWM
-Summary(pl):	Zestaw tematów dla IceWM-a
+Summary(pl.UTF-8):   Zestaw tematÃ³w dla IceWM-a
 Group:		Themes
 Requires:	icewm
 
@@ -61,8 +61,8 @@ Requires:	icewm
 Standard pack of themes delivered with IceWM. All of them made by
 Marko Macek: gtk2, metal2, motif, nice, warp3, warp4, win95.
 
-%description themes-base -l pl
-Standardowy zestaw tematów dla IceWM-a, dostarczany wraz z nim.
+%description themes-base -l pl.UTF-8
+Standardowy zestaw tematÃ³w dla IceWM-a, dostarczany wraz z nim.
 Wszystkie stworzone przez Marko Macka: gtk2, metal2, motif, nice,
 warp3, warp4, win95.
 
