@@ -11,12 +11,12 @@
 #
 
 Summary:	IceWM X11 Window Manager
-Summary(es.UTF-8):   Administrador de Ventanas X11
-Summary(pl.UTF-8):   IceWM - zarządca okienek X11
-Summary(pt_BR.UTF-8):   Gerenciador de Janelas X11
-Summary(ru.UTF-8):   Оконный менеджер для X11
-Summary(uk.UTF-8):   Віконний менеджер для X11
-Summary(de.UTF-8):   IceWM ist ein Window Manager für X
+Summary(es.UTF-8):	Administrador de Ventanas X11
+Summary(pl.UTF-8):	IceWM - zarządca okienek X11
+Summary(pt_BR.UTF-8):	Gerenciador de Janelas X11
+Summary(ru.UTF-8):	Оконный менеджер для X11
+Summary(uk.UTF-8):	Віконний менеджер для X11
+Summary(de.UTF-8):	IceWM ist ein Window Manager für X
 Name:		icewm
 Version:	1.2.25
 #%define _pre pre1
@@ -114,7 +114,7 @@ ALT-TAB wechseln, etc.
 
 %package themes-base
 Summary:	Pack of themes for IceWM
-Summary(pl.UTF-8):   Zestaw motywów dla IceWM-a
+Summary(pl.UTF-8):	Zestaw motywów dla IceWM-a
 Group:		Themes
 Requires:	icewm
 
