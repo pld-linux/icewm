@@ -18,7 +18,7 @@ Summary(ru.UTF-8):	Оконный менеджер для X11
 Summary(uk.UTF-8):	Віконний менеджер для X11
 Summary(de.UTF-8):	IceWM ist ein Window Manager für X
 Name:		icewm
-Version:	1.2.30
+Version:	1.2.32
 #%define _pre pre1
 %define	_iceicons_ver		0.6
 %define	_netscapeicons_ver	0.2
@@ -28,7 +28,7 @@ License:	LGPL
 Group:		X11/Window Managers
 #Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}%{_pre}.tar.gz
 Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}.tar.gz
-# Source0-md5:	8a302c5e629bb81d87cc02004a694ece
+# Source0-md5:	49084971689c04b739766a3f5d576d83
 Source1:	IceWM.desktop
 Source3:	http://dl.sourceforge.net/icewm/iceicons-%{_iceicons_ver}.tar.gz
 # Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
