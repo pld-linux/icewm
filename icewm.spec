@@ -22,7 +22,7 @@ Version:	1.2.32
 #%define _pre pre1
 %define	_iceicons_ver		0.6
 %define	_netscapeicons_ver	0.2
-Release:	1
+Release:	2
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
@@ -39,6 +39,8 @@ Source7:	%{name}-xsession.desktop
 Patch0:		%{name}-broken-xrandr.patch
 #Patch1:		%{name}-home_etc.patch
 Patch2:		%{name}-helpbrowser.patch
+# exctracted from http://ftp.de.debian.org/debian/pool/main/i/icewm/icewm_1.2.32-2.diff.gz
+Patch3:		%{name}-tray_hotfixes.patch
 URL:		http://www.icewm.org/
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	autoconf >= 2.50
@@ -134,6 +136,7 @@ nice2, warp3, warp4, win95.
 %patch0 -p1
 #patch1 -p1
 #patch2 -p1
+%patch3 -p1
 
 mv -f po/{zh_TW.Big5,zh_TW}.po
 

@@ -1,0 +1,256 @@
+diff -urNad icewm-1.2.32~/src/yxtray.cc icewm-1.2.32/src/yxtray.cc
+--- icewm-1.2.32~/src/yxtray.cc	2007-08-07 07:12:03.000000000 +0200
++++ icewm-1.2.32/src/yxtray.cc	2007-09-11 19:52:02.000000000 +0200
+@@ -88,65 +88,13 @@
+     }
+ }
+ 
+-YXTrayEmbedder::YXTrayEmbedder(YXTray *tray, Window win): YXEmbed(tray) {
+-    fTray = tray;
+-    setStyle(wsManager);
+-    fDocked = new YXEmbedClient(this, this, win);
+-    
+-    XSetWindowBorderWidth(xapp->display(),
+-                          client_handle(),
+-                          0);
+-    
+-    XAddToSaveSet(xapp->display(), client_handle());
+-
+-    client()->reparent(this, 0, 0);
+-
+-    fDocked->show();
+-}
+-
+-YXTrayEmbedder::~YXTrayEmbedder() {
+-    fDocked->hide();
+-    fDocked->reparent(desktop, 0, 0);
+-    delete fDocked;
+-    fDocked = 0;
+-}
+-
+-void YXTrayEmbedder::detach() {
+-    XAddToSaveSet(xapp->display(), fDocked->handle());
+-
+-    fDocked->reparent(desktop, 0, 0);
+-    fDocked->hide();
+-    XRemoveFromSaveSet(xapp->display(), fDocked->handle());
+-}
+-
+-void YXTrayEmbedder::destroyedClient(Window win) {
+-    fTray->destroyedClient(win);
+-}
+-
+-void YXTrayEmbedder::paint(Graphics &g, const YRect &/*r*/) {
+-#ifdef CONFIG_TASKBAR
+-    if (taskBarBg)
+-        g.setColor(taskBarBg);
+-#endif
+-    g.fillRect(0, 0, width(), height());
+-}
+-
+-void YXTrayEmbedder::configure(const YRect &r, const bool resized) {
+-    YXEmbed::configure(r, resized);
+-    fDocked->setGeometry(r);
+-}
+-
+-void YXTrayEmbedder::handleConfigureRequest(const XConfigureRequestEvent &configureRequest)
+-{
+-    fTray->handleConfigureRequest(configureRequest);
+-}
+-
+ YXTray::YXTray(YXTrayNotifier *notifier,
+                bool internal,
+                const char *atom, 
+                YWindow *aParent): 
+-    YWindow(aParent)
++    YXEmbed(aParent) 
+ {
++    setStyle(wsManager);
+ #ifndef LITE
+     if (taskBarBg == 0) {
+         taskBarBg = new YColor(clrDefaultTaskBar);
+@@ -164,7 +112,10 @@
+ 
+ YXTray::~YXTray() {
+     for (unsigned int i = 0; i < fDocked.getCount(); i++) {
+-        delete fDocked[i];
++        YXEmbedClient *ec = fDocked[i];
++
++        ec->hide();
++        ec->reparent(desktop, 0, 0);
+     }
+     delete fTrayProxy; fTrayProxy = 0;
+ }
+@@ -173,13 +124,17 @@
+     MSG(("trayRequestDock"));
+ 
+     destroyedClient(win);
+-    YXTrayEmbedder *embed= new YXTrayEmbedder(this, win);
++    YXEmbedClient *client = new YXEmbedClient(this, this, win);
+ 
+-    MSG(("size %d %d", embed->client()->width(), embed->client()->height()));
++    MSG(("size %d %d", client->width(), client->height()));
++
++    XSetWindowBorderWidth(xapp->display(),
++                          client->handle(),
++                          0);
+ 
+     if (!fInternal) {
+-        int ww = embed->client()->width();
+-        int hh = embed->client()->height();
++        int ww = client->width();
++        int hh = client->height();
+ 
+         // !!! hack, hack
+         if (ww < 16 || ww > 8 * TICON_W_MAX)
+@@ -187,21 +142,24 @@
+         if (hh < 16 || hh > TICON_H_MAX)
+             hh = TICON_H_MAX;
+ 
+-        embed->setSize(ww, hh);
++        client->setSize(ww, hh);
+     }
+          
++    XAddToSaveSet(xapp->display(), client->handle());
++
++    client->reparent(this, 0, 0);
+ //    client->show();
+ 
+-    fDocked.append(embed);
++    fDocked.append(client);
+     relayout();
+ }
+ 
+ void YXTray::destroyedClient(Window win) {
+ ///    MSG(("undock %d", fDocked.getCount()));
+     for (unsigned int i = 0; i < fDocked.getCount(); i++) {
+-        YXTrayEmbedder *ec = fDocked[i];
++        YXEmbedClient *ec = fDocked[i];
+ ///        msg("win %lX %lX", ec->handle(), win);
+-        if (ec->client_handle() == win) {
++        if (ec->handle() == win) {
+ ///            msg("removing %d %lX", i, win);
+             fDocked.remove(i);
+             break;
+@@ -215,8 +173,8 @@
+     MSG(("tray configureRequest w=%d h=%d", configureRequest.width, configureRequest.height));
+     bool changed = false;
+     for (unsigned int i = 0; i < fDocked.getCount(); i++) {
+-        YXTrayEmbedder *ec = fDocked[i];
+-        if (ec->client_handle() == configureRequest.window) {
++        YXEmbedClient *ec = fDocked[i];
++        if (ec->handle() == configureRequest.window) {
+             int w = configureRequest.width;
+             int h = configureRequest.height;
+             if (h != TICON_H_MAX) {
+@@ -234,10 +192,14 @@
+ 
+ void YXTray::detachTray() {
+     for (unsigned int i = 0; i < fDocked.getCount(); i++) {
+-        YXTrayEmbedder *ec = fDocked[i];
+-        ec->detach();
++        YXEmbedClient *ec = fDocked[i];
+ 
+-   }
++        XAddToSaveSet(xapp->display(), ec->handle());
++
++        ec->reparent(desktop, 0, 0);
++        ec->hide();
++        XRemoveFromSaveSet(xapp->display(), ec->handle());
++    }
+     fDocked.clear();
+ }
+ 
+@@ -255,7 +217,7 @@
+ }
+ 
+ void YXTray::configure(const YRect &r, const bool resized) {
+-    YWindow::configure(r, resized);
++    YXEmbed::configure(r, resized);
+     if (resized)
+         relayout();
+ }
+@@ -266,10 +228,9 @@
+     XSetWindowBackground(xapp->display(),handle(), taskBarBg->pixel());
+ #endif
+     for (unsigned int i = 0; i < fDocked.getCount(); i++) {
+-        YXTrayEmbedder *ec = fDocked[i];
++        YXEmbedClient *ec = fDocked[i];
+ #ifdef CONFIG_TASKBAR
+         XSetWindowBackground(xapp->display(), ec->handle(), taskBarBg->pixel());
+-        XSetWindowBackground(xapp->display(), ec->client_handle(), taskBarBg->pixel());
+ #endif
+ 	ec->repaint();
+     }
+@@ -284,7 +245,7 @@
+         aw+=1;
+     
+     for (unsigned int i = 0; i < fDocked.getCount(); i++) {
+-        YXTrayEmbedder *ec = fDocked[i];
++        YXEmbedClient *ec = fDocked[i];
+         int eh(h), ew=ec->width(), ay(0);
+         if (!fInternal) {
+ 	   ew=min(TICON_W_MAX,ec->width());
+@@ -315,7 +276,7 @@
+             fNotifier->trayChanged();
+     }
+     for (unsigned int i = 0; i < fDocked.getCount(); i++) {
+-        YXTrayEmbedder *ec = fDocked[i];
++        YXEmbedClient *ec = fDocked[i];
+         ec->show();
+     }
+ 
+diff -urNad icewm-1.2.32~/src/yxtray.h icewm-1.2.32/src/yxtray.h
+--- icewm-1.2.32~/src/yxtray.h	2007-08-07 07:12:03.000000000 +0200
++++ icewm-1.2.32/src/yxtray.h	2007-09-11 19:51:51.000000000 +0200
+@@ -8,7 +8,6 @@
+ #define SYSTEM_TRAY_CANCEL_MESSAGE 2
+ 
+ class YXTrayProxy;
+-class YXTray;
+ 
+ class YXTrayNotifier {
+ public:
+@@ -17,24 +16,7 @@
+     virtual ~YXTrayNotifier() {};
+ };
+ 
+-class YXTrayEmbedder: public YXEmbed {
+-public:
+-    YXTrayEmbedder(YXTray *tray, Window win);
+-    ~YXTrayEmbedder();
+-    virtual void paint(Graphics &g, const YRect &r);
+-    virtual void handleConfigureRequest(const XConfigureRequestEvent &configureRequest);
+-    virtual void destroyedClient(Window win);
+-    void detach();
+-    virtual void configure(const YRect &r, const bool resized);
+-
+-    Window client_handle() { return fDocked->handle(); }
+-    YXEmbedClient *client() { return fDocked; }
+-private:
+-    YXTray *fTray;
+-    YXEmbedClient *fDocked;
+-};
+-
+-class YXTray: public YWindow {
++class YXTray: public YXEmbed {
+ public:
+     YXTray(YXTrayNotifier *notifier, bool internal, const char *atom, YWindow *aParent = 0);
+     virtual ~YXTray();
+@@ -47,14 +29,13 @@
+     void relayout();
+ 
+     void trayRequestDock(Window win);
++    virtual void destroyedClient(Window win);
+     void detachTray();
+ 
+     bool kdeRequestDock(Window win);
+-
+-    void destroyedClient(Window win);
+ private:
+     YXTrayProxy *fTrayProxy;
+-    YObjectArray<YXTrayEmbedder> fDocked;
++    YObjectArray<YXEmbedClient> fDocked;
+     YXTrayNotifier *fNotifier;
+     bool fInternal;
+ };
