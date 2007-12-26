@@ -1,5 +1,4 @@
 [Desktop Entry]
-Encoding=UTF-8
 Name=Ice WM
 Name[ca]=Gestor Ice
 Name[da]=IceWM
@@ -9,7 +8,6 @@ Name[nb]=Ice vindushåndterer
 Name[pl]=IceWM
 Exec=icewm
 TryExec=icewm
-
 [Window Manager]
 SessionManaged=true
 # vi: encoding=utf-8
