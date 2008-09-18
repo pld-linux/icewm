@@ -22,7 +22,7 @@ Version:	1.2.32
 #%define _pre pre1
 %define	_iceicons_ver		0.6
 %define	_netscapeicons_ver	0.2
-Release:	2
+Release:	3
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
@@ -56,10 +56,11 @@ Requires(pre):	fileutils
 Requires(pre):	sh-utils
 Requires:	xinitrc-ng
 Suggests:	vfmg >= 0.9.95
+Conflicts:	filesystem < 3.0-20
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_wmstyledir	/etc/sysconfig/wmstyle
-%define		_wmpropsdir	/usr/share/wm-properties
+%define		_wmpropsdir	/usr/share/gnome/wm-properties
 %define		specflags_ia32	-fomit-frame-pointer
 
 %description
