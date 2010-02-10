@@ -1,10 +1,8 @@
 #
 # Conditional build:
 %bcond_without	gradients	# disable gradients (requires antialiasing which requires freetype)
-%bcond_without	antialiasing	# disable antialiasing (implies !with_gradients)
 %bcond_without	freetype	# disable xfreetype support (implies !with_antialiasing)
 %bcond_without	guievents	# disable guievents
-%bcond_without	imlib		# disable imlib support
 #
 # TODO:
 # - make a PLD-theme - default :]
@@ -18,17 +16,17 @@ Summary(ru.UTF-8):	Оконный менеджер для X11
 Summary(uk.UTF-8):	Віконний менеджер для X11
 Summary(de.UTF-8):	IceWM ist ein Window Manager für X
 Name:		icewm
-Version:	1.2.37
+Version:	1.3.6
 #%define _pre pre1
 %define	_iceicons_ver		0.6
 %define	_netscapeicons_ver	0.2
-Release:	3
+Release:	1
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
 #Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}%{_pre}.tar.gz
 Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}.tar.gz
-# Source0-md5:	970a21588d26eb361020fd60a61a482c
+# Source0-md5:	65a7ddb0fb3f60abea4af52184382570
 Source1:	IceWM.desktop
 Source3:	http://dl.sourceforge.net/icewm/iceicons-%{_iceicons_ver}.tar.gz
 # Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
@@ -46,8 +44,8 @@ BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 %{?with_guievents:BuildRequires:	esound-devel}
+BuildRequires:	gdk-pixbuf-devel
 BuildRequires:	gettext-devel
-%{?with_imlib:BuildRequires:	imlib-devel}
 BuildRequires:	libstdc++-devel
 #%:wq
 %{?with_freetype:BuildRequires:	xorg-lib-libXft-devel >= 2.1}
@@ -149,11 +147,9 @@ cp -f /usr/share/automake/config.sub .
 %{__autoconf}
 %{__autoheader}
 %configure \
-	%{?with_gradients:--enable-gradients} \
-	%{?with_antialiasing:--enable-antialiasing} \
+	%{!?with_gradients:--disable-gradients} \
 	%{!?with_freetype:--disable-xfreetype --enable-corefonts} \
 	%{?with_guievents:--enable-guievents} \
-	%{!?with_imlib:--without-imlib} \
 	--enable-shaped-decorations \
 	--with-cfgdir=%{_sysconfdir}/X11/%{name} \
 	--with-docdir=%{_docdir}
