@@ -1,7 +1,7 @@
 #
 # Conditional build:
-%bcond_without	gradients	# disable gradients (implies with_antialiasing)
-%bcond_without	antialiasing	# disable antialiasing
+%bcond_without	gradients	# disable gradients (requires antialiasing which requires freetype)
+%bcond_without	antialiasing	# disable antialiasing (implies !with_gradients)
 %bcond_without	freetype	# disable xfreetype support (implies !with_antialiasing)
 %bcond_without	guievents	# disable guievents
 %bcond_without	imlib		# disable imlib support
@@ -18,7 +18,7 @@ Summary(ru.UTF-8):	Оконный менеджер для X11
 Summary(uk.UTF-8):	Віконний менеджер для X11
 Summary(de.UTF-8):	IceWM ist ein Window Manager für X
 Name:		icewm
-Version:	1.2.32
+Version:	1.2.37
 #%define _pre pre1
 %define	_iceicons_ver		0.6
 %define	_netscapeicons_ver	0.2
@@ -28,7 +28,7 @@ License:	LGPL
 Group:		X11/Window Managers
 #Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}%{_pre}.tar.gz
 Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}.tar.gz
-# Source0-md5:	49084971689c04b739766a3f5d576d83
+# Source0-md5:	970a21588d26eb361020fd60a61a482c
 Source1:	IceWM.desktop
 Source3:	http://dl.sourceforge.net/icewm/iceicons-%{_iceicons_ver}.tar.gz
 # Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
@@ -137,9 +137,7 @@ nice2, warp3, warp4, win95.
 %patch0 -p1
 #patch1 -p1
 #patch2 -p1
-%patch3 -p1
-
-mv -f po/{zh_TW.Big5,zh_TW}.po
+#patch3 -p1
 
 cd lib/icons
 tar -xzf %{SOURCE3}
@@ -156,7 +154,6 @@ cp -f /usr/share/automake/config.sub .
 	%{!?with_freetype:--disable-xfreetype --enable-corefonts} \
 	%{?with_guievents:--enable-guievents} \
 	%{!?with_imlib:--without-imlib} \
-	--disable-menus-gnome \
 	--enable-shaped-decorations \
 	--with-cfgdir=%{_sysconfdir}/X11/%{name} \
 	--with-docdir=%{_docdir}

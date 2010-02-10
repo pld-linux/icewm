@@ -33,7 +33,7 @@ diff -ur icewm-1.2.15pre1/src/Makefile.in icewm-1.2.15pre1-doc/src/Makefile.in
 @@ -1,5 +1,6 @@
  PACKAGE = @PACKAGE@
  VERSION = @VERSION@
-+DOCVERSION = 1.2.15
++DOCVERSION = 1.2.37
  HOSTOS  = @HOSTOS@
  HOSTCPU = @HOSTCPU@
  
