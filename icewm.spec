@@ -9,12 +9,12 @@
 # - -home_etc.patch needs update
 
 Summary:	IceWM X11 Window Manager
+Summary(de.UTF-8):	IceWM ist ein Window Manager für X
 Summary(es.UTF-8):	Administrador de Ventanas X11
 Summary(pl.UTF-8):	IceWM - zarządca okienek X11
 Summary(pt_BR.UTF-8):	Gerenciador de Janelas X11
 Summary(ru.UTF-8):	Оконный менеджер для X11
 Summary(uk.UTF-8):	Віконний менеджер для X11
-Summary(de.UTF-8):	IceWM ist ein Window Manager für X
 Name:		icewm
 Version:	1.3.6
 #%define _pre pre1
@@ -40,15 +40,20 @@ Patch2:		%{name}-helpbrowser.patch
 # exctracted from http://ftp.de.debian.org/debian/pool/main/i/icewm/icewm_1.2.32-2.diff.gz
 Patch3:		%{name}-tray_hotfixes.patch
 URL:		http://www.icewm.org/
-BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 %{?with_guievents:BuildRequires:	esound-devel}
 BuildRequires:	gdk-pixbuf-devel
 BuildRequires:	gettext-devel
+BuildRequires:	gtk+2-devel
+BuildRequires:	kde4-kde3support
 BuildRequires:	libstdc++-devel
-#%:wq
+BuildRequires:	pkgconfig
+BuildRequires:	xorg-lib-libICE-devel
+BuildRequires:	xorg-lib-libSM-devel
+BuildRequires:	xorg-lib-libX11-devel
 %{?with_freetype:BuildRequires:	xorg-lib-libXft-devel >= 2.1}
+BuildRequires:	xorg-lib-libXinerama-devel
 %{?with_guievents:BuildRequires:	yiff-devel}
 Requires(pre):	fileutils
 Requires(pre):	sh-utils
