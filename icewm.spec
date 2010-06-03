@@ -20,7 +20,7 @@ Version:	1.3.6
 #%define _pre pre1
 %define	_iceicons_ver		0.6
 %define	_netscapeicons_ver	0.2
-Release:	1
+Release:	2
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
@@ -42,7 +42,6 @@ Patch3:		%{name}-tray_hotfixes.patch
 URL:		http://www.icewm.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
-%{?with_guievents:BuildRequires:	esound-devel}
 BuildRequires:	gdk-pixbuf-devel
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+2-devel
