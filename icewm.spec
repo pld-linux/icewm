@@ -20,7 +20,7 @@ Version:	1.3.6
 #%define _pre pre1
 %define	_iceicons_ver		0.6
 %define	_netscapeicons_ver	0.2
-Release:	2
+Release:	3
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
@@ -56,6 +56,7 @@ BuildRequires:	xorg-lib-libXinerama-devel
 %{?with_guievents:BuildRequires:	yiff-devel}
 Requires(pre):	fileutils
 Requires(pre):	sh-utils
+Requires:	shared-mime-info
 Requires:	xinitrc-ng
 Suggests:	vfmg >= 0.9.95
 Conflicts:	filesystem < 3.0-20
