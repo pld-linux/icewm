@@ -6,7 +6,6 @@
 #
 # TODO:
 # - make a PLD-theme - default :]
-# - -home_etc.patch needs update
 
 Summary:	IceWM X11 Window Manager
 Summary(de.UTF-8):	IceWM ist ein Window Manager für X
@@ -16,17 +15,15 @@ Summary(pt_BR.UTF-8):	Gerenciador de Janelas X11
 Summary(ru.UTF-8):	Оконный менеджер для X11
 Summary(uk.UTF-8):	Віконний менеджер для X11
 Name:		icewm
-Version:	1.3.6
-#%define _pre pre1
+Version:	1.3.7
 %define	_iceicons_ver		0.6
 %define	_netscapeicons_ver	0.2
-Release:	3
+Release:	1
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
-#Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}%{_pre}.tar.gz
 Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}.tar.gz
-# Source0-md5:	65a7ddb0fb3f60abea4af52184382570
+# Source0-md5:	224695231aedb2b91db3254a13e1c8dd
 Source1:	IceWM.desktop
 Source3:	http://dl.sourceforge.net/icewm/iceicons-%{_iceicons_ver}.tar.gz
 # Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
@@ -34,18 +31,18 @@ Source4:	IceWM.RunWM
 Source6:	http://dl.sourceforge.net/icewm/netscapeicons-%{_netscapeicons_ver}.tar.gz
 # Source6-md5:	409aa9b02adc11309ed546c5120c01d2
 Source7:	%{name}-xsession.desktop
-Patch0:		%{name}-broken-xrandr.patch
-#Patch1:		%{name}-home_etc.patch
-Patch2:		%{name}-helpbrowser.patch
-# exctracted from http://ftp.de.debian.org/debian/pool/main/i/icewm/icewm_1.2.32-2.diff.gz
-Patch3:		%{name}-tray_hotfixes.patch
+Patch0:		%{name}-build-fixes.patch
+Patch1:		%{name}-tray_hotfixes.patch
+Patch2:		%{name}-fix_input_focus_loss_for_deiconified_frame_1.patch
+Patch3:		%{name}-ifstate-exact-check.patch
+Patch4:		%{name}-imap-unseen.patch
 URL:		http://www.icewm.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	gdk-pixbuf-devel
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+2-devel
-BuildRequires:	kde4-kde3support
+BuildRequires:	kde4-kde3support-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	pkgconfig
 BuildRequires:	xorg-lib-libICE-devel
@@ -135,12 +132,12 @@ Wszystkie stworzone przez Marko Macka: gtk2, metal2, motif, nice,
 nice2, warp3, warp4, win95.
 
 %prep
-#setup -q -n %{name}-%{version}%{_pre}
 %setup -q
 %patch0 -p1
-#patch1 -p1
-#patch2 -p1
-#patch3 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 cd lib/icons
 tar -xzf %{SOURCE3}
