@@ -36,6 +36,7 @@ Patch1:		%{name}-tray_hotfixes.patch
 Patch2:		%{name}-fix_input_focus_loss_for_deiconified_frame_1.patch
 Patch3:		%{name}-ifstate-exact-check.patch
 Patch4:		%{name}-imap-unseen.patch
+Patch5:		%{name}-autohide.patch
 URL:		http://www.icewm.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -138,6 +139,7 @@ nice2, warp3, warp4, win95.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 cd lib/icons
 tar -xzf %{SOURCE3}
