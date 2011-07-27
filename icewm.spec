@@ -3,6 +3,7 @@
 %bcond_without	gradients	# disable gradients (requires antialiasing which requires freetype)
 %bcond_without	freetype	# disable xfreetype support (implies !with_antialiasing)
 %bcond_without	guievents	# disable guievents
+%bcond_with	gnome		# build with support for GNOME2 wm-properties
 #
 # TODO:
 # - make a PLD-theme - default :]
@@ -18,7 +19,7 @@ Name:		icewm
 Version:	1.3.7
 %define	_iceicons_ver		0.6
 %define	_netscapeicons_ver	0.2
-Release:	2
+Release:	3
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
@@ -166,7 +167,7 @@ install -d $RPM_BUILD_ROOT{%{_datadir}/xsessions,%{_pixmapsdir}} \
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
+%{?with_gnome:install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}}
 install %{SOURCE4} $RPM_BUILD_ROOT%{_datadir}/icewm/startup
 install %{SOURCE7} $RPM_BUILD_ROOT%{_datadir}/xsessions/%{name}.desktop
 install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/keys
@@ -206,7 +207,7 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %{_datadir}/icewm/themes/Infadel2
 %{_datadir}/icewm/themes/icedesert
 %{_datadir}/xsessions/%{name}.desktop
-%{_wmpropsdir}/*
+%{?with_gnome:%{_wmpropsdir}/*}
 
 %files themes-base
 %defattr(644,root,root,755)
