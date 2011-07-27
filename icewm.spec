@@ -27,7 +27,7 @@ Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}.tar.gz
 Source1:	IceWM.desktop
 Source3:	http://dl.sourceforge.net/icewm/iceicons-%{_iceicons_ver}.tar.gz
 # Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
-Source4:	IceWM.RunWM
+Source4:	icewm-startup.sh
 Source6:	http://dl.sourceforge.net/icewm/netscapeicons-%{_netscapeicons_ver}.tar.gz
 # Source6-md5:	409aa9b02adc11309ed546c5120c01d2
 Source7:	%{name}-xsession.desktop
@@ -60,7 +60,6 @@ Suggests:	vfmg >= 0.9.95
 Conflicts:	filesystem < 3.0-20
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_wmstyledir	/etc/sysconfig/wmstyle
 %define		_wmpropsdir	/usr/share/gnome/wm-properties
 %define		specflags_ia32	-fomit-frame-pointer
 
@@ -161,14 +160,14 @@ cp -f /usr/share/automake/config.sub .
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_datadir}/xsessions,%{_pixmapsdir},%{_wmstyledir}} \
+install -d $RPM_BUILD_ROOT{%{_datadir}/xsessions,%{_pixmapsdir}} \
 	$RPM_BUILD_ROOT{%{_wmpropsdir},%{_sysconfdir}/X11/%{name}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}
-install %{SOURCE4} $RPM_BUILD_ROOT%{_wmstyledir}/%{name}-session.sh
+install %{SOURCE4} $RPM_BUILD_ROOT%{_datadir}/icewm/startup
 install %{SOURCE7} $RPM_BUILD_ROOT%{_datadir}/xsessions/%{name}.desktop
 install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/keys
 sed 's|^# IconPath=""|IconPath="%{_datadir}/pixmaps:%{_datadir}/icons"|' < lib/preferences > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/preferences
@@ -201,13 +200,13 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %{_datadir}/icewm/icons
 %{_datadir}/icewm/ledclock
 %{_datadir}/icewm/mailbox
+%attr(755,root,root) %{_datadir}/icewm/startup
 %{_datadir}/icewm/taskbar
 %dir %{_datadir}/icewm/themes
 %{_datadir}/icewm/themes/Infadel2
 %{_datadir}/icewm/themes/icedesert
 %{_datadir}/xsessions/%{name}.desktop
 %{_wmpropsdir}/*
-%attr(755,root,root) %{_wmstyledir}/%{name}-session.sh
 
 %files themes-base
 %defattr(644,root,root,755)
