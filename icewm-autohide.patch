@@ -1,7 +1,13 @@
 diff -urp icewm-1.3.7/src/wmtaskbar.cc icewm-1.3.7a/src/wmtaskbar.cc
 --- icewm-1.3.7/src/wmtaskbar.cc	2010-10-31 15:09:36.000000000 +0100
-+++ icewm-1.3.7a/src/wmtaskbar.cc	2011-05-31 00:05:52.000000000 +0200
-@@ -902,7 +902,7 @@ void TaskBar::handleCrossing(const XCros
++++ icewm-1.3.7a/src/wmtaskbar.cc	2011-08-28 22:13:26.000000000 +0200
+@@ -897,12 +897,12 @@ void TaskBar::updateWMHints() {
+ 
+ 
+ void TaskBar::handleCrossing(const XCrossingEvent &crossing) {
+-    if (crossing.serial != ignore_enternotify_hack && crossing.serial != ignore_enternotify_hack + 1)
++    if (crossing.serial != ignore_enternotify_hack && (crossing.serial != ignore_enternotify_hack + 1 || crossing.detail != NotifyVirtual))
+     {
          if (crossing.type == EnterNotify /* && crossing.mode != NotifyNormal */) {
              fEdgeTrigger->stopHide();
          } else if (crossing.type == LeaveNotify /* && crossing.mode != NotifyNormal */) {

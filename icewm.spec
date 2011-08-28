@@ -19,7 +19,7 @@ Name:		icewm
 Version:	1.3.7
 %define	_iceicons_ver		0.6
 %define	_netscapeicons_ver	0.2
-Release:	3
+Release:	4
 Epoch:		2
 License:	LGPL
 Group:		X11/Window Managers
