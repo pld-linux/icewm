@@ -42,7 +42,7 @@ URL:		http://www.icewm.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	gdk-pixbuf-devel
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	gtk+2-devel
 BuildRequires:	kde4-kde3support
 BuildRequires:	libstdc++-devel
