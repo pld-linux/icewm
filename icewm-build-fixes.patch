@@ -8,7 +8,7 @@ Index: icewm-1.3.7/configure
  	GNOME_VER=2
 -	GNOME2_CFLAGS=`pkg-config --cflags gnome-desktop-2.0 libgnomeui-2.0`
 -	GNOME2_LIBS=`pkg-config --libs gnome-desktop-2.0 libgnomeui-2.0`
-+  GNOME2_CFLAGS=`pkg-config --cflags gnome-desktop-2.0 gnome-vfs-2.0 libgnomeui-2.0 fontconfig`
++	GNOME2_CFLAGS=`pkg-config --cflags gnome-desktop-2.0 gnome-vfs-2.0 libgnomeui-2.0 fontconfig`
 +	GNOME2_LIBS=`pkg-config --libs gnome-desktop-2.0 gnome-vfs-2.0 libgnomeui-2.0 fontconfig`
 +
  
@@ -24,7 +24,7 @@ Index: icewm-1.3.7/configure.in
  	GNOME_VER=2
 -	GNOME2_CFLAGS=`pkg-config --cflags gnome-desktop-2.0 libgnomeui-2.0`
 -	GNOME2_LIBS=`pkg-config --libs gnome-desktop-2.0 libgnomeui-2.0`
-+  GNOME2_CFLAGS=`pkg-config --cflags gnome-desktop-2.0 gnome-vfs-2.0 libgnomeui-2.0 fontconfig`
++	GNOME2_CFLAGS=`pkg-config --cflags gnome-desktop-2.0 gnome-vfs-2.0 libgnomeui-2.0 fontconfig`
 +	GNOME2_LIBS=`pkg-config --libs gnome-desktop-2.0 gnome-vfs-2.0 libgnomeui-2.0 fontconfig`
  
  	AC_DEFINE(CONFIG_GNOME_MENUS, 1, [Define to make IceWM more GNOME-friendly])
@@ -57,30 +57,6 @@ Index: icewm-1.3.7/src/WinMgr.h
  
  /* workspaces */
  #define XA_WIN_WORKSPACES "_WIN_WORKSPACES"
-Index: icewm-1.3.7/src/yfont.cc
-===================================================================
---- icewm-1.3.7.orig/src/yfont.cc	2010-10-31 15:09:36.000000000 +0100
-+++ icewm-1.3.7/src/yfont.cc	2011-03-14 15:58:59.000000000 +0100
-@@ -12,7 +12,7 @@
- 
- extern ref<YFont> getXftFont(ustring name, bool antialias);
- extern ref<YFont> getXftFontXlfd(ustring name, bool antialias);
--extern ref<YFont> getCoreFont(ustring name);
-+extern ref<YFont> getCoreFont(const char*);
- 
- #ifdef CONFIG_XFREETYPE
- ref<YFont> YFont::getFont(ustring name, ustring xftFont, bool antialias) {
-@@ -46,7 +46,9 @@
- #endif
- 
- #ifdef CONFIG_COREFONTS
--    return getCoreFont(name);
-+    char tmp[4096]; // XXX: such things should go into getCoreFont directly
-+    name.copy(tmp, sizeof(tmp));
-+    return getCoreFont(tmp);
- #else
-     return null;
- #endif
 Index: icewm-1.3.7/src/yapp.cc
 ===================================================================
 --- icewm-1.3.7.orig/src/yapp.cc	2010-10-31 15:09:36.000000000 +0100
@@ -107,3 +83,23 @@ Index: icewm-1.3.7/src/Makefile.in
  
  CORE_LIBS =     @CORE_LIBS@ # `fc-config --libs`
  IMAGE_LIBS =    @IMAGE_LIBS@
+--- icewm-1.3.8/src/icesh.cc.orig	2013-11-17 17:54:39.000000000 +0100
++++ icewm-1.3.8/src/icesh.cc	2020-11-10 22:44:42.344406358 +0100
+@@ -245,7 +245,7 @@
+ };
+ 
+ SymbolTable layers = {
+-    layerIdentifiers, 0, WinLayerCount - 1, WinLayerInvalid
++    layerIdentifiers, 0, WinLayerCount - 1, (long)WinLayerInvalid
+ };
+ 
+ SymbolTable states = {
+@@ -257,7 +257,7 @@
+ };
+ 
+ SymbolTable trayOptions = {
+-    trayOptionIdentifiers, 0, WinTrayOptionCount - 1, WinTrayInvalid
++    trayOptionIdentifiers, 0, WinTrayOptionCount - 1, (long)WinTrayInvalid
+ };
+ 
+ /******************************************************************************/

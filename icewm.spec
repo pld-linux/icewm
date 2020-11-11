@@ -1,9 +1,9 @@
 #
 # Conditional build:
-%bcond_without	gradients	# disable gradients (requires antialiasing which requires freetype)
-%bcond_without	freetype	# disable xfreetype support (implies !with_antialiasing)
-%bcond_without	guievents	# disable guievents
-%bcond_with	gnome2		# build with support for GNOME2 wm-properties
+%bcond_without	gradients	# gradients (requires antialiasing which requires freetype)
+%bcond_without	freetype	# xfreetype support (implies no antialiasing)
+%bcond_with	guievents	# GUI events (broken in 1.3.8)
+%bcond_with	gnome2		# support for GNOME2 wm-properties
 #
 # TODO:
 # - make a PLD-theme - default :]
@@ -16,45 +16,43 @@ Summary(pt_BR.UTF-8):	Gerenciador de Janelas X11
 Summary(ru.UTF-8):	Оконный менеджер для X11
 Summary(uk.UTF-8):	Віконний менеджер для X11
 Name:		icewm
-Version:	1.3.7
-%define	_iceicons_ver		0.6
-%define	_netscapeicons_ver	0.2
-Release:	4
+Version:	1.3.8
+%define	iceicons_ver		0.6
+%define	netscapeicons_ver	0.2
+Release:	1
 Epoch:		2
-License:	LGPL
+License:	LGPL v2
 Group:		X11/Window Managers
-Source0:	http://dl.sourceforge.net/icewm/%{name}-%{version}.tar.gz
-# Source0-md5:	224695231aedb2b91db3254a13e1c8dd
+Source0:	http://downloads.sourceforge.net/icewm/%{name}-%{version}.tar.gz
+# Source0-md5:	6d61aced3bd20b9e7caeb7e8380368c8
 Source1:	IceWM.desktop
-Source3:	http://dl.sourceforge.net/icewm/iceicons-%{_iceicons_ver}.tar.gz
+Source3:	http://downloads.sourceforge.net/icewm/iceicons-%{iceicons_ver}.tar.gz
 # Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
 Source4:	icewm-startup.sh
-Source6:	http://dl.sourceforge.net/icewm/netscapeicons-%{_netscapeicons_ver}.tar.gz
+Source6:	http://downloads.sourceforge.net/icewm/netscapeicons-%{netscapeicons_ver}.tar.gz
 # Source6-md5:	409aa9b02adc11309ed546c5120c01d2
 Source7:	%{name}-xsession.desktop
 Patch0:		%{name}-build-fixes.patch
-Patch1:		%{name}-tray_hotfixes.patch
-Patch2:		%{name}-fix_input_focus_loss_for_deiconified_frame_1.patch
 Patch3:		%{name}-ifstate-exact-check.patch
-Patch4:		%{name}-imap-unseen.patch
 Patch5:		%{name}-autohide.patch
-URL:		http://www.icewm.org/
+URL:		https://ice-wm.org/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
-BuildRequires:	gdk-pixbuf-devel
+BuildRequires:	gdk-pixbuf2-xlib-devel >= 2.0
 BuildRequires:	gettext-tools
-BuildRequires:	gtk+2-devel
-BuildRequires:	kde4-kde3support
 BuildRequires:	libstdc++-devel
 BuildRequires:	pkgconfig
 BuildRequires:	xorg-lib-libICE-devel
 BuildRequires:	xorg-lib-libSM-devel
 BuildRequires:	xorg-lib-libX11-devel
+BuildRequires:	xorg-lib-libXext-devel
 %{?with_freetype:BuildRequires:	xorg-lib-libXft-devel >= 2.1}
 BuildRequires:	xorg-lib-libXinerama-devel
+BuildRequires:	xorg-lib-libXrandr-devel
+BuildRequires:	xorg-lib-libXrender-devel
 %{?with_guievents:BuildRequires:	yiff-devel}
-Requires(pre):	fileutils
-Requires(pre):	sh-utils
+Requires(pre):	/bin/rm
+Requires(pre):	/usr/bin/test
 Requires:	shared-mime-info
 Requires:	xinitrc-ng
 Suggests:	vfmg >= 0.9.95
@@ -135,11 +133,11 @@ nice2, warp3, warp4, win95.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 %patch3 -p1
-%patch4 -p1
 %patch5 -p1
+
+# remove GNOME1/GNOME2 menu rules
+%{__sed} -i -e '/icewm-menu-gnome/d' lib/menu.in
 
 cd lib/icons
 tar -xzf %{SOURCE3}
@@ -152,9 +150,9 @@ cp -f /usr/share/automake/config.sub .
 %{__autoheader}
 %configure \
 	%{!?with_gradients:--disable-gradients} \
-	%{!?with_freetype:--disable-xfreetype --enable-corefonts} \
-	%{?with_guievents:--enable-guievents} \
+	%{?with_guievents:--enable-guievents --with-icesound=OSS,Y} \
 	--enable-shaped-decorations \
+	%{!?with_freetype:--disable-xfreetype --enable-corefonts} \
 	--with-cfgdir=%{_sysconfdir}/X11/%{name} \
 	--with-docdir=%{_docdir}
 %{__make}
@@ -167,13 +165,13 @@ install -d $RPM_BUILD_ROOT{%{_datadir}/xsessions,%{_pixmapsdir}} \
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{?with_gnome2:install %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}}
-install %{SOURCE4} $RPM_BUILD_ROOT%{_datadir}/icewm/startup
-install %{SOURCE7} $RPM_BUILD_ROOT%{_datadir}/xsessions/%{name}.desktop
-install lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/keys
+%{?with_gnome2:cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}}
+cp -p %{SOURCE4} $RPM_BUILD_ROOT%{_datadir}/icewm/startup
+cp -p %{SOURCE7} $RPM_BUILD_ROOT%{_datadir}/xsessions/%{name}.desktop
+cp -p lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/keys
 sed 's|^# IconPath=""|IconPath="%{_datadir}/pixmaps:%{_datadir}/icons"|' < lib/preferences > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/preferences
-install lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/toolbar
-install lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/winoptions
+cp -p lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/toolbar
+cp -p lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/winoptions
 echo %{_bindir}/icewmbg > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/startup
 :> $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/restart
 
@@ -191,23 +189,43 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS BUGS CHANGES PLATFORMS README* TODO icewm.lsm doc/*.html
-%attr(755,root,root) %{_bindir}/*
+%doc AUTHORS BUGS CHANGES PLATFORMS README* TODO doc/*.html
+%attr(755,root,root) %{_bindir}/icehelp
+%attr(755,root,root) %{_bindir}/icesh
+%if %{with guievents}
+%attr(755,root,root) %{_bindir}/icesound
+%endif
+%attr(755,root,root) %{_bindir}/icewm
+%attr(755,root,root) %{_bindir}/icewm-session
+%attr(755,root,root) %{_bindir}/icewm-set-gnomewm
+%attr(755,root,root) %{_bindir}/icewmbg
+%attr(755,root,root) %{_bindir}/icewmhint
+%attr(755,root,root) %{_bindir}/icewmtray
 %dir %{_sysconfdir}/X11/%{name}
-%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/[!rs]*
-%config(noreplace,missingok) %verify(not md5 mtime size) %attr(755,root,root) %{_sysconfdir}/X11/%{name}/[rs]*
+%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/keys
+%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/menu
+%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/preferences
+%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/toolbar
+%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/winoptions
+%config(noreplace,missingok) %verify(not md5 mtime size) %attr(755,root,root) %{_sysconfdir}/X11/%{name}/restart
+%config(noreplace,missingok) %verify(not md5 mtime size) %attr(755,root,root) %{_sysconfdir}/X11/%{name}/startup
 %{_pixmapsdir}/icewm
 %dir %{_datadir}/icewm
 %{_datadir}/icewm/icons
+%{_datadir}/icewm/keys
+%{_datadir}/icewm/menu
 %{_datadir}/icewm/ledclock
 %{_datadir}/icewm/mailbox
+%{_datadir}/icewm/preferences
 %attr(755,root,root) %{_datadir}/icewm/startup
+%{_datadir}/icewm/toolbar
 %{_datadir}/icewm/taskbar
+%{_datadir}/icewm/winoptions
 %dir %{_datadir}/icewm/themes
 %{_datadir}/icewm/themes/Infadel2
 %{_datadir}/icewm/themes/icedesert
-%{_datadir}/xsessions/%{name}.desktop
-%{?with_gnome2:%{_wmpropsdir}/*}
+%{_datadir}/xsessions/icewm.desktop
+%{?with_gnome2:%{_wmpropsdir}/IceWM.desktop}
 
 %files themes-base
 %defattr(644,root,root,755)
