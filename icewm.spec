@@ -23,7 +23,7 @@ Summary(pt_BR.UTF-8):	Gerenciador de Janelas X11
 Summary(ru.UTF-8):	Оконный менеджер для X11
 Summary(uk.UTF-8):	Віконний менеджер для X11
 Name:		icewm
-Version:	1.3.12
+Version:	1.4.2
 %define	iceicons_ver		0.6
 Release:	1
 Epoch:		2
@@ -31,7 +31,7 @@ License:	LGPL v2
 Group:		X11/Window Managers
 #Source0Download: https://github.com/ice-wm/icewm/releases
 Source0:	https://github.com/ice-wm/icewm/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	ab4671878fc36d5f96896a04e5f8c0bc
+# Source0-md5:	db9900056366adc163b2e501a5247bbc
 Source1:	IceWM.desktop
 Source3:	http://downloads.sourceforge.net/icewm/iceicons-%{iceicons_ver}.tar.gz
 # Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
@@ -39,8 +39,9 @@ Source4:	icewm-startup.sh
 Patch0:		%{name}-build-fixes.patch
 URL:		https://ice-wm.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
+BuildRequires:	asciidoc
 BuildRequires:	autoconf >= 2.69
-BuildRequires:	automake
+BuildRequires:	automake >= 1:1.13.4
 %{?with_esd:BuildRequires:	esound-devel}
 BuildRequires:	fontconfig-devel
 BuildRequires:	fribidi-devel >= 0.10.4
@@ -62,7 +63,6 @@ BuildRequires:	xorg-lib-libXext-devel
 %{?with_freetype:BuildRequires:	xorg-lib-libXft-devel >= 2.1}
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXrandr-devel
-BuildRequires:	xorg-lib-libXrender-devel
 %{?with_yiff:BuildRequires:	yiff-devel >= 2.14.7-3}
 Requires(pre):	/bin/rm
 Requires(pre):	/usr/bin/test
@@ -135,13 +135,28 @@ Group:		Themes
 Requires:	icewm
 
 %description themes-base
-Standard pack of themes delivered with IceWM. All of them made by
-Marko Macek: gtk2, metal2, motif, nice, nice2, warp3, warp4, win95.
+Standard pack of themes delivered with IceWM:
+- CrystalBlue by BlueScorpio
+- Helix by RudeSka and TigerT
+- NanoBlue by lion1810
+- metal2, motif, win32 by Marko Macek
+
+This package contains also old themes, no longer installed by default
+in IceWM 1.4:
+- gtk2, nice, nice2, warp3, warp4 by Marko Macek
+- yellowmotif by Andreas Leitgeb
 
 %description themes-base -l pl.UTF-8
-Standardowy zestaw motywów dla IceWM-a, dostarczany wraz z nim.
-Wszystkie stworzone przez Marko Macka: gtk2, metal2, motif, nice,
-nice2, warp3, warp4, win95.
+Standardowy zestaw motywów dla IceWM-a, dostarczany wraz z nim:
+- CrystalBlue autorstwa BlueScorpio
+- Helix autorstwa RudeSka i TigerT
+- NanoBlue autorstwa lion1810
+- metal2, motif, win32 autorstwa Marko Macka
+
+Pakiet zawiera także stare motywy, nie instalowane domyślnie wraz z
+IceWM-em 1.4:
+- gtk2, nice, nice2, warp3, warp4 autorstwa Marko Macka
+- yellowmotif autorstwa Andreasa Leitgeba
 
 %prep
 %setup -q
@@ -159,6 +174,7 @@ tar -xzf %{SOURCE3} -C lib/icons
 %{__autoheader}
 %{__automake}
 %configure \
+	ASCIIDOC=/usr/bin/asciidoc \
 	%{!?with_gradients:--disable-gradients} \
 	%{?with_guievents:--enable-guievents --with-icesound=%{?with_alsa:ALSA,}OSS%{?with_yiff:,Y}%{?with_esd:,ESound}} \
 	%{!?with_gnome2:--disable-menus-gnome2} \
@@ -192,6 +208,9 @@ ln -s %{_datadir}/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
 
 echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm vfmg -i -f -x -c -s icewm" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
 
+# old themes, no longer installed
+cp -pr lib/themes/{gtk2,nice,nice2,warp3,warp4,yellowmotif} $RPM_BUILD_ROOT%{_datadir}/icewm/themes
+
 %find_lang %{name}
 
 %clean
@@ -202,7 +221,7 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS BUGS CHANGES PLATFORMS README* TODO doc/*.html
+%doc AUTHORS BUGS CHANGES ChangeLog NEWS PLATFORMS README.md THANKS TODO doc/*.html
 %attr(755,root,root) %{_bindir}/icehelp
 %attr(755,root,root) %{_bindir}/icesh
 %if %{with guievents}
@@ -237,6 +256,7 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %{_datadir}/icewm/winoptions
 %dir %{_datadir}/icewm/themes
 %{_datadir}/icewm/themes/Infadel2
+%{_datadir}/icewm/themes/default
 %{_datadir}/icewm/themes/icedesert
 %{_datadir}/xsessions/icewm.desktop
 %{_datadir}/xsessions/icewm-session.desktop
@@ -245,12 +265,16 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 
 %files themes-base
 %defattr(644,root,root,755)
-%{_datadir}/icewm/themes/gtk2
+%{_datadir}/icewm/themes/CrystalBlue
+%{_datadir}/icewm/themes/Helix
+%{_datadir}/icewm/themes/NanoBlue
 %{_datadir}/icewm/themes/metal2
 %{_datadir}/icewm/themes/motif
+%{_datadir}/icewm/themes/win95
+# old themes, no longer installed in 1.4.x
+%{_datadir}/icewm/themes/gtk2
 %{_datadir}/icewm/themes/nice
 %{_datadir}/icewm/themes/nice2
 %{_datadir}/icewm/themes/warp3
 %{_datadir}/icewm/themes/warp4
-%{_datadir}/icewm/themes/win95
 %{_datadir}/icewm/themes/yellowmotif
