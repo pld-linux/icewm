@@ -18,7 +18,6 @@ Summary(uk.UTF-8):	Віконний менеджер для X11
 Name:		icewm
 Version:	1.3.8
 %define	iceicons_ver		0.6
-%define	netscapeicons_ver	0.2
 Release:	1
 Epoch:		2
 License:	LGPL v2
@@ -29,8 +28,6 @@ Source1:	IceWM.desktop
 Source3:	http://downloads.sourceforge.net/icewm/iceicons-%{iceicons_ver}.tar.gz
 # Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
 Source4:	icewm-startup.sh
-Source6:	http://downloads.sourceforge.net/icewm/netscapeicons-%{netscapeicons_ver}.tar.gz
-# Source6-md5:	409aa9b02adc11309ed546c5120c01d2
 Source7:	%{name}-xsession.desktop
 Patch0:		%{name}-build-fixes.patch
 Patch3:		%{name}-ifstate-exact-check.patch
@@ -141,7 +138,6 @@ nice2, warp3, warp4, win95.
 
 cd lib/icons
 tar -xzf %{SOURCE3}
-tar -xzf %{SOURCE6}
 
 %build
 cp -f /usr/share/automake/config.sub .
