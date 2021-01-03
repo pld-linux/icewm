@@ -25,7 +25,7 @@ Summary(uk.UTF-8):	Віконний менеджер для X11
 Name:		icewm
 Version:	1.4.2
 %define	iceicons_ver		0.6
-Release:	1
+Release:	2
 Epoch:		2
 License:	LGPL v2
 Group:		X11/Window Managers
@@ -210,6 +210,9 @@ echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm vfmg -i -f 
 
 # old themes, no longer installed
 cp -pr lib/themes/{gtk2,nice,nice2,warp3,warp4,yellowmotif} $RPM_BUILD_ROOT%{_datadir}/icewm/themes
+
+# duplicate locale
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/no
 
 %find_lang %{name}
 
