@@ -1,5 +1,5 @@
 # TODO:
-# - make a PLD-theme - default :]
+# - make a PLD-theme - default:]
 #
 # Conditional build:
 %bcond_without	gradients	# gradients (requires antialiasing which requires freetype)
@@ -22,20 +22,20 @@ Summary(pl.UTF-8):	IceWM - zarządca okienek X11
 Summary(pt_BR.UTF-8):	Gerenciador de Janelas X11
 Summary(ru.UTF-8):	Оконный менеджер для X11
 Summary(uk.UTF-8):	Віконний менеджер для X11
-Name:		icewm
-Version:	1.4.2
 %define	iceicons_ver		0.6
-Release:	2
+Name:		icewm
+Version:	2.1.0
+Release:	1
 Epoch:		2
 License:	LGPL v2
 Group:		X11/Window Managers
 #Source0Download: https://github.com/ice-wm/icewm/releases
 Source0:	https://github.com/ice-wm/icewm/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	db9900056366adc163b2e501a5247bbc
+# Source0-md5:	228f27299bb79b6c4ccf7cf7109aa5ee
 Source1:	IceWM.desktop
 Source3:	http://downloads.sourceforge.net/icewm/iceicons-%{iceicons_ver}.tar.gz
 # Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
-Source4:	icewm-startup.sh
+Source4:	%{name}-startup.sh
 Patch0:		%{name}-build-fixes.patch
 URL:		https://ice-wm.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
@@ -62,6 +62,7 @@ BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 %{?with_freetype:BuildRequires:	xorg-lib-libXft-devel >= 2.1}
 BuildRequires:	xorg-lib-libXinerama-devel
+BuildRequires:	xorg-lib-libXpm-devel
 BuildRequires:	xorg-lib-libXrandr-devel
 %{?with_yiff:BuildRequires:	yiff-devel >= 2.14.7-3}
 Requires(pre):	/bin/rm
@@ -160,7 +161,7 @@ IceWM-em 1.4:
 
 %prep
 %setup -q
-%patch0 -p1
+#%%patch0 -p1
 
 tar -xzf %{SOURCE3} -C lib/icons
 
@@ -191,7 +192,7 @@ install -d $RPM_BUILD_ROOT{%{_pixmapsdir},%{_wmpropsdir},%{_sysconfdir}/X11/%{na
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__sed} -e 's|^# IconPath=""|IconPath="%{_datadir}/pixmaps:%{_datadir}/icons"|' -i $RPM_BUILD_ROOT%{_datadir}/icewm/preferences
+%{__sed} -e 's|^# IconPath=""|IconPath="%{_pixmapsdir}:%{_datadir}/icons"|' -i $RPM_BUILD_ROOT%{_datadir}/icewm/preferences
 
 # packaged as %doc
 %{__rm} -r $RPM_BUILD_ROOT%{_docdir}/icewm
@@ -236,7 +237,28 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %attr(755,root,root) %{_bindir}/icewm-set-gnomewm
 %attr(755,root,root) %{_bindir}/icewmbg
 %attr(755,root,root) %{_bindir}/icewmhint
-%attr(755,root,root) %{_bindir}/icewmtray
+%attr(755,root,root) %{_bindir}/icewm-menu-xrandr
+%{_mandir}/man1/icehelp.1*
+%{_mandir}/man1/icesh.1*
+%{_mandir}/man1/icesound.1*
+%{_mandir}/man1/icewm-menu-fdo.1*
+%{_mandir}/man1/icewm-menu-xrandr.1*
+%{_mandir}/man1/icewm-session.1*
+%{_mandir}/man1/icewm-set-gnomewm.1*
+%{_mandir}/man1/icewmbg.1*
+%{_mandir}/man1/icewmhint.1*
+%{_mandir}/man5/icewm-env.5*
+%{_mandir}/man5/icewm-focus_mode.5*
+%{_mandir}/man5/icewm-keys.5*
+%{_mandir}/man5/icewm-menu.5*
+%{_mandir}/man5/icewm-preferences.5*
+%{_mandir}/man5/icewm-prefoverride.5*
+%{_mandir}/man5/icewm-programs.5*
+%{_mandir}/man5/icewm-shutdown.5*
+%{_mandir}/man5/icewm-startup.5*
+%{_mandir}/man5/icewm-theme.5*
+%{_mandir}/man5/icewm-toolbar.5*
+%{_mandir}/man5/icewm-winoptions.5*
 %dir %{_sysconfdir}/X11/%{name}
 %config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/keys
 %config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/menu
@@ -246,6 +268,7 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %config(noreplace,missingok) %verify(not md5 mtime size) %attr(755,root,root) %{_sysconfdir}/X11/%{name}/startup
 %{_pixmapsdir}/icewm
 %dir %{_datadir}/icewm
+%{_datadir}/icewm/IceWM.jpg
 %{_datadir}/icewm/icons
 %{_datadir}/icewm/keys
 %{_datadir}/icewm/menu
