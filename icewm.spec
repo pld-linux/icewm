@@ -24,14 +24,14 @@ Summary(ru.UTF-8):	Оконный менеджер для X11
 Summary(uk.UTF-8):	Віконний менеджер для X11
 %define	iceicons_ver		0.6
 Name:		icewm
-Version:	2.1.1
+Version:	2.6.0
 Release:	1
 Epoch:		2
 License:	LGPL v2
 Group:		X11/Window Managers
 #Source0Download: https://github.com/ice-wm/icewm/releases
 Source0:	https://github.com/ice-wm/icewm/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	0dc9e55eed757ec52c1e345fad9382df
+# Source0-md5:	0a7f77de9825a0661ea78a5392929f38
 Source1:	IceWM.desktop
 Source3:	http://downloads.sourceforge.net/icewm/iceicons-%{iceicons_ver}.tar.gz
 # Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
@@ -50,6 +50,7 @@ BuildRequires:	gettext-tools >= 0.19.6
 BuildRequires:	glib2-devel >= 2.0
 %{?with_gnome2:BuildRequires:	gnome-desktop2-devel >= 2.0}
 %{?with_gnome2:BuildRequires:	gnome-vfs2-devel >= 2.0}
+BuildRequires:	imlib2-devel
 %{?with_gnome2:BuildRequires:	libgnomeui-devel >= 2.0}
 %{?with_alsa:BuildRequires:	libsndfile-devel}
 BuildRequires:	libstdc++-devel
@@ -183,7 +184,7 @@ tar -xzf %{SOURCE3} -C lib/icons
 	%{!?with_freetype:--disable-xfreetype --enable-corefonts} \
 	--with-cfgdir=%{_sysconfdir}/X11/%{name} \
 	--with-docdir=%{_docdir}
-%{__make}
+%{__make} V=1
 
 %install
 rm -rf $RPM_BUILD_ROOT
