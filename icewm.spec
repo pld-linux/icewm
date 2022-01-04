@@ -24,14 +24,14 @@ Summary(ru.UTF-8):	Оконный менеджер для X11
 Summary(uk.UTF-8):	Віконний менеджер для X11
 %define	iceicons_ver		0.6
 Name:		icewm
-Version:	2.9.2
+Version:	2.9.4
 Release:	1
 Epoch:		2
 License:	LGPL v2
 Group:		X11/Window Managers
 #Source0Download: https://github.com/ice-wm/icewm/releases
 Source0:	https://github.com/ice-wm/icewm/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	ffd0daf88b2e512a2751159ac58e06e8
+# Source0-md5:	e48ef53b4f2f011dedc522c9a9df0939
 Source1:	IceWM.desktop
 Source3:	http://downloads.sourceforge.net/icewm/iceicons-%{iceicons_ver}.tar.gz
 # Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
