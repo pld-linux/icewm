@@ -2,18 +2,13 @@
 # - make a PLD-theme - default:]
 #
 # Conditional build:
-%bcond_without	gradients	# gradients (requires antialiasing which requires freetype)
 %bcond_without	freetype	# xfreetype support (implies no antialiasing)
-%bcond_without	guievents	# GUI events
 %bcond_without	alsa		# ALSA sound for GUI events
-%bcond_with	esd		# EsounD sound for GUI events
-%bcond_without	yiff		# YIFF sound for GUI events
-%bcond_with	gnome2		# support for GNOME2 menus and wm-properties
+%bcond_without	ao		# AO sound for GUI events
 
 %if %{without guievents}
 %undefine	with_alsa
-%undefine	with_esd
-%undefine	with_yiff
+%undefine	with_ao
 %endif
 Summary:	IceWM X11 Window Manager
 Summary(de.UTF-8):	IceWM ist ein Window Manager für X
@@ -24,14 +19,14 @@ Summary(ru.UTF-8):	Оконный менеджер для X11
 Summary(uk.UTF-8):	Віконний менеджер для X11
 %define	iceicons_ver		0.6
 Name:		icewm
-Version:	2.9.4
-Release:	1
+Version:	3.0.1
+Release:	0.2
 Epoch:		2
 License:	LGPL v2
 Group:		X11/Window Managers
 #Source0Download: https://github.com/ice-wm/icewm/releases
 Source0:	https://github.com/ice-wm/icewm/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	e48ef53b4f2f011dedc522c9a9df0939
+# Source0-md5:	e4676ea3fbed01b9b8dc1fd98d174119
 Source1:	IceWM.desktop
 Source3:	http://downloads.sourceforge.net/icewm/iceicons-%{iceicons_ver}.tar.gz
 # Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
@@ -39,19 +34,18 @@ Source4:	%{name}-startup.sh
 Patch0:		%{name}-build-fixes.patch
 URL:		https://ice-wm.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
-BuildRequires:	asciidoc
-BuildRequires:	autoconf >= 2.69
-BuildRequires:	automake >= 1:1.13.4
-%{?with_esd:BuildRequires:	esound-devel}
+%{?with_ao:BuildRequires:	libao-devel}
+BuildRequires:	ruby-asciidoctor
+BuildRequires:	binutils
+BuildRequires:	git-core
+BuildRequires:	cmake
+BuildRequires:	discount
 BuildRequires:	fontconfig-devel
 BuildRequires:	fribidi-devel >= 0.10.4
-BuildRequires:	gdk-pixbuf2-xlib-devel >= 2.0
+BuildRequires:	gettext >= 0.19.6
 BuildRequires:	gettext-tools >= 0.19.6
 BuildRequires:	glib2-devel >= 2.0
-%{?with_gnome2:BuildRequires:	gnome-desktop2-devel >= 2.0}
-%{?with_gnome2:BuildRequires:	gnome-vfs2-devel >= 2.0}
 BuildRequires:	imlib2-devel
-%{?with_gnome2:BuildRequires:	libgnomeui-devel >= 2.0}
 %{?with_alsa:BuildRequires:	libsndfile-devel}
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:2.4.2
@@ -59,13 +53,18 @@ BuildRequires:	pkgconfig
 BuildRequires:	sed >= 4.0
 BuildRequires:	xorg-lib-libICE-devel
 BuildRequires:	xorg-lib-libSM-devel
+BuildRequires:	freetype-devel
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 %{?with_freetype:BuildRequires:	xorg-lib-libXft-devel >= 2.1}
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXpm-devel
 BuildRequires:	xorg-lib-libXrandr-devel
-%{?with_yiff:BuildRequires:	yiff-devel >= 2.14.7-3}
+BuildRequires:	xorg-lib-libXcomposite-devel
+BuildRequires:	xorg-lib-libXdamage-devel
+BuildRequires:	xorg-lib-libXfixes-devel
+BuildRequires:	xorg-lib-libXrender-devel
+BuildRequires:	librsvg-devel
 Requires(pre):	/bin/rm
 Requires(pre):	/usr/bin/test
 Requires:	shared-mime-info
@@ -74,7 +73,6 @@ Suggests:	vfmg >= 0.9.95
 Conflicts:	filesystem < 3.0-20
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_wmpropsdir	/usr/share/gnome/wm-properties
 %define		specflags_ia32	-fomit-frame-pointer
 
 %description
@@ -162,59 +160,50 @@ IceWM-em 1.4:
 
 %prep
 %setup -q
-#%%patch0 -p1
-
-tar -xzf %{SOURCE3} -C lib/icons
-
-%{__sed} -i -e '/po\/Makefile.in/d' configure.ac
 
 %build
-%{__gettextize}
-%{__libtoolize}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	ASCIIDOC=/usr/bin/asciidoc \
-	%{!?with_gradients:--disable-gradients} \
-	%{?with_guievents:--enable-guievents --with-icesound=%{?with_alsa:ALSA,}OSS%{?with_yiff:,Y}%{?with_esd:,ESound}} \
-	%{!?with_gnome2:--disable-menus-gnome2} \
-	--enable-shaped-decorations \
-	%{!?with_freetype:--disable-xfreetype --enable-corefonts} \
-	--with-cfgdir=%{_sysconfdir}/X11/%{name} \
-	--with-docdir=%{_docdir}
-%{__make} V=1
+%cmake -B build \
+	-DCONFIG_LIBRSVG=ON \
+	-DCFGDIR=%{_sysconfdir}/X11/%{name} \
+	-DDOCDIR=%{_docdir}/%{name}-%{version} \
+	%{?with_alsa:-DENABLE_ALSA=ON} \
+	%{?with_ao:-DENABLE_AO=ON} \
+	%{!?with_freetype:-DCONFIG_XFREETYPE=OFF -DCONFIG_COREFONTS=ON}	
+
+cd build
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_pixmapsdir},%{_wmpropsdir},%{_sysconfdir}/X11/%{name}}
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}
 
+cd build
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-%{__sed} -e 's|^# IconPath=""|IconPath="%{_pixmapsdir}:%{_datadir}/icons"|' -i $RPM_BUILD_ROOT%{_datadir}/icewm/preferences
+cd ..
+#%{__sed} -e 's|^# IconPath=""|IconPath="%{_pixmapsdir}:%{_datadir}/icons"|' -i $RPM_BUILD_ROOT%{_datadir}/icewm/preferences
 
 # packaged as %doc
-%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/icewm
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
-%{?with_gnome2:cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_wmpropsdir}}
 cp -p %{SOURCE4} $RPM_BUILD_ROOT%{_datadir}/icewm/startup
-cp -p lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/keys
-cp -p lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/toolbar
-cp -p lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/winoptions
+cp -p build/lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/keys
+cp -p build/lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/toolbar
+cp -p build/lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/winoptions
 echo %{_bindir}/icewmbg > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/startup
 :> $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/restart
 
-ln -s %{_datadir}/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
+#ln -s %{_datadir}/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
 
-echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm vfmg -i -f -x -c -s icewm" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
+#echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm vfmg -i -f -x -c -s icewm" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
 
 # old themes, no longer installed
 cp -pr lib/themes/{gtk2,nice,nice2,warp3,warp4,yellowmotif} $RPM_BUILD_ROOT%{_datadir}/icewm/themes
 
 # duplicate locale
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/no
+# unsupported locale
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/ie
 
 %find_lang %{name}
 
@@ -226,12 +215,10 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS BUGS CHANGES ChangeLog NEWS PLATFORMS README.md THANKS TODO doc/*.html
+%doc AUTHORS BUGS CHANGES ChangeLog NEWS PLATFORMS README.md THANKS TODO build/man/*.html
 %attr(755,root,root) %{_bindir}/icehelp
 %attr(755,root,root) %{_bindir}/icesh
-%if %{with guievents}
 %attr(755,root,root) %{_bindir}/icesound
-%endif
 %attr(755,root,root) %{_bindir}/icewm
 %attr(755,root,root) %{_bindir}/icewm-menu-fdo
 %attr(755,root,root) %{_bindir}/icewm-session
@@ -262,12 +249,12 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %{_mandir}/man5/icewm-winoptions.5*
 %dir %{_sysconfdir}/X11/%{name}
 %config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/keys
-%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/menu
+#%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/menu
 %config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/toolbar
 %config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/winoptions
 %config(noreplace,missingok) %verify(not md5 mtime size) %attr(755,root,root) %{_sysconfdir}/X11/%{name}/restart
 %config(noreplace,missingok) %verify(not md5 mtime size) %attr(755,root,root) %{_sysconfdir}/X11/%{name}/startup
-%{_pixmapsdir}/icewm
+#%{_pixmapsdir}/icewm
 %dir %{_datadir}/icewm
 %{_datadir}/icewm/IceWM.jpg
 %{_datadir}/icewm/icons
@@ -287,7 +274,6 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %{_datadir}/icewm/themes/icedesert
 %{_datadir}/xsessions/icewm.desktop
 %{_datadir}/xsessions/icewm-session.desktop
-%{?with_gnome2:%{_wmpropsdir}/IceWM.desktop}
 %{_mandir}/man1/icewm.1*
 
 %files themes-base
