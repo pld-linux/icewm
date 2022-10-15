@@ -1,0 +1,36 @@
+--- icewm-3.0.1/lib/icewm.desktop~	2022-10-06 06:35:09.000000000 +0000
++++ icewm-3.0.1/lib/icewm.desktop	2022-10-15 09:28:14.629672133 +0000
+@@ -7,6 +7,7 @@
+ GenericName[es]=Administrador de ventanas
+ GenericName[fr]=Gestionnaire de Fenêtres
+ GenericName[id]=Pengelola Jendela
++GenericName[pl]=Manager okien
+ GenericName[pt]=Gestor de Janelas
+ GenericName[pt_BR]=Gerenciador de Janelas
+ GenericName[uk]=Менеджер вікон IceWM
+@@ -14,6 +15,7 @@
+ Comment[da]=Simpel og hurtig vindueshåndtering
+ Comment[es]=Administrador de ventanas simple y rápido
+ Comment[id]=Pengelola jendela sederhana dan cepat
++Comment[pl]=Prosty i szybki manager okien
+ Comment[pt]=Gestor de janelas simples e rápido
+ Comment[pt_BR]=Gerenciador simples e rápido de janelas
+ Comment[uk]=Простий та швидкий менеджер вікон
+--- icewm-3.0.1/lib/icewm-session.desktop~	2022-10-06 06:35:09.000000000 +0000
++++ icewm-3.0.1/lib/icewm-session.desktop	2022-10-15 09:29:18.391272949 +0000
+@@ -6,6 +6,7 @@
+ Name[de]=IceWM-Sitzung
+ Name[es]=Sesión de IceWM
+ Name[id]=Sesi IceWM
++Name[pl]=Sesja IceWM
+ Name[pt]=Sessão IceWM
+ Name[pt_BR]=Sessão do IceWM
+ Name[ru]=Сеанс IceWM
+@@ -16,6 +17,7 @@
+ GenericName[es]=Administrador de ventanas
+ GenericName[fr]=Gestionnaire de Fenêtres
+ GenericName[id]=Pengelola Jendela
++GenericName[pl]=Manager okien
+ GenericName[pt]=Gestor de Janelas
+ GenericName[pt_BR]=Gerenciador de Janelas
+ GenericName[ru]=Менеджер окон IceWM

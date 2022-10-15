@@ -6,10 +6,6 @@
 %bcond_without	alsa		# ALSA sound for GUI events
 %bcond_without	ao		# AO sound for GUI events
 
-%if %{without guievents}
-%undefine	with_alsa
-%undefine	with_ao
-%endif
 Summary:	IceWM X11 Window Manager
 Summary(de.UTF-8):	IceWM ist ein Window Manager für X
 Summary(es.UTF-8):	Administrador de Ventanas X11
@@ -17,59 +13,54 @@ Summary(pl.UTF-8):	IceWM - zarządca okienek X11
 Summary(pt_BR.UTF-8):	Gerenciador de Janelas X11
 Summary(ru.UTF-8):	Оконный менеджер для X11
 Summary(uk.UTF-8):	Віконний менеджер для X11
-%define	iceicons_ver		0.6
 Name:		icewm
 Version:	3.0.1
-Release:	0.2
+Release:	1
 Epoch:		2
 License:	LGPL v2
 Group:		X11/Window Managers
 #Source0Download: https://github.com/ice-wm/icewm/releases
 Source0:	https://github.com/ice-wm/icewm/archive/%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	e4676ea3fbed01b9b8dc1fd98d174119
-Source1:	IceWM.desktop
-Source3:	http://downloads.sourceforge.net/icewm/iceicons-%{iceicons_ver}.tar.gz
-# Source3-md5:	53ed111a3c4d1e609bd1604ddccd4701
-Source4:	%{name}-startup.sh
-Patch0:		%{name}-build-fixes.patch
+Source1:	%{name}-startup.sh
+Patch0:		desktop-files.patch
 URL:		https://ice-wm.org/
 %{?with_alsa:BuildRequires:	alsa-lib-devel}
-%{?with_ao:BuildRequires:	libao-devel}
-BuildRequires:	ruby-asciidoctor
-BuildRequires:	binutils
-BuildRequires:	git-core
 BuildRequires:	cmake
 BuildRequires:	discount
 BuildRequires:	fontconfig-devel
+BuildRequires:	freetype-devel
 BuildRequires:	fribidi-devel >= 0.10.4
 BuildRequires:	gettext >= 0.19.6
 BuildRequires:	gettext-tools >= 0.19.6
+BuildRequires:	git-core
 BuildRequires:	glib2-devel >= 2.0
 BuildRequires:	imlib2-devel
+%{?with_ao:BuildRequires:	libao-devel}
+BuildRequires:	librsvg-devel
 %{?with_alsa:BuildRequires:	libsndfile-devel}
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:2.4.2
 BuildRequires:	pkgconfig
+BuildRequires:	ruby-asciidoctor
 BuildRequires:	sed >= 4.0
 BuildRequires:	xorg-lib-libICE-devel
 BuildRequires:	xorg-lib-libSM-devel
-BuildRequires:	freetype-devel
 BuildRequires:	xorg-lib-libX11-devel
+BuildRequires:	xorg-lib-libXcomposite-devel
+BuildRequires:	xorg-lib-libXdamage-devel
 BuildRequires:	xorg-lib-libXext-devel
+BuildRequires:	xorg-lib-libXfixes-devel
 %{?with_freetype:BuildRequires:	xorg-lib-libXft-devel >= 2.1}
 BuildRequires:	xorg-lib-libXinerama-devel
 BuildRequires:	xorg-lib-libXpm-devel
 BuildRequires:	xorg-lib-libXrandr-devel
-BuildRequires:	xorg-lib-libXcomposite-devel
-BuildRequires:	xorg-lib-libXdamage-devel
-BuildRequires:	xorg-lib-libXfixes-devel
 BuildRequires:	xorg-lib-libXrender-devel
-BuildRequires:	librsvg-devel
 Requires(pre):	/bin/rm
 Requires(pre):	/usr/bin/test
 Requires:	shared-mime-info
 Requires:	xinitrc-ng
-Suggests:	vfmg >= 0.9.95
+Requires:	xorg-app-xrandr
 Conflicts:	filesystem < 3.0-20
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -160,6 +151,7 @@ IceWM-em 1.4:
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %cmake -B build \
@@ -168,7 +160,7 @@ IceWM-em 1.4:
 	-DDOCDIR=%{_docdir}/%{name}-%{version} \
 	%{?with_alsa:-DENABLE_ALSA=ON} \
 	%{?with_ao:-DENABLE_AO=ON} \
-	%{!?with_freetype:-DCONFIG_XFREETYPE=OFF -DCONFIG_COREFONTS=ON}	
+	%{!?with_freetype:-DCONFIG_XFREETYPE=OFF -DCONFIG_COREFONTS=ON}
 
 cd build
 %{__make}
@@ -181,21 +173,25 @@ cd build
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 cd ..
-#%{__sed} -e 's|^# IconPath=""|IconPath="%{_pixmapsdir}:%{_datadir}/icons"|' -i $RPM_BUILD_ROOT%{_datadir}/icewm/preferences
+
+cd build/man
+%{__ln} -s icewm.1.html icewm.html
+cd -
+
+%{__sed} -e 's|^# IconPath=.*|IconPath="%{_pixmapsdir}:%{_iconsdir}:"|' -i $RPM_BUILD_ROOT%{_datadir}/icewm/preferences
 
 # packaged as %doc
 %{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 
-cp -p %{SOURCE4} $RPM_BUILD_ROOT%{_datadir}/icewm/startup
-cp -p build/lib/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/keys
-cp -p build/lib/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/toolbar
-cp -p build/lib/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/winoptions
-echo %{_bindir}/icewmbg > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/startup
+cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/icewm/startup
+cp -p $RPM_BUILD_ROOT%{_datadir}/icewm/keys $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/keys
+cp -p $RPM_BUILD_ROOT%{_datadir}/icewm/menu $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
+cp -p $RPM_BUILD_ROOT%{_datadir}/icewm/preferences $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/preferences
+cp -p $RPM_BUILD_ROOT%{_datadir}/icewm/programs $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/programs
+cp -p $RPM_BUILD_ROOT%{_datadir}/icewm/startup $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/startup
+cp -p $RPM_BUILD_ROOT%{_datadir}/icewm/toolbar $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/toolbar
+cp -p $RPM_BUILD_ROOT%{_datadir}/icewm/winoptions $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/winoptions
 :> $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/restart
-
-#ln -s %{_datadir}/icewm/icons $RPM_BUILD_ROOT%{_pixmapsdir}/icewm
-
-#echo "menuprog \"Programs\" %{_datadir}/icewm/icons/folder_16x16.xpm vfmg -i -f -x -c -s icewm" > $RPM_BUILD_ROOT%{_sysconfdir}/X11/%{name}/menu
 
 # old themes, no longer installed
 cp -pr lib/themes/{gtk2,nice,nice2,warp3,warp4,yellowmotif} $RPM_BUILD_ROOT%{_datadir}/icewm/themes
@@ -209,9 +205,6 @@ cp -pr lib/themes/{gtk2,nice,nice2,warp3,warp4,yellowmotif} $RPM_BUILD_ROOT%{_da
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%pre
-test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
@@ -249,12 +242,13 @@ test -h %{_pixmapsdir}/icewm || rm -rf %{_pixmapsdir}/icewm
 %{_mandir}/man5/icewm-winoptions.5*
 %dir %{_sysconfdir}/X11/%{name}
 %config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/keys
-#%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/menu
+%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/menu
+%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/preferences
+%config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/programs
 %config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/toolbar
 %config(noreplace,missingok) %verify(not md5 mtime size) %{_sysconfdir}/X11/%{name}/winoptions
 %config(noreplace,missingok) %verify(not md5 mtime size) %attr(755,root,root) %{_sysconfdir}/X11/%{name}/restart
 %config(noreplace,missingok) %verify(not md5 mtime size) %attr(755,root,root) %{_sysconfdir}/X11/%{name}/startup
-#%{_pixmapsdir}/icewm
 %dir %{_datadir}/icewm
 %{_datadir}/icewm/IceWM.jpg
 %{_datadir}/icewm/icons
