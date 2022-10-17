@@ -15,7 +15,7 @@ Summary(ru.UTF-8):	Оконный менеджер для X11
 Summary(uk.UTF-8):	Віконний менеджер для X11
 Name:		icewm
 Version:	3.0.1
-Release:	2
+Release:	3
 Epoch:		2
 License:	LGPL v2
 Group:		X11/Window Managers
@@ -123,7 +123,7 @@ ALT-TAB wechseln, etc.
 Summary:	Pack of themes for IceWM
 Summary(pl.UTF-8):	Zestaw motywów dla IceWM-a
 Group:		Themes
-Requires:	icewm
+Requires:	%{name} = %{epoch}:%{version}
 BuildArch:	noarch
 
 %description themes-base
