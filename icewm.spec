@@ -14,14 +14,14 @@ Summary(pt_BR.UTF-8):	Gerenciador de Janelas X11
 Summary(ru.UTF-8):	Оконный менеджер для X11
 Summary(uk.UTF-8):	Віконний менеджер для X11
 Name:		icewm
-Version:	3.2.2
+Version:	3.2.3
 Release:	1
 Epoch:		2
 License:	LGPL v2
 Group:		X11/Window Managers
 #Source0Download: https://github.com/ice-wm/icewm/releases
 Source0:	https://github.com/ice-wm/icewm/archive/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	77e302e33d2b5352ecdeb13ce0bcffcb
+# Source0-md5:	ed903764698d6dff1f843ed9953566db
 Source1:	%{name}-startup.sh
 Patch0:		desktop-files.patch
 URL:		https://ice-wm.org/
