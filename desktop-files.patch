@@ -1,24 +1,24 @@
---- icewm-3.3.3/lib/icewm.desktop~	2023-04-09 21:35:26.000000000 +0000
-+++ icewm-3.3.3/lib/icewm.desktop	2023-04-09 22:49:49.520013809 +0000
-@@ -8,6 +8,7 @@
+--- icewm-3.3.4/lib/icewm.desktop~	2023-05-03 10:41:08.000000000 +0000
++++ icewm-3.3.4/lib/icewm.desktop	2023-05-03 10:55:43.232924412 +0000
+@@ -9,6 +9,7 @@
  GenericName[fr]=Gestionnaire de Fenêtres
  GenericName[id]=Pengelola Jendela
  GenericName[lt]=Langų tvarkytuvė
 +GenericName[pl]=Manager okien
  GenericName[pt]=Gestor de Janelas
  GenericName[pt_BR]=Gerenciador de Janelas
- GenericName[uk]=Менеджер вікон IceWM
-@@ -16,6 +17,7 @@
+ GenericName[tr]=Pencere Yöneticisi
+@@ -19,6 +20,7 @@
  Comment[es]=Administrador de ventanas simple y rápido
  Comment[id]=Pengelola jendela sederhana dan cepat
  Comment[lt]=Paprasta ir greita langų tvarkytuvė
 +Comment[pl]=Prosty i szybki manager okien
  Comment[pt]=Gestor de janelas simples e rápido
  Comment[pt_BR]=Gerenciador simples e rápido de janelas
- Comment[uk]=Простий та швидкий менеджер вікон
---- icewm-3.3.3/lib/icewm-session.desktop~	2023-04-09 21:35:26.000000000 +0000
-+++ icewm-3.3.3/lib/icewm-session.desktop	2023-04-09 22:51:13.232312983 +0000
-@@ -7,6 +7,7 @@
+ Comment[tr]=Basit ve hızlı bir pencere yöneticisi
+--- icewm-3.3.4/lib/icewm-session.desktop~	2023-05-03 10:41:08.000000000 +0000
++++ icewm-3.3.4/lib/icewm-session.desktop	2023-05-03 10:57:34.201654670 +0000
+@@ -8,6 +8,7 @@
  Name[es]=Sesión de IceWM
  Name[id]=Sesi IceWM
  Name[lt]=IceWM seansas
@@ -26,7 +26,7 @@
  Name[pt]=Sessão IceWM
  Name[pt_BR]=Sessão do IceWM
  Name[ru]=Сеанс IceWM
-@@ -18,6 +19,7 @@
+@@ -21,6 +22,7 @@
  GenericName[fr]=Gestionnaire de Fenêtres
  GenericName[id]=Pengelola Jendela
  GenericName[lt]=Langų tvarkytuvė
